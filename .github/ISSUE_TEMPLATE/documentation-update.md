@@ -2,7 +2,7 @@
 name: Documentation Update
 about: Missing information or update needed in documentation.
 title: "[DOC]:[A Descriptive Title]"
-labels: ''
+labels: Doc
 assignees: Aeroponz
 
 ---

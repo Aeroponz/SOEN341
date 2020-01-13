@@ -2,7 +2,7 @@
 name: New Feature
 about: Suggest an idea for this project
 title: "[FEATURE]:[A Descriptive Title]"
-labels: ''
+labels: Dev
 assignees: Aeroponz
 
 ---
