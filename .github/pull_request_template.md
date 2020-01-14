@@ -10,9 +10,9 @@
 
 
 
-**Good Pratices Checklist**
+**Good Practices Checklist**
 
-- [ ] Pull request fields filled (Assignee, Reviewers, Labels, etc.)
+- [ ] Pull request fields filled (Title, Assignee, Reviewers, Labels, etc.)
 - [ ] Bug or issue is fixed
 - [ ] No coding violations
 - [ ] Build successful
