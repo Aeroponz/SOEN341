@@ -47,13 +47,14 @@
 			#container_settings{
 				font: Calibri;
 				min-width: 250px;
-				max-width: 600px;
-				margin: 20% auto;
-				padding: 0 17%;				
+				max-width: 600px;				
+				margin: auto auto;
+				padding: 250px 0%;
+				box-shadow: 0px 0px 20px 0px gray;			
 			}
 			button{
 				background-color: #1DA1F2;
-				width: 98%;
+				width: 95%;
 				padding: 12px 20px;
 				margin: 8px 0;
 				box-sizing: border-box;
@@ -83,7 +84,7 @@
 	<body>
 		<!--Header Format-->
 		<div id = "container_top">
-			<p>This is the base HTML + CSS template for the homepage. This element is in the Header. </p>
+			<p>This is the base HTML + CSS template for the Settings page. This element is in the Header. </p>
 		</div>
 		
 		<!--Sidebar Format-->
@@ -97,27 +98,24 @@
 			</ul>
 		</div>
 		
-		<div class = "main">
-			<!--Post format-->
-			<div id = "container_settings">
+		<div id = "container_settings">
 
-				<form id="settings" action="" >
-					<input type="text" name="nameChange" placeholder="New Username">
-					<br>
-					<input type="password" name="newPassword" placeholder="New Password">
-					<br>
-					Enable Dark Mode:  
-					<input type="checkbox" name="enableDarkmode">
-					<br>
-					<input type="submit" >
-				</form>
+			<form id="settings" action="" >
+				<input type="text" name="nameChange" placeholder="New Username">
+				<br>
+				<input type="password" name="newPassword" placeholder="New Password">
+				<br>
+				Enable Dark Mode:  
+				<input type="checkbox" name="enableDarkmode">
+				<br>
+				<input type="submit" >
+			</form>
 
-				<button class="logOut" id="logoutSignout">Logout</button> <br>
-				<button class="deleteAcc" id="logoutSignout">Delete Account</button>
-				</form>
-			</div>
-			
+			<button class="logOut" id="logoutSignout">Logout</button> <br>
+			<button class="deleteAcc" id="logoutSignout">Delete Account</button>
+			</form>
 		</div>
+		
 		
 	</body>
 </html>
