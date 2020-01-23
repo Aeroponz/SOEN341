@@ -30,6 +30,6 @@ Project description and key features
   - PHP
   - HTML
   - CSS
-- Technologie:
+- Technology:
   - Photoshop
   - Database
