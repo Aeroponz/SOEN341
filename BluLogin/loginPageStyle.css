@@ -1,17 +1,25 @@
 .backgroundColor{
 	background-color: white;
 	width: 500px;
-	height: 580px;
-	margin: 20px;
+	height: 605px;
+	margin: 10px;
 	border: solid;
 	border-width: 0.2px;
 	border-color: #E1E8ED;
+	
 }
 
 .logo{
 	height:50px;
 	width:130px;
-	margin-top: 60px;
+	margin-top: 30px;
+	margin-bottom: 5px;
+}
+
+.logoLogin{
+	height:50px;
+	width:130px;
+	margin-top: 80px;
 	margin-bottom: 20px;
 }
 body {margin: 0; background-color: #F5F8FA; font-family: "Calibri"}
@@ -32,4 +40,5 @@ input {
 a:hover {color: blue;}
 a {text-decoration: underline; color: #1DA1F2}
 
-.message {color: red;}
+.message {color: red; font-size: 15px}
+.passwordRequirements {width: 307px; font-size: 15px;}

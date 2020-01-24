@@ -3,33 +3,24 @@
 	<head>
 		<meta charset = "utf-8">
 		<title>Login</title>
-		<link rel = "stylesheet" type = "text/css" href = "headerStyle.css"/>
-		<!-- Used https://www.w3schools.com/howto/howto_google_fonts.asp for font -->
-		<!--<link href='https://fonts.googleapis.com/css?family=Big Shoulders Text' rel='stylesheet'>
-		<style>
-		body {
-			font-family: 'Big Shoulders Text';
-		}
-		</style> -->
+		<link rel = "stylesheet" type = "text/css" href = "loginPageStyle.css"/>
 	</head>
 	<body>
-		<center><div class = "backgroundColor">
-			<img src = "Blu.png" class = "logo">
+		<center>
+		<div class = "backgroundColor">
+			<img src = "Blu.png" class = "logoLogin">
 		
 			<?php session_start();?>
 			<br><br><br>
 			<form action = "loginPage.php" method = "post">
-				<input type = "text" name = "username" placeholder = "Username or email" class = "creds"/>
-				<br><br>
-				<input type = "password" name = "password" placeholder = "Password" class = "creds"/>
-				<br><br>
-				<input class = "button" type = "Submit" value = "Log In" name = "readingFile"/>
-				<br><br>
-				<label id = "password" class = "message"></label>
-				<br><br><br><br><br><br><br><br>
-				<a href = "resetPassword.php"> Forgot password?</a>
-				<p>Don't have an account? <a class = "signUp" href = "signUp.php"> Sign up </a></p>		
-		</div></center>
+				<input type = "text" name = "username" placeholder = "Username" class = "creds"/><br><br>
+				<input type = "password" name = "password" placeholder = "Password" class = "creds"/><br><br>
+				<input type = "Submit" name = "readingFile" value = "Log In"  class = "button"/><br><br>
+				<label id = "password" class = "message"></label><br><br><br>
+				<a href = "resetPassword.php">Forgot password?</a>
+				<p><b>Don't have an account? <a class = "signUp" href = "signUp.php"> Sign up </a></b></p>	
+		</div>
+		</center>
 
 		<?php if ($_POST) {
 			if(isset($_POST['readingFile'])){

@@ -1,7 +1,3 @@
 alya.naseer:test123!
 unicorn:test1234!
-unic0rn:test45!
-alya:password!2
-test:test123
-test1:test1234
-lyly:test123
+alya_naseer:test123!
