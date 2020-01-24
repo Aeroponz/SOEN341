@@ -11,7 +11,7 @@ This is a project developed in the scope of the SOEN 341 course at Concordia uni
 ## Core Features
 1. The software shall allow the user to post a picture.
 2. The software shall allow users to follow others.
-    2.1 All followers shall receive a notification of a new post.
+   - 2.1 All followers shall receive a notification of a new post.
 3. The software shall support user comments on all posts.
 
 ## Project
