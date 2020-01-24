@@ -30,6 +30,9 @@ Project description and key features
   - PHP
   - HTML
   - CSS
+  - SQL
+  - Javascript
 - Technology:
   - Photoshop
-  - Database
+  - MySQl
+  - Apache web server
