@@ -5,80 +5,7 @@
 		<title>Settings</title>
 		<!-- Below can be imported later from CSS files -->
 		<!-- Using: <link rel="stylesheet" href="StyleSheet.css"> -->
-		<style>
-			#settings{
-				font: Calibri;
-				margin-top: 20px;
-				margin-left: 10px;
-				line-height: 2;
-			}
-
-			#logoutSignout{
-				font: Calibri;
-				margin-left: 10px;
-				line-height: 2;
-			}
-
-			#container_top{	
-				font: Calibri;
-				background-color: #1DA1F2;
-				position: fixed;
-				width: 100%;
-				height: 75px;
-				z-index: 1;
-				top: 0;
-				left: 0;
-			}
-			
-			#container_sideL {
-				font: Calibri;
-				color: #1DA1F2;
-				width: 160px;
-				position: fixed;
-				z-index: 0;
-				top: 75px;
-				left: 0;
-				overflow-x: hidden;
-				padding-top: 20px;
-				box-shadow: 0px 5px 20px 1px gray;
-				border-radius: 0px 0px 30px 0px;
-			}
-			
-			#container_settings{
-				font: Calibri;
-				min-width: 250px;
-				max-width: 600px;				
-				margin: auto auto;
-				padding: 250px 0%;
-				box-shadow: 0px 0px 20px 0px gray;			
-			}
-			button{
-				background-color: #1DA1F2;
-				width: 95%;
-				padding: 12px 20px;
-				margin: 8px 0;
-				box-sizing: border-box;
-				border-radius: 5px;
-			}
-			input[type=text] {
-			  width: 98%;
-			  padding: 12px 20px;
-			  margin: 8px 0;
-			  box-sizing: border-box;
-			  border-radius: 5px;
-			}
-
-			input[type=password] {
-			  width: 98%;
-			  padding: 12px 20px;
-			  margin: 8px 0;
-			  box-sizing: border-box;
-			  border-radius: 5px;
-			}
-			
-			
-			
-		</style>
+		<link rel="stylesheet" type="text/css" href="SettingsStyle.css">
 	</head>
 
 	<body>
@@ -97,25 +24,25 @@
 				<li>item</li>
 			</ul>
 		</div>
-		
-		<div id = "container_settings">
+		<div class = "main">
+			<div id = "container_settings">
 
-			<form id="settings" action="" >
-				<input type="text" name="nameChange" placeholder="New Username">
-				<br>
-				<input type="password" name="newPassword" placeholder="New Password">
-				<br>
-				Enable Dark Mode:  
-				<input type="checkbox" name="enableDarkmode">
-				<br>
-				<input type="submit" >
-			</form>
+				<form id="settings" action="" >
+					<input type="text" name="nameChange" placeholder="New Username">
+					<br>
+					<input type="password" name="newPassword" placeholder="New Password">
+					<br>
+					Enable Dark Mode:  
+					<input type="checkbox" name="enableDarkmode">
+					<br>
+					<input type="submit" >
+				</form>
 
-			<button class="logOut" id="logoutSignout">Logout</button> <br>
-			<button class="deleteAcc" id="logoutSignout">Delete Account</button>
-			</form>
+				<button class="logOut" id="logoutSignout">Logout</button> <br>
+				<button class="deleteAcc" id="logoutSignout">Delete Account</button>
+				</form>
+			</div>
 		</div>
-		
 		
 	</body>
 </html>
