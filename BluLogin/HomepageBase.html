@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>BaseHomepage</title>
+		<!-- Below can be imported later from CSS files -->
+		<!-- Using: <link rel="stylesheet" href="StyleSheet.css"> -->
+		<style>
+			p {
+				padding: 0 5px;
+			}
+			
+			#container_top{	
+				border: 2px solid blue;
+				
+				position: fixed;
+				width: 100%;
+				height: 50px;
+				z-index: 1;
+				
+				top: 0;
+				left: 0;
+			}
+			
+			#container_sideL {
+				border: 2px solid red;
+							
+				width: 160px;
+				position: fixed;
+				z-index: 1;
+				top: 55px;
+				left: 0;
+				overflow-x: hidden;
+				padding-top: 20px;
+			}
+			
+			#container_post{
+				border: 2px solid black;
+				
+				min-width: 250px;
+				max-width: 600px;
+								
+				margin: 0 auto;
+				padding 0 17%;				
+			}
+			
+			.main {
+				margin-top: 55px;
+				margin-left: 160px;
+				padding: 0px 10px;
+				
+				z-index: 0;
+			}
+			
+			.post {
+				display: block;
+				margin: 0 auto;
+				width: 75%;
+				height: 75%;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<!--Header Format-->
+		<div id = "container_top">
+			<p>This is the base HTML + CSS template for the homepage. This element is in the Header. </p>
+		</div>
+		
+		<!--Sidebar Format-->
+		<div id = "container_sideL">
+			<p>This is the sidebar</p>
+			<ul>
+				<li>item</li>
+				<li>item</li>
+				<li>item</li>
+				<li>item</li>
+			</ul>
+		</div>
+		
+		<div class = "main">
+			<!--Post format-->
+			<div id = "container_post">
+				<h2>Post Title</h2>
+				<!-- image source taken from url. (not permanent)-->
+				<img class="post" src = "https://i.pinimg.com/736x/36/f7/95/36f795ef5eec0acb7ea035e10102630d.jpg" alt="Test pic of a flower (Identifier)"/>
+				<p>Post Info</p>
+			</div>
+			
+		</div>
+		
+	</body>
+</html>
