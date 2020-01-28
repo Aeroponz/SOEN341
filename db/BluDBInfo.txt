@@ -12,4 +12,5 @@ To set up the DB you'll need to do the following in XAMPP.
 	5. type # mysql.exe -u root
 	6. determine the root filepath for db/BluUserSetup.sql
 	7. type >source [filepath]/db/BluUserSetup.sql;
-	8. database "bluData" has been created along with three tables with dummy data.
+	8. type >source [filepath]/db/BluPostSetup.sql;
+	8. database "bluData" has been created along with five tables with dummy data.
