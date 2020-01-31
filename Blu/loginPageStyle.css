@@ -1,0 +1,44 @@
+.backgroundColor{
+	background-color: white;
+	width: 500px;
+	height: 605px;
+	margin: 10px;
+	border: solid;
+	border-width: 0.2px;
+	border-color: #E1E8ED;
+	
+}
+
+.logo{
+	height:50px;
+	width:130px;
+	margin-top: 30px;
+	margin-bottom: 5px;
+}
+
+.logoLogin{
+	height:50px;
+	width:130px;
+	margin-top: 80px;
+	margin-bottom: 20px;
+}
+body {margin: 0; background-color: #F5F8FA; font-family: "Calibri"}
+
+input {	
+	width:300px; 
+	height: 30px; 
+	padding: 5px; 
+	background-color: #F5F8FA; 
+	border-style: solid; 
+	border-width: 0.2px; 
+	border-color: #E1E8ED;
+}
+
+.button { background-color: #1DA1F2; color: white; border: none; height: 40px; width: 312px;}
+.button:hover {background-color: #36b0d9}
+
+a:hover {color: blue;}
+a {text-decoration: underline; color: #1DA1F2}
+
+.message {color: red; font-size: 15px}
+.passwordRequirements {width: 307px; font-size: 15px;}
