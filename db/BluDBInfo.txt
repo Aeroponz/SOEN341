@@ -1,16 +1,33 @@
-servername = "localhost";
-username = "root";
-password = "";
-dbname = "bludata";
+Server credentials are stated in DBConfig.php
+Ensure that the '$filepath' variable accurately points to the /db directory.
 
-[instructions]
-To set up the DB you'll need to do the following in XAMPP.
+[Manual instructions for DB setup]
+To set up the DB manually, you'll need to do the following in XAMPP:
 	1. start Apache.
 	2. start MySQL.
 	3. click 'Shell' to open the XAMPP Terminal.
 	4. type # cd mysql/bin
 	5. type # mysql.exe -u root
-	6. determine the root filepath for db/BluUserSetup.sql
-	7. type >source [filepath]/db/BluUserSetup.sql;
-	8. type >source [filepath]/db/BluPostSetup.sql;
+	6. determine the root filepath for db/LocatTestSetup
+	7. type >source [filepath]/db/Setup/BluTableSetup.sql;
+	8. type >source [filepath]/db/Setup/BluDataSetup.sql;
 	8. database "bluData" has been created along with five tables with dummy data.
+
+[Abstract Connection to Database]
+If you want to connect to Database in PHP the following must be done:
+	- At the start of each of your .PHP files you must have:
+	
+		<?php require_once('../db/DBConfig.php'); ?> //filepath may need to be altered
+		
+	- Within your php sections, use the following format for your connections:
+	
+		<?php
+			//Establish the database connection instance.
+			$db_connection_var = Database::getConnection();
+			
+			... Queries done here ...
+			
+			//Deallocate memory and clear connection.
+			$db_connection_var = null;
+		?>
+	

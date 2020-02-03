@@ -1,29 +1,4 @@
-CREATE DATABASE bludata;
 USE bludata;
-
-CREATE TABLE users (
-	u_id INT NOT NULL AUTO_INCREMENT,
-	name VARCHAR(30) NOT NULL UNIQUE,
-	pass VARCHAR(30) NOT NULL,
-	email VARCHAR(255),
-	rating INT NOT NULL DEFAULT 0,
-	PRIMARY KEY (u_id)
-);
-CREATE TABLE user_profile (
-	u_id INT NOT NULL AUTO_INCREMENT,
-	hidden BIT NOT NULL DEFAULT 0,
-	dark BIT NOT NULL DEFAULT 0,
-	pic VARBINARY(65535),
-	FOREIGN KEY (u_id) REFERENCES users(u_id)
-);
-CREATE TABLE follow_tbl (
-	u_id INT NOT NULL,
-	follows INT NOT NULL,
-	FOREIGN KEY (u_id) REFERENCES users(u_id),
-	FOREIGN KEY (follows) REFERENCES users(u_id)
-);
-
-ALTER TABLE follow_tbl ADD UNIQUE (u_id, follows);
 
 INSERT INTO users (u_id, name, pass, email, rating) VALUES (NULL, 'TestUser0', 'test12345!', 'dummy@email.com', '0');
 INSERT INTO user_profile(u_id, hidden, dark, pic) VALUES (NULL, 0, 0, NULL);
@@ -43,3 +18,13 @@ INSERT INTO user_profile(u_id, hidden, dark, pic) VALUES (NULL, 0, 1, NULL);
 INSERT INTO follow_tbl (u_id, follows) VALUES (1,2);
 INSERT INTO follow_tbl (u_id, follows) VALUES (1,3);
 INSERT INTO follow_tbl (u_id, follows) VALUES (3,1);
+
+INSERT INTO posts (u_id, img_path, txt_content) VALUES (1, NULL, "The first post.");
+INSERT INTO posts (u_id, img_path, txt_content) VALUES (4, "images/meme_test_pic.png", "The second post.");
+INSERT INTO posts (u_id, img_path, txt_content) VALUES (2, NULL, "The 3rd post.");
+INSERT INTO posts (u_id, img_path, txt_content) VALUES (1, "images/spynapple.gif", "Blu is cool.");
+
+INSERT INTO comments(p_id, u_id, txt_content) VALUES (1, 3, "The first comment.");
+INSERT INTO comments(p_id, u_id, txt_content) VALUES (1, 2, "The second comment.");
+INSERT INTO comments(p_id, u_id, txt_content) VALUES (4, 4, "Yeah it is!");
+INSERT INTO comments(p_id, u_id, thread_id, txt_content) VALUES (4, 3, 3, "too late to call 'first'. darn.");
