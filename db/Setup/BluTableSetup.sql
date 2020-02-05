@@ -1,4 +1,29 @@
+CREATE DATABASE bludata;
 USE bludata;
+
+CREATE TABLE users (
+	u_id INT NOT NULL AUTO_INCREMENT,
+	name VARCHAR(30) NOT NULL UNIQUE,
+	pass VARCHAR(30) NOT NULL,
+	email VARCHAR(255),
+	rating INT NOT NULL DEFAULT 0,
+	PRIMARY KEY (u_id)
+);
+CREATE TABLE user_profile (
+	u_id INT NOT NULL AUTO_INCREMENT,
+	hidden BIT NOT NULL DEFAULT 0,
+	dark BIT NOT NULL DEFAULT 0,
+	pic VARBINARY(65535),
+	FOREIGN KEY (u_id) REFERENCES users(u_id)
+);
+CREATE TABLE follow_tbl (
+	u_id INT NOT NULL,
+	follows INT NOT NULL,
+	FOREIGN KEY (u_id) REFERENCES users(u_id),
+	FOREIGN KEY (follows) REFERENCES users(u_id)
+);
+
+ALTER TABLE follow_tbl ADD UNIQUE (u_id, follows);
 
 CREATE TABLE posts(
 	p_id INT NOT NULL AUTO_INCREMENT,
@@ -29,13 +54,3 @@ CREATE TABLE comments(
 );
 ALTER TABLE comments 
 ADD FOREIGN KEY (thread_id) REFERENCES comments(c_id);
-
-INSERT INTO posts (u_id, img_path, txt_content) VALUES (1, NULL, "The first post.");
-INSERT INTO posts (u_id, img_path, txt_content) VALUES (4, NULL, "The second post.");
-INSERT INTO posts (u_id, img_path, txt_content) VALUES (2, NULL, "The 3rd post.");
-INSERT INTO posts (u_id, img_path, txt_content) VALUES (1, NULL, "Blu is cool.");
-
-INSERT INTO comments(p_id, u_id, txt_content) VALUES (1, 3, "The first comment.");
-INSERT INTO comments(p_id, u_id, txt_content) VALUES (1, 2, "The second comment.");
-INSERT INTO comments(p_id, u_id, txt_content) VALUES (4, 4, "Yeah it is!");
-INSERT INTO comments(p_id, u_id, thread_id, txt_content) VALUES (4, 3, 3, "too late to call 'first'. darn.");
