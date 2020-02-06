@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width-device-width, initial-scale=1"/>
+    <title>User Feed</title>
+    <link rel="stylesheet" href="css/FeedStyle.css"/>
+</head>
+<body>
+<div class="FeedPage">
+    <div class="BluHeader">
+        <div class="header-LeftSide">
+            <a aria-label="Home" class="BluLogo">
+                <img src="Resources/Top_bar/LSide.png" alt="Blu Logo">
+            </a>
+        </div>
+        <div class="header-SearchBar">
+            <form id="SearchTextField" action="">
+                <img src="Resources/Top_bar/Search%20Icon.png"/>
+                <img src="Resources/Top_bar/Search%20Field.png"/>
+                <input type="text" name="SearchText" placeholder="Search Blu">
+            </form>
+        </div>
+        <div class="header-RightSide">
+            <div class="FeedHyperlinks">
+                <a aria-label="UserFeed" class="Icons">
+                    <img src="Resources/Top_bar/home-icon.png">
+                </a>
+                <a aria-label="PopularFeed" class="Icons">
+                    <img src="Resources/Top_bar/top-icon%20no%20flag.png">
+                </a>
+                <img src="Resources/Top_bar/Divider.png">
+            </div>
+            <div class="AccountHyperlinks">
+                <a aria-label="AccountPage" class="Icons">
+                    <img src="Resources/Top_bar/Avatar%20Picture%20Box.png">
+                </a>
+                <a aria-label="Notifications" class="Icons">
+                    <img src="Resources/Top_bar/Bell-icon.png">
+                    <img src="Resources/Top_bar/Notification%20Red%20Dot.png">
+                </a>
+                <a aria-label="InstantMessaging" class="Icons">
+                    <img src="Resources/Top_bar/Message%20Bubble.png">
+                    <img src="Resources/Top_bar/IM%20Red%20Dot.png">
+                </a>
+                <a aria-label="AccountSettings" class="Icons">
+                    <img src="Resources/Top_bar/SettingsGear.png">
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="Main">
+        <div class="Posts">
+            <div class="PostInfo">
+                <a aria-label="AccountPage_AvatarPic" class="PostInfo">
+                    <img src="Resources/Post_Frame/Avatar%20Picture%20Box.png">
+                    <h4>OP Username</h4>
+                    <h6>Delta Time of Post</h6>
+                </a>
+            </div>
+            <div class="PostContent">
+                <figure>
+                    <img src="Resources/Post_Frame/215536_space-wallpaper-hd.jpg" width="500" height="375">
+                    <p>#Space</p>
+                </figure>
+            </div>
+            <div class="PostBottom">
+                <div class="Buttons">
+                    <button name="UpvoteButton">
+                        <img src="Resources/Post_Frame/upvote.png">
+                    </button>
+                    <button name="DownvoteButton">
+                        <img src="Resources/Post_Frame/downvote.png">
+                    </button>
+                    <a aria-label="ExpendCommentsButton">
+                        <img src="Resources/Post_Frame/CommentIcon.png">
+                    </a>
+                </div>
+                <div class="Comment">
+                    <img src="Resources/Post_Frame/Comment%20Divider.png">
+                    <form id="CommentTextField" action="">
+                        <input type="text" name="CommentText" placeholder="Share your thoughts...">
+                        <button aria-label="UploadComment">
+                            <img src="Resources/Post_Frame/Paper%20Airplane.png">
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="Sidebar">
+            <div class="Feeds">
+                <h3 class="SidebarHeaders">Feeds</h3>
+                <a>
+                    <img src="Resources/Sidebar/home-icon.png">
+                    <span>Home</span>
+                    <br>
+                </a>
+                <a>
+                    <img src="Resources/Sidebar/top-icon%20no%20flag.png">
+                    <span>Popular</span>
+                    <br>
+                </a>
+            </div>
+            <div class="Contribute">
+                <h3 class="SidebarHeaders">Contribute</h3>
+                <a class="CreatePostHyperLink">
+                    <span class="CreatePostText">CREATE POST</span>
+                </a>
+            </div>
+            <div class="Trending">
+                <h3 class="SidebarHeaders">Trending</h3>
+                <span>1. </span>
+                <a class="TrendingLinks">
+                    <span class="TrendingLinksText">#NumberOne</span>
+                </a>
+                <img src="Resources/Sidebar/DividerTrending.png">
+                <br>
+                <span>2. </span>
+                <a class="TrendingLinks">
+                    <span class="TrendingLinksText">#NumberTwo</span>
+                </a>
+                <img src="Resources/Sidebar/DividerTrending.png">
+                <br>
+                <span>3. </span>
+                <a class="TrendingLinks">
+                    <span class="TrendingLinksText">#NumberThree</span>
+                </a>
+                <img src="Resources/Sidebar/DividerTrending.png">
+                <br>
+                <span>4. </span>
+                <a class="TrendingLinks">
+                    <span class="TrendingLinksText">#NumberFour</span>
+                </a>
+                <img src="Resources/Sidebar/DividerTrending.png">
+                <br>
+                <span>5. </span>
+                <a class="TrendingLinks">
+                    <span class="TrendingLinksText">#NumberFive</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

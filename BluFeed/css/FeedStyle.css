@@ -1,0 +1,60 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: content-box;
+    font-family: "Calibri";
+}
+
+body{
+
+}
+
+.FeedPage
+{
+    display: grid;
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 1fr 716px 1fr;
+    grid-template-areas:
+    "header header header"
+    ". main .";
+    grid-row-gap: 25px;
+}
+
+.BluHeader
+{
+    grid-area: header;
+    background-color: #0066cc;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+    "LeftSide Middle RightSide";
+    padding:10px;
+}
+
+.header-LeftSide
+{
+    grid-area: LeftSide;
+}
+.header-SearchBar
+{
+    grid-area: Middle;
+}
+.header-RightSide
+{
+    grid-area: RightSide;
+}
+
+
+.Main
+{
+    grid-area: main;
+    background-color: #FFFFFF;
+    display:grid;
+    grid-template-columns: 1fr 500px 191px 1fr;
+    grid-template-areas:
+    ". Posts Sidebar .";
+    grid-column-gap: 25px;
+}
+
+
+
