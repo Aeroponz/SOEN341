@@ -20,15 +20,14 @@ CREATE TABLE follow_tbl (
 	u_id INT NOT NULL,
 	follows INT NOT NULL,
 	FOREIGN KEY (u_id) REFERENCES users(u_id),
-	FOREIGN KEY (follows) REFERENCES users(u_id)
+	FOREIGN KEY (follows) REFERENCES users(u_id),
+	PRIMARY KEY (u_id, follows)
 );
-
-ALTER TABLE follow_tbl ADD UNIQUE (u_id, follows);
 
 CREATE TABLE posts(
 	p_id INT NOT NULL AUTO_INCREMENT,
 	u_id INT NOT NULL,
-	img_path VARCHAR(255),
+	img_path VARCHAR(31) UNIQUE,
 	txt_content TEXT,
 	upvote INT DEFAUlT 0 CHECK (upvote > -1),
 	downvote INT DEFAULT 0 CHECK (downvote > -1),
