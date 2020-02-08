@@ -7,11 +7,13 @@
 
 body{
 
+    background-color: #F5F8FA;
 }
 
 .FeedPage
 {
     display: grid;
+    background-color: #F5F8FA;
     grid-template-rows: 60px 1fr;
     grid-template-columns: 1fr 716px 1fr;
     grid-template-areas:
@@ -28,7 +30,7 @@ body{
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas:
     "LeftSide Middle RightSide";
-    padding:10px;
+    padding: 10px;
 }
 
 .header-LeftSide
@@ -42,13 +44,34 @@ body{
 .header-RightSide
 {
     grid-area: RightSide;
+    display: grid;
+    grid-template-columns: 65px 1fr 152px;
+    grid-template-areas:
+    "FeedHyperlinks divider AccountHyperlinks";
+}
+
+.Icons{
+
+}
+
+.FeedHyperlinks
+{
+    grid-area: FeedHyperlinks;
+}
+.divider
+{
+    grid-area: divider
+}
+.AccountHyperlinks
+{
+    grid-area: AccountHyperlinks;
 }
 
 
 .Main
 {
     grid-area: main;
-    background-color: #FFFFFF;
+    background-color: #F5F8FA;
     display:grid;
     grid-template-columns: 1fr 500px 191px 1fr;
     grid-template-areas:
@@ -56,5 +79,61 @@ body{
     grid-column-gap: 25px;
 }
 
+.Posts
+{
+    background-color: #FFFFFF;
+    grid-area: Posts;
+    display: grid;
+    grid-template-rows: 45px 1fr 66px;
+    grid-template-areas:
+    "PostInfo"
+    "PostContent"
+    "PostBottom";
+}
 
+.PostInfo
+{
+    grid-area: PostInfo;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 45px 1fr;
+    grid-template-areas:
+    "Avatar Username"
+    "Avatar TimeOfPost";
+}
+
+.Avatar{
+    grid-area: Avatar;
+    padding: 10px;
+}
+.Username{
+    grid-area: Username;
+    line-height: 33px;
+    height: 27px;
+}
+.TimeOfPost
+{
+    grid-area: TimeOfPost;
+    line-height: 5px;
+    height: 5px;
+}
+
+.PostContent
+{
+    grid-area: PostContent;
+}
+
+.PostBottom
+{
+    grid-area: PostBottom;
+    display:grid;
+
+}
+
+.Sidebar
+{
+    grid-area: Sidebar;
+    background-color: #FFFFFF;
+
+}
 
