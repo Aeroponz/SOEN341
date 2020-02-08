@@ -1,12 +1,17 @@
 <?php
-//Must have at the top of any file that needs db connection.
-require_once('../db/DBConfig.php');
+require_once('../db/DBConfig.php'); //Must have at the top of any file that needs db connection.
+require_once('../uploadBlock.php'); //Must have at the top of any page that will be able to post.
 ?>
 <html>
 	<head>
 		<title>DB_Example_Code_Output</title>
 	<body>
-	
+		<!-- inserting post upload block -->
+		<?php
+			echo uploadBlock::insertForm();
+		?>
+		
+		<!-- viewing db contents -->
 		<?php
 			//connection instance
 			$dbconn = Database::getConnection();
@@ -26,9 +31,11 @@ require_once('../db/DBConfig.php');
 			
 			//query 2
 			$result = $dbconn->query("
-				SELECT posts.img_path, posts.txt_content, users.name
+				SELECT posts.img_path, posts.txt_content, users.name, posts.posted_on
 				FROM posts
 				INNER JOIN users ON posts.u_id = users.u_id
+				ORDER BY 
+					posted_on DESC;
 				");
 			
 			if ($result->num_rows > 0) {
