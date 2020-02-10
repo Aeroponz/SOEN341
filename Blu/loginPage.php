@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+<?php require_once('C:/xampp/htdocs/Blu/db/DBConfig.php'); ?>
 <html lang = "en">
 	<head>
 		<meta charset = "utf-8">
-		<title>Login</title>
+		<title>Log In</title>
 		<link rel = "stylesheet" type = "text/css" href = "loginPageStyle.css"/>
 	</head>
 	<body>
@@ -15,7 +16,7 @@
 			<form action = "loginPage.php" method = "post">
 				<input type = "text" name = "username" placeholder = "Username" class = "creds"/><br><br>
 				<input type = "password" name = "password" placeholder = "Password" class = "creds"/><br><br>
-				<input type = "Submit" name = "readingFile" value = "Log In"  class = "button"/><br><br>
+				<input type = "Submit" name = "submit" value = "Log In"  class = "button"/><br><br>
 				<label id = "password" class = "message"></label><br><br><br>
 				<a href = "resetPassword.php">Forgot password?</a>
 				<p><b>Don't have an account? <a class = "signUp" href = "signUp.php"> Sign up </a></b></p>	
@@ -23,56 +24,47 @@
 		</center>
 
 		<?php if ($_POST) {
-			if(isset($_POST['readingFile'])){
-				readingFile();
+			if(isset($_POST['submit'])){
+				checkingDB();
 			}
 		}
-
-		function readingFile(){
-			$fileName = "loginFile.txt";
-			$file = fopen($fileName, "r, w");
-			$fileRead = fread($file, filesize($fileName));
-			$fileInfo = file($fileName, FILE_IGNORE_NEW_LINES);
-			$i = 0;
+		
+		function checkingDB(){
+			$sql = "SELECT u_id, name, pass FROM users";
+			$dbconnection = Database::getConnection();
+			$result = $dbconnection->query($sql);
+			$dbconnection = null;
 			$validUsername = true;
-			$validPassword = true;
-			$_SESSION['user'] = "";
-			if((preg_match("/([A-Z]*[a-z]*[0-9]*)/", $_POST['username'])) && preg_match("/^(?=.*\d)(?=.*[A-Za-z]).{6,}$/",$_POST['password'])) {
-				while($i < sizeof($fileInfo)&& $validPassword){
-					$string = explode(":", $fileInfo[$i]);
-					if(isset($_POST['username'])){
-						if($_POST['username'] == $string[0]) {
-							$validUsername = true;
-							if(isset($_POST['password'])){
-								if($_POST['password'] == $string[1]) {
-									$_SESSION['user'] = $_POST['username'];
-									header("Location: HomepageBase.php");
-									break;
-								}
-								else {
-									echo "<script type = \"text/JavaScript\">
-									document.getElementById('password').innerHTML = \"Invalid login\";
-									</script>";
-									$validPassword = false;
-								}
-							}
+			$_SESSION['userID'] = "";
+			if(!(preg_match("/[^\w\.\-]/", $_POST['username'])) && preg_match("/^(?=.*\d)(?=.*[A-Za-z])(?=.*[_\W]).{6,}$/",$_POST['password'])) {
+				while($row = $result->fetch_assoc()){ 	//fetches values of results and stores in array $row 
+					if($row["name"] == $_POST['username']) {
+						$validUsername = true;
+						if($row["pass"] == $_POST['password']) {
+							$_SESSION['userID'] = $row["u_id"];
+							header("Location: HomepageBase.php");
+							break;
 						}
-						else
-							$validUsername = false;
+						else {
+							echo "<script type = \"text/JavaScript\">
+							document.getElementById('password').innerHTML = \"Invalid login\";
+							</script>";
+						}
 					}
-					$i++;
+					else 
+						$validUsername = false;
 				}
 				if($validUsername == false){
-					fclose($file);
 					echo "<script type = \"text/JavaScript\">
 							document.getElementById('password').innerHTML = \"Invalid login\";
 							</script>";
 				}
 			}
-			if((preg_match("/([A-Z]*[a-z]*[0-9]*)/", $_POST['username'])) && preg_match("/^(?=.*\d)(?=.*[A-Za-z]).{6,}$/",$_POST['password']) == false)
+			else
 				echo "<script type = \"text/JavaScript\">
 						document.getElementById('password').innerHTML = \"Your username/password does not match the required format.\";
 					</script>";
+	
 		}
 		?>
 	</body>
