@@ -61,6 +61,7 @@
 					$valueID = $result2->fetch_assoc();
 					$valueID['u_id'] += 1;
 					$result3 = $valueID['u_id'];
+					$_SESSION['userID'] = $result3;
 					$sql3 = "INSERT INTO users(u_id, name, pass) VALUES ('$result3', '$username', '$password')";
 					$result4 = $dbconnection->query($sql3);
 					$dbconnection = null;
