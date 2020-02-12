@@ -1,6 +1,7 @@
 <?php
 require_once('../db/DBConfig.php'); //Must have at the top of any file that needs db connection.
 require_once('../uploadBlock.php'); //Must have at the top of any page that will be able to post.
+require_once('../followBlock.php'); 
 ?>
 <html>
 	<head>
@@ -10,6 +11,13 @@ require_once('../uploadBlock.php'); //Must have at the top of any page that will
 		<?php
 			echo uploadBlock::insertForm();
 		?>
+		
+		<!-- new part-->
+		<!-- inserting follow block -->
+		<?php
+			echo followblock::follow();
+		?>
+		<!-- end new part-->
 		
 		<!-- viewing db contents -->
 		<?php
@@ -51,6 +59,23 @@ require_once('../uploadBlock.php'); //Must have at the top of any page that will
 			} else {
 				echo "0 results";
 			}
+			
+			// **NEW PART** Add followers output
+			//query 3
+			//fetch account followers
+			$sql = "SELECT u_id, follows FROM follow_tbl";
+			$result = $dbconn->query($sql);
+			
+			if ($result->num_rows > 0) {
+				// output data of each row
+				while($row = $result->fetch_assoc()) {
+					echo "User: " . $row["u_id"]. " - Follows: " . $row["follows"]. "</br>";
+				}
+			} else {
+				echo "0 results";
+			}
+			// **END NEW PART**
+			
 			//deallocate memory. 
 			//MUST BE DONE AFTER YOU'RE FINISHED WITH A DB CONNECTION
 			$dbconn = null;
