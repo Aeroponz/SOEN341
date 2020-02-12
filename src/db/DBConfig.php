@@ -7,7 +7,7 @@ class Database{
 	private static $password = "";
 	private static $dbname = "bludata";
 	//relative server path to /db directory
-	private static $filepath = "http://localhost/Blu/db/";
+	private static $filepath = "http://localhost/Blu/src/db/";
 
     private static $db;
     private $connection;
