@@ -17,7 +17,7 @@
 				<input type = "text" name = "username" placeholder = "Username" value = "<?php if (isset($_POST['username'])) {echo htmlspecialchars($_POST['username'], ENT_QUOTES);}?>" class = "creds"/><br><br>
 				<input type = "password" name = "password" placeholder = "Password" class = "creds"/><br><br>
 				<input type = "password" name = "passwordConfirm" placeholder = "Confirm password" class = "creds"/><br><br>
-				<input class = "button" type = "Submit" value = "Sign up" name = "submit"/><br><br>
+				<input class = "button" type = "Submit" value = "Sign up" name = "readingFile"/><br><br>
 				<label id = "password" class = "message"></label><br><br>
 				<div class = "passwordRequirements" align = "left">
 					<label>Your password must include at least:</label>
@@ -32,40 +32,44 @@
 
 
 		<?php if ($_POST) {
-			if(isset($_POST['submit'])){
+			if(isset($_POST['readingFile'])){
 				checkingDB();
 			}
 		}
 
 		function checkingDB(){
-			$sql = "SELECT u_id, name, pass FROM users";
-			$dbconnection = Database::getConnection();
-			$result = $dbconnection->query($sql);
-			$dbconnection = null;
+			$fileName = "loginFile.txt";
+			$file = fopen($fileName, "r, w");
+			$fileRead = fread($file, filesize($fileName));
+			$fileInfo = file($fileName, FILE_IGNORE_NEW_LINES);
+			$i = 0;
 			$availableUsername = true;
-			$_SESSION['userID'] = "";
+			$validPassword = true;
+			$_SESSION['user'] = "";
 			if(!(preg_match("/[^\w\.\-]/", $_POST['username'])) && preg_match("/^(?=.*\d)(?=.*[A-Za-z])(?=.*[_\W]).{6,}$/",$_POST['password'])) {
-				while($row = $result->fetch_assoc()){ 	//fetches values of results and stores in array $row 
-					if($row["name"] != $_POST['username'])
+				while($i < sizeof($fileInfo)&& $validPassword){
+					$string = explode(":", $fileInfo[$i]);
+					if(isset($_POST['username'])){
+						if($_POST['username'] != $string[0]) {
 							$availableUsername = true;
+						}
+						else {
+								$validPassword = false;
+								$availableUsername = false;
+						}
+					}	
+						
 					else
 						$availableUsername = false;
-				}	
-
+				
+					$i++;
+				}
 				if($availableUsername == true && $_POST['password'] == $_POST['passwordConfirm']){
-					$username = $_POST['username'];
-					$password = $_POST['password'];
-					$sql2 = "SELECT u_id FROM users ORDER BY u_id DESC LIMIT 1";
-					$dbconnection = Database::getConnection();
-					$result2 = $dbconnection->query($sql2);
-					$valueID = $result2->fetch_assoc();
-					$valueID['u_id'] += 1;
-					$result3 = $valueID['u_id'];
-					$_SESSION['userID'] = $result3;
-					$sql3 = "INSERT INTO users(u_id, name, pass) VALUES ('$result3', '$username', '$password')";
-					$result4 = $dbconnection->query($sql3);
-					$dbconnection = null;
-					header("Location: HomepageBase.php");
+					$info = "\n".$_POST['username'].":".$_POST['password'];
+					$write = file_put_contents("loginFile.txt", $info, FILE_APPEND | LOCK_EX);
+					fclose($file);
+					$_SESSION['user'] = $_POST['username'];
+					header("Location: HomepageBase.html");
 				}
 				else if($availableUsername == false)
 					echo "<script type = \"text/JavaScript\">
@@ -81,10 +85,7 @@
 						document.getElementById('password').innerHTML = \"Your username/password does not match the required format.\";
 					</script>";
 		}
-		
 		?>
 	</body>
-	
 </html>
-
 
