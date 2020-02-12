@@ -4,7 +4,7 @@ require_once('../db/DBConfig.php');
 	
 	//TODO: Update to session values when available
 	$u_id = 1; 
-	$redirect_path = '/BLU/db/dbPHPexample.php';
+	$redirect_path = '/BLU/src/db/dbPHPexample.php';
 	
 	//Declare variables
 	$dbconn = null;
