@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+include 'TestFunction.php';
 
 use PHPUnit\Framework\TestCase;
 
