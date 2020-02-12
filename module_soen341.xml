@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_soen341" default="compile.module.soen341">
+  <dirname property="module.soen341.basedir" file="${ant.file.module_soen341}"/>
+  
+  <property name="module.jdk.home.soen341" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.soen341" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.soen341" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.soen341" value="-encoding UTF-8 -source 13 -target 13 ${compiler.args}"/>
+  
+  <property name="soen341.output.dir" value="${module.soen341.basedir}/out/production/SOEN341"/>
+  <property name="soen341.testoutput.dir" value="${module.soen341.basedir}/out/test/SOEN341"/>
+  
+  <path id="soen341.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="soen341.module.production.classpath"/>
+  
+  <path id="soen341.runtime.production.module.classpath">
+    <pathelement location="${soen341.output.dir}"/>
+  </path>
+  
+  <path id="soen341.module.classpath">
+    <pathelement location="${soen341.output.dir}"/>
+  </path>
+  
+  <path id="soen341.runtime.module.classpath">
+    <pathelement location="${soen341.testoutput.dir}"/>
+    <pathelement location="${soen341.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.soen341">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.soen341">
+    <patternset refid="excluded.from.module.soen341"/>
+  </patternset>
+  
+  
+  <target name="compile.module.soen341" depends="compile.module.soen341.production,compile.module.soen341.tests" description="Compile module SOEN341"/>
+  
+  <target name="compile.module.soen341.production" depends="register.custom.compilers" description="Compile module SOEN341; production classes"/>
+  
+  <target name="compile.module.soen341.tests" depends="register.custom.compilers,compile.module.soen341.production" description="compile module SOEN341; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.soen341" description="cleanup module">
+    <delete dir="${soen341.output.dir}"/>
+    <delete dir="${soen341.testoutput.dir}"/>
+  </target>
+</project>
