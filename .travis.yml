@@ -1,3 +1,5 @@
 language: php
 install:
-  - ant deps
+  - composer install
+  
+ script: php Php_UnitTests.php
