@@ -8,48 +8,7 @@
 </head>
 <body>
     <div class="FeedPage">
-        <div class="BluHeader">
-            <div class="header-LeftSide">
-                <a aria-label="Home" class="BluLogo">
-                    <img src="Resources/Top_bar/LSide.png" alt="Blu Logo">
-                </a>
-            </div>
-            <div class="header-SearchBar">
-                <form id="SearchTextField" action="">
-                    <img class="SearchBarButtons" src="Resources/Top_bar/Search%20Icon.png">
-                    <input class="SearchBar" type="text" name="SearchText" placeholder="Search Blu">
-                </form>
-            </div>
-            <div class="header-RightSide">
-                <div class="FeedHyperlinks">
-                    <a  href="UserFeedPage.html" aria-label="UserFeed" class="Icons">
-                        <img class="SearchBarButtons" src="Resources/Top_bar/home-icon.png">
-                    </a>
-                    <a href="PopularFeedPage.html" aria-label="PopularFeed" class="Icons">
-                        <img class="SearchBarButtons" src="Resources/Top_bar/top-icon%20no%20flag.png">
-                    </a>
-                </div>
-                <div class="divider">
-                    <img style="height: 60px; width: 1px; position: absolute; top: 0;" src="Resources/Top_bar/Divider.png">
-                </div>
-                <div class="AccountHyperlinks">
-                    <a aria-label="AccountPage" class="AvatarPicHeader">
-                        <img src="Resources/Top_bar/Avatar%20Picture%20Box.png">
-                    </a>
-                    <a class="IconRectify" aria-label="Notifications" class="Icons">
-                        <img src="Resources/Top_bar/Bell-icon.png">
-                        <img src="Resources/Top_bar/Notification%20Red%20Dot.png">
-                    </a>
-                    <a class="IconRectify" aria-label="InstantMessaging" class="Icons">
-                        <img src="Resources/Top_bar/Message%20Bubble.png">
-                        <img src="Resources/Top_bar/IM%20Red%20Dot.png">
-                    </a>
-                    <a class="IconRectify" aria-label="AccountSettings" class="Icons">
-                        <img src="Resources/Top_bar/SettingsGear.png">
-                    </a>
-                </div>
-            </div>
-        </div>
+        <?php include 'Header.html'; ?>
         <div class="Main">
             <div class="Posts">
                 <div class="PostInfo">
@@ -95,16 +54,19 @@
             <div class="Sidebar">
                 <div class="Feeds">
                     <h3 class="SidebarHeaders">Feeds</h3>
-                    <a>
+                    <br>
+                    <a href="HomepageBase.php">
                         <img src="Resources/Sidebar/home-icon.png">
                         <span>Home</span>
                         <br>
                     </a>
-                    <a>
+                    <br>
+                    <a href="PopularFeedPage.php">
                         <img src="Resources/Sidebar/top-icon%20no%20flag.png">
                         <span>Popular</span>
                         <br>
                     </a>
+                    <br>
                 </div>
                 <div class="Contribute">
                     <h3 class="SidebarHeaders">Contribute</h3>
@@ -112,8 +74,11 @@
                         <span class="CreatePostText">CREATE POST</span>
                     </a>
                 </div>
+                <img src="Resources/Sidebar/DividerTrending.png">
+                <br>
                 <div class="Trending">
                     <h3 class="SidebarHeaders">Trending</h3>
+                    <img src="Resources/Sidebar/DividerTrending.png">
                     <span>1. </span>
                     <a class="TrendingLinks">
                         <span class="TrendingLinksText">#NumberOne</span>
