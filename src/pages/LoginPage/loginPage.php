@@ -18,7 +18,7 @@
 				<input type = "password" name = "password" placeholder = "Password" class = "creds"/><br><br>
 				<input type = "Submit" name = "submit" value = "Log In"  class = "button"/><br><br>
 				<label id = "password" class = "message"></label><br><br><br>
-				<a href = "resetPassword.php">Forgot password?</a>
+				<a href = "http://localhost/SOEN341/src/pages/ResetPasswordPage/resetPassword.php">Forgot password?</a>
 				<p><b>Don't have an account? <a class = "signUp" href = "http://localhost/SOEN341/src/pages/SignUpPage/signUp.php"> Sign up </a></b></p>	
 		</div>
 		</center>
