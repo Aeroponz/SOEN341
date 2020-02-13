@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<?php require_once('C:/xampp/htdocs/Blu/db/DBConfig.php'); ?>
+<?php require_once('C:/xampp/htdocs/SOEN341/src/db/DBConfig.php'); ?>
 <html lang = "en">
 	<head>
 		<meta charset = "utf-8">
 		<title>Login</title>
-		<link rel = "stylesheet" type = "text/css" href = "loginPageStyle.css"/>
+		<link rel = "stylesheet" type = "text/css" href = "signUpPageStyle.css"/>
 	</head>
 	<body>
 		<center><div class = "backgroundColor">
-			<img src = "Blu.png" class = "logo">
+			<img src = "http://localhost/SOEN341/src/pages/GenericRessources/Blu.png" class = "logo">
 			<p>Sign up to view photos and videos<br>from your friends and family</p>
 			<?php session_start();?>
 			<form action = "signUp.php" method = "post">
@@ -27,7 +27,7 @@
 						<li>One special character</li>
 					</ul>
 				</div><br>
-				<label><b>Have an account? <a class = "signUp" href = "loginPage.php"> Sign in </a></label></b>		
+				<label><b>Have an account? <a class = "login" href = "http://localhost/SOEN341/src/pages/LoginPage/LoginPage.php"> Sign in </a></label></b>		
 		</div></center>
 
 
@@ -47,9 +47,9 @@
 			if(!(preg_match("/[^\w\.\-]/", $_POST['username'])) && preg_match("/^(?=.*\d)(?=.*[A-Za-z])(?=.*[_\W]).{6,}$/",$_POST['password'])) {
 				while($row = $result->fetch_assoc()){ 	//fetches values of results and stores in array $row 
 					if($row["name"] != $_POST['username'])
-							$availableUsername = true;
+							$availableUsername = false;
 					else
-						$availableUsername = false;
+						$availableUsername = true;
 				}	
 
 				if($availableUsername == true && $_POST['password'] == $_POST['passwordConfirm']){
@@ -65,7 +65,7 @@
 					$sql3 = "INSERT INTO users(u_id, name, pass) VALUES ('$result3', '$username', '$password')";
 					$result4 = $dbconnection->query($sql3);
 					$dbconnection = null;
-					header("Location: HomepageBase.php");
+					header("Location: http://localhost/SOEN341/src/pages/HomePage/HomepageBase.php");
 				}
 				else if($availableUsername == false)
 					echo "<script type = \"text/JavaScript\">
