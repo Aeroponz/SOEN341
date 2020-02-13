@@ -17,7 +17,7 @@ session_start();
 	
 	// User ID of account you want to follow
 	// get this from user profile page when its done
-	$u_id2 = 5; 
+	$u_id2 = 3; 
 	
 	//Declare variables
 	$dbconn = null;
