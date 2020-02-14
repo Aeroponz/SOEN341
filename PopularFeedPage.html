@@ -7,13 +7,52 @@
     <link rel="stylesheet" href="css/FeedStyle.css"/>
 </head>
 <body>
-    <div class="FeedPage">  
-        <?php include 'Header.html'; ?>
+    <div class="FeedPage">
+        <div class="BluHeader">
+            <div class="header-LeftSide">
+                <a aria-label="Home" class="BluLogo">
+                    <img src="Resources/Top_bar/LSide.png" alt="Blu Logo">
+                </a>
+            </div>
+            <div class="header-SearchBar">
+                <form id="SearchTextField" action="">
+                    <img class="SearchBarButtons" src="Resources/Top_bar/Search%20Icon.png">
+                    <input class="SearchBar" type="text" name="SearchText" placeholder="Search Blu">
+                </form>
+            </div>
+            <div class="header-RightSide">
+                <div class="divider">
+                    <img style="height: 60px; width: 1px; position: absolute; top: 0;" src="Resources/Top_bar/Divider.png">
+                </div>
+                <div class="AccountHyperlinks">
+                    <a aria-label="AccountPage" class="AvatarPicHeader">
+                        <img src="Resources/Top_bar/Avatar%20Picture%20Box.png">
+                    </a>
+                    <a class="RightBarButtons" href="HomepageBase.html" aria-label="UserFeed" class="Icons">
+                        <img  src="Resources/Top_bar/home-icon.png">
+                    </a>
+                    <a class="RightBarButtons" href="PopularFeedPage.html" aria-label="PopularFeed" class="Icons">
+                        <img src="Resources/Top_bar/top-icon%20no%20flag.png">
+                    </a>
+                    <a class="IconRectify" aria-label="Notifications" class="Icons">
+                        <img src="Resources/Top_bar/Bell-icon.png">
+                        <img src="Resources/Top_bar/Notification%20Red%20Dot.png">
+                    </a>
+                    <a class="IconRectify" aria-label="InstantMessaging" class="Icons">
+                        <img src="Resources/Top_bar/Message%20Bubble.png">
+                        <img src="Resources/Top_bar/IM%20Red%20Dot.png">
+                    </a>
+                    <a class="IconRectify" aria-label="AccountSettings" class="Icons">
+                        <img src="Resources/Top_bar/SettingsGear.png">
+                    </a>
+                </div>
+            </div>
+        </div>
         <div class="Main">
             <div class="Posts">
                 <div class="PostInfo">
                     <a aria-label="AccountPage_AvatarPic" class="Avatar">
-                        <img src="Ressources/Post_Frame/Avatar%20Picture%20Circle.png">
+                        <img src="Resources/Post_Frame/Avatar%20Picture%20Circle.png">
                     </a>
                     <a aria-label="OpUsername" class="Username">
                         <h4 class="Username">OP Username</h4>
@@ -24,28 +63,28 @@
                 </div>
                 <div class="PostContent">
                     <figure>
-                        <img src="Ressources/Post_Frame/215536_space-wallpaper-hd.jpg" width="500" height="375">
+                        <img src="Resources/Post_Frame/215536_space-wallpaper-hd.jpg" width="500" height="375">
                         <p>#Space</p>
                     </figure>
                 </div>
                 <div class="PostBottom">
                     <div class="Buttons">
                         <button name="UpvoteButton">
-                            <img src="Ressources/Post_Frame/upvote.png">
+                            <img src="Resources/Post_Frame/upvote.png">
                         </button>
                         <button style = "width: 20px;" name="DownvoteButton">
-                            <img src="Ressources/Post_Frame/downvote.png">
+                            <img src="Resources/Post_Frame/downvote.png">
                         </button>
                         <a aria-label="ExpendCommentsButton">
-                            <img src="Ressources/Post_Frame/CommentIcon.png">
+                            <img src="Resources/Post_Frame/CommentIcon.png">
                         </a>
                     </div>
                     <div class="Comment">
-                        <img src="Ressources/Post_Frame/Comment%20Divider.png">
+                        <img src="Resources/Post_Frame/Comment%20Divider.png">
                         <form id="CommentTextField" action="">
                             <input style="width: 90%; height: 28px; box-sizing: border-box; border-radius: 5px;" type="text" name="CommentText" placeholder="Share your thoughts...">
                             <button style = "border-radius: 5px; height: 25px; position: relative; top: 3px;" aria-label="UploadComment">
-                                <img src="Ressources/Post_Frame/Paper%20Airplane.png">
+                                <img src="Resources/Post_Frame/Paper%20Airplane.png">
                             </button>
                         </form>
                     </div>
@@ -54,19 +93,16 @@
             <div class="Sidebar">
                 <div class="Feeds">
                     <h3 class="SidebarHeaders">Feeds</h3>
-                    <br>
-                    <a href="HomepageBase.php">
-                        <img src="Ressources/Sidebar/home-icon.png">
+                    <a>
+                        <img src="Resources/Sidebar/home-icon.png">
                         <span>Home</span>
                         <br>
                     </a>
-                    <br>
-                    <a href="PopularFeedPage.php">
-                        <img src="Ressources/Sidebar/top-icon%20no%20flag.png">
+                    <a>
+                        <img src="Resources/Sidebar/top-icon%20no%20flag.png">
                         <span>Popular</span>
                         <br>
                     </a>
-                    <br>
                 </div>
                 <div class="Contribute">
                     <h3 class="SidebarHeaders">Contribute</h3>
@@ -74,34 +110,31 @@
                         <span class="CreatePostText">CREATE POST</span>
                     </a>
                 </div>
-                <img src="Ressources/Sidebar/DividerTrending.png">
-                <br>
                 <div class="Trending">
                     <h3 class="SidebarHeaders">Trending</h3>
-                    <img src="Ressources/Sidebar/DividerTrending.png">
                     <span>1. </span>
                     <a class="TrendingLinks">
                         <span class="TrendingLinksText">#NumberOne</span>
                     </a>
-                    <img src="Ressources/Sidebar/DividerTrending.png">
+                    <img src="Resources/Sidebar/DividerTrending.png">
                     <br>
                     <span>2. </span>
                     <a class="TrendingLinks">
                         <span class="TrendingLinksText">#NumberTwo</span>
                     </a>
-                    <img src="Ressources/Sidebar/DividerTrending.png">
+                    <img src="Resources/Sidebar/DividerTrending.png">
                     <br>
                     <span>3. </span>
                     <a class="TrendingLinks">
                         <span class="TrendingLinksText">#NumberThree</span>
                     </a>
-                    <img src="Ressources/Sidebar/DividerTrending.png">
+                    <img src="Resources/Sidebar/DividerTrending.png">
                     <br>
                     <span>4. </span>
                     <a class="TrendingLinks">
                         <span class="TrendingLinksText">#NumberFour</span>
                     </a>
-                    <img src="Ressources/Sidebar/DividerTrending.png">
+                    <img src="Resources/Sidebar/DividerTrending.png">
                     <br>
                     <span>5. </span>
                     <a class="TrendingLinks">
