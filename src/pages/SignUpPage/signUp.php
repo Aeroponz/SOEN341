@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php require_once('C:/xampp/htdocs/SOEN341/src/db/DBConfig.php'); ?>
+<?php require_once('../../db/DBConfig.php'); ?>
 <html lang = "en">
 	<head>
 		<meta charset = "utf-8">
@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<center><div class = "backgroundColor">
-			<img src = "http://localhost/SOEN341/src/pages/GenericRessources/Blu.png" class = "logo">
+			<img src = "../GenericResources/Blu.png" class = "logo">
 			<p>Sign up to view photos and videos<br>from your friends and family</p>
 			<?php session_start();?>
 			<form action = "signUp.php" method = "post">
@@ -27,7 +27,7 @@
 						<li>One special character</li>
 					</ul>
 				</div><br>
-				<label><b>Have an account? <a class = "login" href = "http://localhost/SOEN341/src/pages/LoginPage/LoginPage.php"> Sign in </a></label></b>		
+				<label><b>Have an account? <a class = "login" href = "../LoginPage/LoginPage.php"> Sign in </a></label></b>		
 		</div></center>
 
 
@@ -68,7 +68,7 @@
 					$result4 = $dbconnection->query($sql3);
 					$dbconnection = null;
 					$_SESSION['message'] = "Don't lose access to your account. Add a recovery email address.";
-					header("Location: http://localhost/SOEN341/src/pages/HomePage/HomepageBase.php");
+					header("Location: ../HomePage/HomepageBase.php");
 				}
 				else if($availableUsername == false)
 					echo "<script type = \"text/JavaScript\">

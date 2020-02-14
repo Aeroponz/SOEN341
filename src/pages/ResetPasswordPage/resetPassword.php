@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php require_once('C:/xampp/htdocs/SOEN341/src/db/DBConfig.php'); ?>
+<?php require_once('../../db/DBConfig.php'); ?>
 <html lang = "en">
 	<head>
 		<meta charset = "utf-8">
@@ -9,7 +9,7 @@
 	<body>
 		<center>
 		<div class = "backgroundColor">
-			<img src = "http://localhost/SOEN341/src/pages/GenericRessources/Blu.png" class = "logoLogin">
+			<img src = "../GenericResources/Blu.png" class = "logoLogin">
 			<br><br><br>
 			<p>Enter below the email address associated to your account</p>
 			<?php session_start();?>

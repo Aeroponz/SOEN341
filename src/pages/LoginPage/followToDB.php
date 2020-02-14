@@ -1,5 +1,5 @@
 <?php 
-require_once('../db/DBConfig.php'); 
+require_once('../../db/DBConfig.php'); 
 session_start();
 
 	//Author: Jasen Ratnam 40094237
@@ -13,7 +13,7 @@ session_start();
 	
 	$u_id = $loggenOnUser; 
 	
-	$redirect_path = 'HomepageBase.php';
+	$redirect_path = '../HomePage/HomepageBase.php';
 	
 	// User ID of account you want to follow
 	// get this from user profile page when its done

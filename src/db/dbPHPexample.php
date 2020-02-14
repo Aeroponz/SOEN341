@@ -1,5 +1,5 @@
 <?php
-require_once('../db/DBConfig.php'); //Must have at the top of any file that needs db connection.
+require_once('./DBConfig.php'); //Must have at the top of any file that needs db connection.
 require_once('../pages/FunctionBlocks/uploadBlock.php'); //Must have at the top of any page that will be able to post.
 require_once('../pages/FunctionBlocks/followBlock.php'); 
 ?>
