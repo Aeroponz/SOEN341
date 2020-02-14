@@ -4,7 +4,7 @@ require_once('../db/DBConfig.php');
 	
 	//TODO: Update to session values when available, update to new page after following
 	$u_id = 2; 
-	$redirect_path = '/BLU/db/dbPHPexample.php';
+	$redirect_path = '/BLU/src/db/dbPHPexample.php';
 	
 	// User ID of account you want to follow
 	// get this from user profile page when its done

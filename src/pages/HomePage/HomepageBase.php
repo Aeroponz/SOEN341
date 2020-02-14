@@ -40,7 +40,7 @@ session_start();
 			<ul>
 				<li><a href="HomepageBase.php">Home</li>
 				<li><a href="SettingsPage.php">Settings</a></li>
-				<li><a href="loginPage.php">Logout</a></li>
+				<li><a href="http://localhost/SOEN341/src/pages/LoginPage/loginPage.php">Logout</a></li>
 			</ul>
 		</div>
 		
