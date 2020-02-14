@@ -47,9 +47,11 @@
 			if(!(preg_match("/[^\w\.\-]/", $_POST['username'])) && preg_match("/^(?=.*\d)(?=.*[A-Za-z])(?=.*[_\W]).{6,}$/",$_POST['password'])) {
 				while($row = $result->fetch_assoc()){ 	//fetches values of results and stores in array $row 
 					if($row["name"] != $_POST['username'])
-							$availableUsername = false;
-					else
-						$availableUsername = true;
+							$availableUsername = true;
+					else {
+						$availableUsername = false;
+						break;
+					}
 				}	
 
 				if($availableUsername == true && $_POST['password'] == $_POST['passwordConfirm']){
@@ -65,6 +67,7 @@
 					$sql3 = "INSERT INTO users(u_id, name, pass) VALUES ('$result3', '$username', '$password')";
 					$result4 = $dbconnection->query($sql3);
 					$dbconnection = null;
+					$_SESSION['message'] = "Add a recovery email address to your account";
 					header("Location: http://localhost/SOEN341/src/pages/HomePage/HomepageBase.php");
 				}
 				else if($availableUsername == false)
