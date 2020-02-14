@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <?php
-require_once('../db/DBConfig.php'); //Must have at the top of any file that needs db connection.
-require_once('../uploadBlock.php'); //Must have at the top of any page that will be able to post.
-require_once('../followBlock.php'); 
+require_once('C:/xampp/htdocs/SOEN341/src/db/DBConfig.php'); //Must have at the top of any file that needs db connection.
+require_once('C:/xampp/htdocs/SOEN341/src/pages/FunctionBlocks/uploadBlock.php'); //Must have at the top of any page that will be able to post.
+require_once('C:/xampp/htdocs/SOEN341/src/pages/FunctionBlocks/followBlock.php'); 
 session_start();
 ?>
 
@@ -28,18 +28,18 @@ session_start();
 		
 		<!--Header Format-->
 		<div id = "container_top">
-			<img class="post" src = "Blu_logo_square.png" alt="Company Logo"
+			<img class="post" src = "http://localhost/SOEN341/src/pages/GenericRessources/Blu_logo_square.png" alt="Company Logo"
 			style="width:75px;height:75px;">
 		</div>
 		
 		<!--Sidebar Format-->
 		<div id = "container_sideL">
-			<img class="post" src = "Blu.png" alt="Company Logo"
+			<img class="post" src = "http://localhost/SOEN341/src/pages/GenericRessources/Blu.png" alt="Company Logo"
 			style="width:112.5px;height:45px;">
 			<p>Welcome to Blu</p>
 			<ul>
-				<li><a href="HomepageBase.php">Home</li>
-				<li><a href="SettingsPage.php">Settings</a></li>
+				<li><a href="http://localhost/SOEN341/src/pages/HomePage/HomepageBase.php">Home</li>
+				<li><a href="http://localhost/SOEN341/src/pages/SettingsPage/SettingsPage.php">Settings</a></li>
 				<li><a href="http://localhost/SOEN341/src/pages/LoginPage/loginPage.php">Logout</a></li>
 			</ul>
 		</div>
