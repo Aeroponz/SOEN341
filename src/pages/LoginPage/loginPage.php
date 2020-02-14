@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php require_once('../db/DBConfig.php'); ?>
+<?php require_once('C:/xampp/htdocs/SOEN341/src/db/DBConfig.php'); ?>
 <html lang = "en">
 	<head>
 		<meta charset = "utf-8">
@@ -9,7 +9,7 @@
 	<body>
 		<center>
 		<div class = "backgroundColor">
-			<img src = "Blu.png" class = "logoLogin">
+			<img src = "http://localhost/SOEN341/src/pages/GenericRessources/Blu.png" class = "logoLogin">
 		
 			<?php session_start();?>
 			<br><br><br>
@@ -18,8 +18,8 @@
 				<input type = "password" name = "password" placeholder = "Password" class = "creds"/><br><br>
 				<input type = "Submit" name = "submit" value = "Log In"  class = "button"/><br><br>
 				<label id = "password" class = "message"></label><br><br><br>
-				<a href = "resetPassword.php">Forgot password?</a>
-				<p><b>Don't have an account? <a class = "signUp" href = "signUp.php"> Sign up </a></b></p>	
+				<a href = "http://localhost/SOEN341/src/pages/ResetPasswordPage/resetPassword.php">Forgot password?</a>
+				<p><b>Don't have an account? <a class = "signUp" href = "http://localhost/SOEN341/src/pages/SignUpPage/signUp.php"> Sign up </a></b></p>	
 		</div>
 		</center>
 
@@ -42,7 +42,7 @@
 						$validUsername = true;
 						if($row["pass"] == $_POST['password']) {
 							$_SESSION['userID'] = $row["u_id"];
-							header("Location: HomepageBase.php");
+							header("Location: http://localhost/SOEN341/src/pages/HomePage/HomepageBase.php");
 							break;
 						}
 						else {
@@ -69,4 +69,3 @@
 		?>
 	</body>
 </html>
-
