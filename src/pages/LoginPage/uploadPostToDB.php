@@ -1,5 +1,5 @@
 <?php 
-require_once('../db/DBConfig.php'); 
+require_once('../../db/DBConfig.php'); 
 session_start();
 ?>
 
@@ -16,7 +16,7 @@ session_start();
 	
 	$u_id = $loggenOnUser; 
 	
-	$redirect_path = 'HomepageBase.php';
+	$redirect_path = '../HomePage/HomepageBase.php';
 	
 	//Declare variables
 	$dbconn = null;

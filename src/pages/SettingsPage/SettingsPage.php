@@ -21,9 +21,9 @@
 			style="width:112.5px;height:45px;">
 			<p>Welcome to Blu</p>
 			<ul>
-				<li><a href="http://localhost/SOEN341/src/pages/HomePage/HomepageBase.php">Home</li>
-				<li><a href="http://localhost/SOEN341/src/pages/SettingsPage/SettingsPage.php">Settings</a></li>
-				<li><a href="http://localhost/SOEN341/src/pages/LoginPage/loginPage.php">Logout</a></li>
+				<li><a href="../HomePage/HomepageBase.php">Home</li>
+				<li><a href="../SettingsPage/SettingsPage.php">Settings</a></li>
+				<li><a href="../LoginPage/loginPage.php">Logout</a></li>
 			</ul>
 		</div>
 		
