@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php require_once('http://localhost/Blu/db/DBConfig.php'); ?>
+<?php require_once('../../db/DBConfig.php'); ?>
 <html lang = "en">
 	<head>
 		<meta charset = "utf-8">

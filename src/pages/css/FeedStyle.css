@@ -1,0 +1,169 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: content-box;
+    font-family: "Calibri";
+}
+
+body{
+
+    background-color: #F5F8FA;
+}
+
+.FeedPage
+{
+    display: grid;
+    background-color: #F5F8FA;
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 1fr 716px 1fr;
+    grid-template-areas:
+    "header header header"
+    ". main .";
+    grid-row-gap: 25px;
+}
+
+.BluHeader
+{
+    grid-area: header;
+    background-color: #0066cc;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+    "LeftSide Middle RightSide";
+    padding: 10px;
+}
+
+#SearchTextField{
+	display: inline-block;
+	height: 100%;
+	width: 100%;
+}
+
+.header-LeftSide
+{
+    grid-area: LeftSide;
+}
+.header-SearchBar
+{
+    grid-area: Middle;
+}
+.header-RightSide
+{
+    grid-area: RightSide;
+    display: grid;
+    grid-template-columns: 1fr 210px;
+    grid-template-areas:
+    "divider AccountHyperlinks";
+}
+
+.Icons{
+
+}
+
+.divider
+{
+    grid-area: divider
+}
+.AccountHyperlinks
+{
+    grid-area: AccountHyperlinks;
+}
+
+.Main
+{
+    grid-area: main;
+    background-color: #F5F8FA;
+    display:grid;
+    grid-template-columns: 1fr 500px 191px 1fr;
+    grid-template-areas:
+    ". Posts Sidebar .";
+    grid-column-gap: 25px;
+}
+
+.Posts
+{
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    grid-area: Posts;
+    display: grid;
+    grid-template-rows: 45px 1fr 80px;
+    grid-template-areas:
+    "PostInfo"
+    "PostContent"
+    "PostBottom";
+}
+
+.PostInfo
+{
+    grid-area: PostInfo;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 45px 1fr;
+    grid-template-areas:
+    "Avatar Username"
+    "Avatar TimeOfPost";
+}
+
+.Avatar{
+    grid-area: Avatar;
+    padding: 10px;
+}
+.Username{
+    grid-area: Username;
+    line-height: 33px;
+    height: 27px;
+}
+.TimeOfPost
+{
+    grid-area: TimeOfPost;
+    line-height: 5px;
+    height: 5px;
+}
+
+.PostContent
+{
+    grid-area: PostContent;
+}
+
+.PostBottom
+{
+    grid-area: PostBottom;
+    display:grid;
+
+}
+
+button{
+    border-radius: 5px;
+}
+
+.Sidebar
+{
+    border-radius: 5px;
+    grid-area: Sidebar;
+    background-color: #FFFFFF;
+
+}
+
+.IconRectify{
+    position: relative; 
+    top: -7px;
+}
+
+.SearchBar{
+    position: relative; 
+    top: 6px;
+    width: 90%; 
+    height: 25px; 
+    box-sizing: border-box; 
+    border-radius: 5px;
+}
+
+.SearchBarButtons{
+    position: relative; 
+    top: 10px;
+}
+
+.RightBarButtons{
+    position: relative; 
+    top: -7px;
+}
