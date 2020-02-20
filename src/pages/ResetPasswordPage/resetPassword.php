@@ -3,7 +3,7 @@
 <html lang = "en">
 	<head>
 		<meta charset = "utf-8">
-		<title>Home</title>
+		<title>Reset Password</title>
 		<link rel = "stylesheet" type = "text/css" href = "resetPasswordStyle.css"/>
 	</head>
 	<body>
@@ -33,14 +33,13 @@
 			$dbconnection = null;
 			$validEmail = true;
 			$_SESSION['userID'] = "";
+			$_SESSION['email'] = "";
 			while($row = $result->fetch_assoc()){ 	//fetches values of results and stores in array $row 
 				if($row["email"] == $_POST['email']) {
 					$validEmail = true;
 					$_SESSION['userID'] = $row["u_id"];
-					$msg = "test";
-					$email = "alya_naseer@outlook.com";//$row['email'];
-					ini_set();
-					mail($email, "Test", $msg);
+					$_SESSION['email'] = $row["email"];
+					require_once('MailTrap/PhpMailer.php');
 					echo "<script type = \"text/JavaScript\"> 
 					document.getElementById('message').innerHTML = \"An email has been sent with a link to reset your password. <br>Please make sure to check your spam folder\";</script>";
 					break;

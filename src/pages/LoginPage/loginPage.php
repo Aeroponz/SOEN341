@@ -42,7 +42,7 @@
 						$validUsername = true;
 						if($row["pass"] == $_POST['password']) {
 							$_SESSION['userID'] = $row["u_id"];
-							header("Location: http://localhost/SOEN341/src/pages/HomePage/HomepageBase.php");
+							header("Location: ../HomePage/HomepageBase.php");
 							break;
 						}
 						else {

@@ -67,7 +67,7 @@
 					$sql3 = "INSERT INTO users(u_id, name, pass) VALUES ('$result3', '$username', '$password')";
 					$result4 = $dbconnection->query($sql3);
 					$dbconnection = null;
-					$_SESSION['message'] = "Don't lose access to your account. Add a recovery email address.";
+					$_SESSION['message'] = "Add a recovery email address to your account";
 					header("Location: ../HomePage/HomepageBase.php");
 				}
 				else if($availableUsername == false)
