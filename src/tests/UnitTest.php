@@ -3,8 +3,7 @@ declare(strict_types=1);
 include 'TestFunction.php';
 
 //Login Page
-include '../pages/LoginPage/followToDB.php';
-include '../pages/LoginPage/followToDB.php';
+include '../pages/LoginPage/uploadPostToDB.php';
 
 use PHPUnit\Framework\TestCase;
 
