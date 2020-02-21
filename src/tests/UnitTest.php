@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 //$path = getenv('TRAVIS_BUILD_DIR')."/src/pages/LoginPage/uploadPostToDB.php";
 include 'TestFunction.php';
-include 'uploadPostToDB.php';
+//include $path;
 
 //Login Page
-//include "../pages/LoginPage/uploadPostToDB.php";
+include "../pages/LoginPage/uploadPostToDB.php";
 
 use PHPUnit\Framework\TestCase;
 
