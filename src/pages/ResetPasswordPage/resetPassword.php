@@ -15,7 +15,7 @@
 			<?php session_start();?>
 			<form action = "resetPassword.php" method = "post">
 				<input type = "email" name = "email" placeholder = "Email Address" class = "creds"/><br><br>
-				<input type = "Submit" name = "submit" value = "Email code"  class = "button"/><br><br>
+				<input type = "Submit" name = "submit" value = "Email link"  class = "button"/><br><br>
 				<label id = "message" class = "message"></label><br><br><br>
 		</div>
 		</center>

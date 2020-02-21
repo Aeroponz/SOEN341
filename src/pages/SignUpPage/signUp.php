@@ -3,7 +3,7 @@
 <html lang = "en">
 	<head>
 		<meta charset = "utf-8">
-		<title>Login</title>
+		<title>Sign Up</title>
 		<link rel = "stylesheet" type = "text/css" href = "signUpPageStyle.css"/>
 	</head>
 	<body>
