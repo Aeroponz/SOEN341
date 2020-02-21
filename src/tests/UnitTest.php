@@ -1,6 +1,10 @@
 <?php
 declare(strict_types=1);
+
+$path = getenv('TRAVIS_BUILD_DIR');
+$path += '/pages/LoginPage/uploadPostToDB.php';
 include 'TestFunction.php';
+include $path;
 
 //Login Page
 //include '../pages/LoginPage/uploadPostToDB.php';
