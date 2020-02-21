@@ -1,5 +1,3 @@
 language: php
-
-os: windows
   
 script: phpunit $TRAVIS_BUILD_DIR/src/tests/UnitTest.php
