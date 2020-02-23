@@ -3,7 +3,7 @@
 <html lang = "en">
 	<head>
 		<meta charset = "utf-8">
-		<title>Login</title>
+		<title>Sign Up</title>
 		<link rel = "stylesheet" type = "text/css" href = "signUpPageStyle.css"/>
 	</head>
 	<body>
@@ -57,15 +57,17 @@
 				if($availableUsername == true && $_POST['password'] == $_POST['passwordConfirm']){
 					$username = $_POST['username'];
 					$password = $_POST['password'];
-					$sql2 = "SELECT u_id FROM users ORDER BY u_id DESC LIMIT 1";
+					$lastUserID = "SELECT u_id FROM users ORDER BY u_id DESC LIMIT 1";
 					$dbconnection = Database::getConnection();
-					$result2 = $dbconnection->query($sql2);
+					$result2 = $dbconnection->query($lastUserID);
 					$valueID = $result2->fetch_assoc();
 					$valueID['u_id'] += 1;
-					$result3 = $valueID['u_id'];
-					$_SESSION['userID'] = $result3;
-					$sql3 = "INSERT INTO users(u_id, name, pass) VALUES ('$result3', '$username', '$password')";
-					$result4 = $dbconnection->query($sql3);
+					$userIDValue = $valueID['u_id'];
+					$_SESSION['userID'] = $userIDValue;
+					$sql3 = "INSERT INTO users(u_id, name, pass) VALUES ('$userIDValue', '$username', '$password')";
+					$result3 = $dbconnection->query($sql3);
+					$sql4 = "INSERT INTO user_profile(u_id) VALUES ('$userIDValue')";
+					$result4 = $dbconnection->query($sql4);
 					$dbconnection = null;
 					$_SESSION['message'] = "Add a recovery email address to your account";
 					header("Location: ../HomePage/HomepageBase.php");
