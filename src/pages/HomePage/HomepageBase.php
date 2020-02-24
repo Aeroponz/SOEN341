@@ -23,8 +23,12 @@
                     </a>
                 </div>
                 <div class="PostContent">
+					<!-- get real p_id later-->
+					<?php $p_id = 47 ?> 
                     <figure>
-                        <img src="../GenericResources/Post_Frame/215536_space-wallpaper-hd.jpg" width="500" height="375">
+						<a href="../viewPostPage/viewPost.php?id= <?php echo $p_id; ?>">
+							<img src="../GenericResources/Post_Frame/215536_space-wallpaper-hd.jpg" width="500" height="375">
+						</a>
                         <p>#Space</p>
                     </figure>
                 </div>
