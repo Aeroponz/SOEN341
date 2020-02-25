@@ -9,6 +9,14 @@
 	<body>
 		<center><div class = "backgroundColor">
 			<img src = "../GenericResources/Blu.png" class = "logo">
+			
+			<?php
+				//Outputs a custom message depending if user was redirected to this page.
+				if(isset($_GET["source"])) {
+					if($_GET["source"] == 'post') echo "<p style = \"color:red;\"> You must have an account to create posts.</p>";
+				}				
+			?>
+			
 			<p>Sign up to view photos and videos<br>from your friends and family</p>
 			<?php session_start();?>
 			<form action = "signUp.php" method = "post">

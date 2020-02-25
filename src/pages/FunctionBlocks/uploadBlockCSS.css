@@ -1,0 +1,36 @@
+body {
+	margin: 0; 
+	background-color: #F5F8FA; 
+	font-family: "Calibri"
+}
+
+.upload_block {
+	font: Calibri;
+	display: block;
+	margin: 0 auto;
+	width: 75%;
+	height: 25%;
+	
+	word-wrap: break-word;
+	padding: 10px 25px;
+	border: 2px solid #E1E8ED;
+	border-radius: 50px 20px;
+	
+	background-color = #FFFFFF;
+}
+
+.upload_warning {
+	font: Calibri;
+	margin: auto 5%;
+	word-wrap: break-word;
+	
+	padding: 5px 25px;
+	border: 2px solid #FF0000;
+	border-radius: 50px 20px;
+	
+	color: #FF0000;
+	background-color: #FFCCCC;
+}
+
+#submitbutton { background-color: #1DA1F2; color: white; border: none; height: 40px; width: 312px;}
+#submitbutton:hover {background-color: #36b0d9}
