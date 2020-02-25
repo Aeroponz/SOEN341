@@ -5,6 +5,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width-device-width, initial-scale=1"/>
 		<title>Blu - Create a Post</title>
+		<link rel="stylesheet" type="text/css" href="/SOEN341/src/pages/CreatePostPage/CreatePostPageCSS.css">
 		<link rel="stylesheet" type="text/css" href="/SOEN341/src/pages/FunctionBlocks/uploadBlockCSS.css">
 	
 	</head>
