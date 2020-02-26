@@ -63,7 +63,7 @@
                         <img src="../GenericResources/Sidebar/home-icon.png">
                         <span>Home</span>
                         <br>
-                    </a>
+                    </a>			
                     <br>
                     <a href="../PopularFeedPage/PopularFeedPage.php">
                         <img src="../GenericResources/Sidebar/top-icon%20no%20flag.png">

@@ -1,21 +1,9 @@
 <?php 
 require_once('../db/DBConfig.php'); 
-	//Author: Pierre-Alexis Barras <Pyxsys>
+//Author: Pierre-Alexis Barras <Pyxsys>
 	
-	//TODO: Update to session values when available
-	$u_id = 1; 
-	$redirect_path = './dbPHPexample.php';
-	
-	//Declare variables
-	$dbconn = null;
-	$sql = null;
-	$name = null;
-	$text = null;
-	$upload_type = 0;  
-	
-	//Functions
+//Functions
 	//Generates a random string
-	$permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	function generate_string($input, $strength = 16) {
 		$input_length = strlen($input);
 		$random_string = '';
@@ -27,68 +15,126 @@ require_once('../db/DBConfig.php');
 		return $random_string;
 	}
 	
-	//[$upload_type key]
-	//-2 -> bad file size/type
-	//-1 -> error in uploading: failure
-	//0 -> no data: failure
-	//1 -> text only
-	//2 -> image only
-	//3 -> image + text
-	
-	if( isset($_POST["postText"]) & $_POST["postText"] != ''){$upload_type += 1; $text = $_POST["postText"];} //text is set
-	if($_FILES["postImage"]["error"] == 0){ //file uploaded succesfully		
-		//Is file 12 bytes or larger and an image?
-		if( preg_match('/^image\b/',$_FILES["postImage"]["type"]) && filesize($_FILES["postImage"]["tmp_name"]) > 11 ){
-			if(exif_imagetype($_FILES["postImage"]["tmp_name"]) > 0 ) $upload_type += 2; 
+	//get u_id from session.
+	function fetch_user() {
+		
+		if (isset($_SESSION["userID"])) {
+			$loggenOnUser = $_SESSION["userID"];
+			echo "Found User: ", $loggenOnUser, "<br />";
+		}else {
+			 $loggenOnUser = -1;
 		}
-		else {$upload_type = -2;}
-	} 
+		return $loggenOnUser + 0; //ensures a numerical value is returned	
+	}
 	
-	//If there is an image uploaded
-	if($upload_type >= 2){
-		
-		$fileType = explode("/",strtolower($_FILES["postImage"]["type"]));	//[1] will be file extension
-		$dbconn = Database::getConnection();
-		
-		//generates a unique file name
-		do{
-			$name = "images/".generate_string($permitted_chars, 16).".".$fileType[1];
-			$result = $dbconn->query("SELECT img_path FROM posts WHERE img_path = '$name';");
-		}while($result->num_rows > 0);
+	//returns 'y' or 'n' for if there is a #hashtag found in the text.
+	function check_for_hashtag($text){
+		if(preg_match('/\#[a-zA-Z0-9]+/', $text)) return 'y';
+		else return 'n';
+	}
+	
+	/*records posted information to DB
+		//Error Exit Codes//
+			-3 -> no user
+			-2 -> bad file size/type
+			-1 -> error in uploading: failure
+			0 -> no data: failure
+	*/
+	function add_post_to_db(){
+	
+		//Declare variables
+		$u_id = null;
 		$dbconn = null;
+		$sql = null;
+		$name = null;
+		$text = null;
+		$upload_type = 0; 
 	
-		//upload picture into image directory
-		if( move_uploaded_file($_FILES["postImage"]["tmp_name"], realpath(dirname(getcwd()))."/db/".$name) ){ 
-			echo "success: file uploaded </br>"; 
-			if($upload_type == 2){ $sql = "INSERT INTO posts (u_id, img_path) VALUES($u_id, '$name')"; }
-			if($upload_type == 3){ $sql = "INSERT INTO posts (u_id, img_path, txt_content) VALUES($u_id, '$name', '$text')"; }
+			/*
+			upload_type key
+				0 -> nothing submitted
+				1 -> text only
+				2 -> image only
+				3 -> image + text
+			*/
+		
+		//Get user
+		$u_id = fetch_user();
+		//if($u_id == -1){return -3;}
+	
+		if( isset($_POST["postText"]) & $_POST["postText"] != ''){$upload_type += 1; $text = $_POST["postText"];} //text is set
+		if($_FILES["postImage"]["error"] == 0){ //file uploaded succesfully		
+			//Is file 12 bytes or larger and an image?
+			if( preg_match('/^image\b/',$_FILES["postImage"]["type"]) && filesize($_FILES["postImage"]["tmp_name"]) > 11 ){
+				if(exif_imagetype($_FILES["postImage"]["tmp_name"]) > 0 ) $upload_type += 2; 
+			}
+			else {return -2;}
+		} 
+		
+		//If there is an image uploaded
+		if($upload_type >= 2){
+			
+			$fileType = explode("/",strtolower($_FILES["postImage"]["type"]));	//[1] will be file extension
+			$dbconn = Database::getConnection();
+		
+			//generates a unique file name
+			$permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+			do{
+				$name = "images/".generate_string($permitted_chars, 16).".".$fileType[1];
+				$result = $dbconn->query("SELECT img_path FROM posts WHERE img_path = '$name';");
+			}while($result->num_rows > 0);
+			$dbconn = null;
+		
+			//upload picture into image directory
+			if( move_uploaded_file($_FILES["postImage"]["tmp_name"], realpath(dirname(getcwd()))."/db/".$name) ){ 
+				echo "success: file uploaded </br>"; 
+				if($upload_type == 2){ $sql = "INSERT INTO posts (u_id, img_path) VALUES('$u_id', '$name')"; }
+				if($upload_type == 3){ 
+					$discover = check_for_hashtag($text);
+					$sql = "INSERT INTO posts (u_id, img_path, txt_content, discoverable) VALUES($u_id, '$name', '$text', '$discover')"; 
+				}
+			}
+			else { 
+				echo "fail: file not uploaded </br>";
+				return -1;
+			}
 		}
-		else { 
-			echo "fail: file not uploaded </br>";
-			$upload_type = -1;
+		
+		//If only text was submitted
+		if($upload_type == 1) { 
+			$discover = check_for_hashtag($text);
+			$sql = "INSERT INTO posts (u_id, txt_content, discoverable) VALUES($u_id, '$text','$discover')";
 		}
+		
+		//Insert post into database
+		if($upload_type > 0){
+			$dbconn = Database::getConnection();
+			$dbconn->query($sql);
+			$dbconn = null;		
+		}
+		
+		//debug
+			echo "TYPE: ". $upload_type ."<br>";
+			echo "QUERY: ". $sql ."<br>";
+			echo "TEXT DATA: ".$text."<br>";
+			echo "FILE DATA:" ."<br>";
+			echo "<pre>";
+			print_r($_FILES);
+			echo realpath(dirname(getcwd()))."/db/" . $name;
+			echo"</pre>";
+		
+		return $upload_type;
 	}
 	
-	//If only text was submitted
-	if($upload_type == 1) { $sql = "INSERT INTO posts (u_id, txt_content) VALUES($u_id, '$text')";}
-	
-	//Insert post into database
-	if($upload_type > 0){
-		$dbconn = Database::getConnection();
-		$dbconn->query($sql);
-		$dbconn = null;		
+	//script
+	$output = add_post_to_db();
+	echo fetch_user();
+	echo $output;
+	switch($output){
+		/*no user*/		 case(-3): $reason = 'post'; $redirect_path = "/SOEN341/src/pages/SignUpPage/signUP.php?source=$reason"; break;
+		/*no post info*/ case(0): $reason = 'empty'; $redirect_path = "/SOEN341/src/pages/CreatePostPage/createPostPage.php?source=$reason"; break;
+		/*post success*/ default: $redirect_path = '/SOEN341/src/pages/HomePage/HomepageBase.php'; break;
 	}
-	
-	//debug
-		echo $upload_type ."<br>";
-		echo $sql ."<br>";
-		echo "text data: ".$text."<br>";
-		echo "file data:" ."<br>";
-		echo "<pre>";
-		print_r($_FILES);
-		echo realpath(dirname(getcwd()))."/db/" . $name;
-		echo"</pre>";
-	
-	//redirects user to another page (Ideally where the post is viewable.)
-	header('Location: '.$uri. $redirect_path);
+		//redirects user to another page (Ideally where the post is viewable.)
+		header('Location: '.$uri. $redirect_path);
 ?>
