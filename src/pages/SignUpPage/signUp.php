@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<?php require_once('../../db/DBConfig.php'); ?>
+<?php require_once('../../db/DBConfig.php'); 
+	  require('../FunctionBlocks/checkUsernameAndPassword.php');
+?>	
 <html lang = "en">
 	<head>
 		<meta charset = "utf-8">
@@ -9,6 +11,14 @@
 	<body>
 		<center><div class = "backgroundColor">
 			<img src = "../GenericResources/Blu.png" class = "logo">
+		
+			<?php
+				//Outputs a custom message depending if user was redirected to this page.
+				if(isset($_GET["source"])) {
+					if($_GET["source"] == 'post') echo "<p style = \"color:red;\"> You must have an account to create posts.</p>";
+				}				
+			?>
+			
 			<p>Sign up to view photos and videos<br>from your friends and family</p>
 			<?php session_start();?>
 			<form action = "signUp.php" method = "post">
@@ -44,7 +54,8 @@
 			$dbconnection = null;
 			$availableUsername = true;
 			$_SESSION['userID'] = "";
-			if(!(preg_match("/[^\w\.\-]/", $_POST['username'])) && preg_match("/^(?=.*\d)(?=.*[A-Za-z])(?=.*[_\W]).{6,}$/",$_POST['password'])) {
+			//if(!(preg_match("/[^\w\.\-]/", $_POST['username'])) && preg_match("/^(?=.*\d)(?=.*[A-Za-z])(?=.*[_\W]).{6,}$/",$_POST['password'])) {
+			if(checkUsername($_POST['username']) && checkPassword($_POST['password'])){
 				while($row = $result->fetch_assoc()){ 	//fetches values of results and stores in array $row 
 					if($row["name"] != $_POST['username'])
 							$availableUsername = true;
@@ -57,15 +68,17 @@
 				if($availableUsername == true && $_POST['password'] == $_POST['passwordConfirm']){
 					$username = $_POST['username'];
 					$password = $_POST['password'];
-					$sql2 = "SELECT u_id FROM users ORDER BY u_id DESC LIMIT 1";
+					$lastUserID = "SELECT u_id FROM users ORDER BY u_id DESC LIMIT 1";
 					$dbconnection = Database::getConnection();
-					$result2 = $dbconnection->query($sql2);
+					$result2 = $dbconnection->query($lastUserID);
 					$valueID = $result2->fetch_assoc();
 					$valueID['u_id'] += 1;
-					$result3 = $valueID['u_id'];
-					$_SESSION['userID'] = $result3;
-					$sql3 = "INSERT INTO users(u_id, name, pass) VALUES ('$result3', '$username', '$password')";
-					$result4 = $dbconnection->query($sql3);
+					$userIDValue = $valueID['u_id'];
+					$_SESSION['userID'] = $userIDValue;
+					$sql3 = "INSERT INTO users(u_id, name, pass) VALUES ('$userIDValue', '$username', '$password')";
+					$result3 = $dbconnection->query($sql3);
+					$sql4 = "INSERT INTO user_profile(u_id) VALUES ('$userIDValue')";
+					$result4 = $dbconnection->query($sql4);
 					$dbconnection = null;
 					$_SESSION['message'] = "Add a recovery email address to your account";
 					header("Location: ../HomePage/HomepageBase.php");

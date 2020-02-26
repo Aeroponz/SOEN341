@@ -26,7 +26,6 @@ Project description and key features
 
 ## Tools and Technologies
 - Languages:
-  - Java
   - PHP
   - HTML
   - CSS
@@ -34,5 +33,5 @@ Project description and key features
   - Javascript
 - Technology:
   - Photoshop
-  - MySQl
+  - MySQL
   - Apache web server

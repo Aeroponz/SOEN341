@@ -21,9 +21,9 @@
 			style="width:112.5px;height:45px;">
 			<p>Welcome to Blu</p>
 			<ul>
-				<li><a href="HomepageBase.php">Home</li>
-				<li><a href="SettingsPage.php">Settings</a></li>
-				<li><a href="loginPage.php">Logout</a></li>
+				<li><a href="../HomePage/HomepageBase.php">Home</li>
+				<li><a href="../SettingsPage/SettingsPage.php">Settings</a></li>
+				<li><a href="../LoginPage/loginPage.php">Logout</a></li>
 			</ul>
 		</div>
 		

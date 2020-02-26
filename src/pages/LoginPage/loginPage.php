@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<?php require_once('../../db/DBConfig.php'); ?>
+<?php require_once('../../db/DBConfig.php');
+	  require('../FunctionBlocks/checkUsernameAndPassword.php');
+?>
 <html lang = "en">
 	<head>
 		<meta charset = "utf-8">
@@ -36,7 +38,8 @@
 			$dbconnection = null;
 			$validUsername = true;
 			$_SESSION['userID'] = "";
-			if(!(preg_match("/[^\w\.\-]/", $_POST['username'])) && preg_match("/^(?=.*\d)(?=.*[A-Za-z])(?=.*[_\W]).{6,}$/",$_POST['password'])) {
+			//if(!(preg_match("/[^\w\.\-]/", $_POST['username'])) && preg_match("/^(?=.*\d)(?=.*[A-Za-z])(?=.*[_\W]).{6,}$/",$_POST['password'])) {
+			if(checkUsername($_POST['username']) && checkPassword($_POST['password'])){
 				while($row = $result->fetch_assoc()){ 	//fetches values of results and stores in array $row 
 					if($row["name"] == $_POST['username']) {
 						$validUsername = true;
@@ -69,4 +72,3 @@
 		?>
 	</body>
 </html>
-

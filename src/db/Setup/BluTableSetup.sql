@@ -31,7 +31,7 @@ CREATE TABLE posts(
 	txt_content TEXT,
 	upvote INT DEFAUlT 0 CHECK (upvote > -1),
 	downvote INT DEFAULT 0 CHECK (downvote > -1),
-	discorverable CHAR(1) NOT NULL DEFAULT 'n',
+	discoverable CHAR(1) NOT NULL DEFAULT 'n',
 	posted_on DATETIME DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (p_id),
 	FOREIGN KEY (u_id) REFERENCES users(u_id)

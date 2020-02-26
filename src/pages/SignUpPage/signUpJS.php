@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php require_once('C:/xampp/htdocs/Blu/db/DBConfig.php'); ?>
+<?php require_once('../../db/DBConfig.php'); ?>
 <html lang = "en">
 	<head>
 		<meta charset = "utf-8">
@@ -8,7 +8,15 @@
 	</head>
 	<body>
 		<center><div class = "backgroundColor">
-			<img src = "Blu.png" class = "logo">
+			<img src = "../GenericResources/Blu.png" class = "logo">
+			
+			<?php
+				//Outputs a custom message depending if user was redirected to this page.
+				if(isset($_GET["source"])) {
+					if($_GET["source"] == 'post') echo "<p style = \"color:red;\"> You must have an account to create posts.</p>";
+				}				
+			?>
+			
 			<p>Sign up to view photos and videos<br>from your friends and family</p>
 			<?php session_start();?>
 			<form action = "signUp.php" method = "post">
@@ -27,7 +35,7 @@
 						<li>One special character</li>
 					</ul>
 				</div><br>
-				<label><b>Have an account? <a class = "signUp" href = "loginPage.php"> Sign in </a></label></b>		
+				<label><b>Have an account? <a class = "signUp" href = "../LoginPage/loginPage.php"> Sign in </a></label></b>		
 		</div></center>
 
 
@@ -66,10 +74,10 @@
 				}
 				if($availableUsername == true && $_POST['password'] == $_POST['passwordConfirm']){
 					$info = "\n".$_POST['username'].":".$_POST['password'];
-					$write = file_put_contents("loginFile.txt", $info, FILE_APPEND | LOCK_EX);
+					$write = file_put_contents("../LoginPage/loginFile.txt", $info, FILE_APPEND | LOCK_EX);
 					fclose($file);
 					$_SESSION['user'] = $_POST['username'];
-					header("Location: HomepageBase.html");
+					header("Location: ../HomePage/HomepageBase.html");
 				}
 				else if($availableUsername == false)
 					echo "<script type = \"text/JavaScript\">
