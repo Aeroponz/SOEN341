@@ -1,3 +1,6 @@
 language: php
+
+services:
+  - mysql
   
 script: phpunit $TRAVIS_BUILD_DIR/src/tests/UnitTest.php
