@@ -40,5 +40,19 @@ class Database{
 	public static function getRoot() {
 		return self::$filepath;
 	}
+	
+	//safely opens then closes the DB for a single query
+	public static function safeQuery($sql){
+		$dbconn = Database::getConnection();
+		$result = $dbconn->query($sql);
+		$dbconn = null;
+		return $result;
+	}
+	
+	//performs the query on the specified DB connection
+	public static function query($sql,$conn){
+		$result = $conn->query($sql);
+		return $result;
+	}
 }
 ?>

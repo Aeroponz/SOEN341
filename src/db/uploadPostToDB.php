@@ -60,7 +60,7 @@ require_once('../db/DBConfig.php');
 		
 		//Get user
 		$u_id = fetch_user();
-		//if($u_id == -1){return -3;}
+		if($u_id == -1){return -3;}
 	
 		if( isset($_POST["postText"]) & $_POST["postText"] != ''){$upload_type += 1; $text = $_POST["postText"];} //text is set
 		if($_FILES["postImage"]["error"] == 0){ //file uploaded succesfully		
@@ -81,7 +81,8 @@ require_once('../db/DBConfig.php');
 			$permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 			do{
 				$name = "images/".generate_string($permitted_chars, 16).".".$fileType[1];
-				$result = $dbconn->query("SELECT img_path FROM posts WHERE img_path = '$name';");
+				//$result = $dbconn->query("SELECT img_path FROM posts WHERE img_path = '$name';");
+				$result = Database::query("SELECT img_path FROM posts WHERE img_path = '$name';", $dbconn);
 			}while($result->num_rows > 0);
 			$dbconn = null;
 		
@@ -108,9 +109,10 @@ require_once('../db/DBConfig.php');
 		
 		//Insert post into database
 		if($upload_type > 0){
-			$dbconn = Database::getConnection();
-			$dbconn->query($sql);
-			$dbconn = null;		
+			//$dbconn = Database::getConnection();
+			//$dbconn->query($sql);
+			//$dbconn = null;	
+			Database::safeQuery($sql);
 		}
 		
 		//debug
@@ -126,15 +128,22 @@ require_once('../db/DBConfig.php');
 		return $upload_type;
 	}
 	
+	//returns a server path to a page
+	function get_redirect_path($value){
+		
+		switch($value){
+		/*no user*/		 case(-3): return "/SOEN341/src/pages/SignUpPage/signUP.php?source=post";
+		/*no post info*/ case(0): return "/SOEN341/src/pages/CreatePostPage/createPostPage.php?source=empty";
+		/*post success*/ default: return "/SOEN341/src/pages/HomePage/HomepageBase.php";
+		}
+		return "/SOEN341/src/pages/CreatePostPage/createPostPage.php?source=fail,value=$value";
+	}
+	
 	//script
 	$output = add_post_to_db();
 	echo fetch_user();
 	echo $output;
-	switch($output){
-		/*no user*/		 case(-3): $reason = 'post'; $redirect_path = "/SOEN341/src/pages/SignUpPage/signUP.php?source=$reason"; break;
-		/*no post info*/ case(0): $reason = 'empty'; $redirect_path = "/SOEN341/src/pages/CreatePostPage/createPostPage.php?source=$reason"; break;
-		/*post success*/ default: $redirect_path = '/SOEN341/src/pages/HomePage/HomepageBase.php'; break;
-	}
-		//redirects user to another page (Ideally where the post is viewable.)
-		header('Location: '.$uri. $redirect_path);
+
+	//redirects user to another page (Ideally where the post is viewable.)
+	header('Location: '.$uri. get_redirect_path($output));
 ?>
