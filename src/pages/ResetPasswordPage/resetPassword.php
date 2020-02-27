@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <?php require_once('../../db/DBConfig.php'); 
-	require('../FunctionBlocks/CheckingDBFunction.php'); 
 ?>
 <html lang = "en">
 	<head>
@@ -24,8 +23,7 @@
 		
 		<?php if ($_POST) {
 			if(isset($_POST['submit'])){
-				$result = checkingDB("SELECT u_id, email FROM users");
-				$dbconnection = null;
+				$result = safeQuery("SELECT u_id, email FROM users");
 				$validEmail = true;
 				$_SESSION['userID'] = "";
 				$_SESSION['email'] = "";

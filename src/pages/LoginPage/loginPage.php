@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <?php require_once('../../db/DBConfig.php');
 	  require('../FunctionBlocks/checkUsernameAndPassword.php');
-	  require('../FunctionBlocks/CheckingDBFunction.php'); 
 ?>
 <html lang = "en">
 	<head>
@@ -28,8 +27,7 @@
 
 		<?php if ($_POST) {
 			if(isset($_POST['submit'])){
-				$result = checkingDB("SELECT u_id, name, pass FROM users");
-				$dbconnection = null;
+				$result = safeQuery("SELECT u_id, name, pass FROM users");
 				$validUsername = true;
 				$_SESSION['userID'] = "";
 				if(checkUsername($_POST['username']) && checkPassword($_POST['password'])){
