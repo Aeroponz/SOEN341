@@ -36,14 +36,11 @@
 		}
 		
 		function checkingPassword(){
-			if(preg_match("/^(?=.*\d)(?=.*[A-Za-z])(?=.*[_\W]).{6,}$/",$_POST['password'])) {
+			if(checkPassword($_POST['password'])) {
 				if($_POST['password'] == $_POST['passwordConfirm']){
 					$password = $_POST['password'];
 					$user = $_SESSION['userID'];
-					$sql = "UPDATE users SET pass = '$password' WHERE u_id = '$user'";
-					$dbconnection = Database::getConnection();
-					$result = $dbconnection->query($sql);
-					$dbconnection = null;
+					$safeQuery("UPDATE users SET pass = '$password' WHERE u_id = '$user'");
 					header("Location: ../HomePage/HomepageBase.php");
 				}
 				else
