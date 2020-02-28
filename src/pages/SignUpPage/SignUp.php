@@ -12,21 +12,21 @@ class SignUp
     {
         //PHP doesn't allow multiple constructors...
     }
-
+    //Default Constructor to be used when creating a new user
     function withPost()
     {
         $this->mUsername = $_POST['username'];
         $this->mPassword = $_POST['password'];
         $this->mPasswordConfirm = $_POST['passwordConfirm'];
     }
-
+    //Constructor used by TravisCI
     function withInput($iUsername, $iPassword, $iPasswordConfirm)
     {
         $this->mUsername = $iUsername;
         $this->mPassword = $iPassword;
         $this->mPasswordConfirm = $iPasswordConfirm;
     }
-
+    //This function checks the validity of the different signup parameters. If valid it calls the NewUserToDb function
     function SignUpUser()
     {
         if (functions\CheckFormat::checkUsername($this->mUsername) && functions\CheckFormat::checkPassword($this->mPassword))
@@ -53,7 +53,7 @@ class SignUp
         $this->mUserId = $this->NewUserToDb($this->mUsername, $this->mPassword);
         return $this->mUserId;
     }
-
+    //Add the new user to the database
     function NewUserToDb($iUsername, $iPassword)
     {
 
@@ -67,7 +67,7 @@ class SignUp
         return $userIDValue;
 
     }
-
+    //This function checks the username availability during signup
     function get_Username_Availability($iUsername)
     {
         $wDbQuery = Database::safeQuery("SELECT u_id, name, pass FROM users");
@@ -80,7 +80,7 @@ class SignUp
         }
         return $wOutput;
     }
-
+    //This function checks that the password and the confirm password fields match
     function checkPasswordMatch($iPassword, $iPassConfirm)
     {
         return $iPassword == $iPassConfirm;

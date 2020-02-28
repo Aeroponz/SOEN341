@@ -13,7 +13,8 @@ use PHPUnit\Framework\TestCase;
 use Website;
 final class SignUpTest extends TestCase
 {
-
+    //Summary
+    //This test checks the username requirements functions
     public function testCheckUsernameRequirements(): void
     {
         //Username format is valid (No invalid characters)
@@ -23,7 +24,8 @@ final class SignUpTest extends TestCase
         $this->assertFalse(Website\functions\CheckFormat::checkUsername('Il!keplane$123'));
 
     }
-
+    //Summary
+    //This test checks the password requirements functions
     public function testCheckPasswordRequirements(): void
     {
         //Password format is valid (Contains: 1 uppercase, 1 lowercase, 1 special character, 1 number)
@@ -62,8 +64,7 @@ final class SignUpTest extends TestCase
         //User Successfully Created
         $TestUser->withInput('TestUser', 'Tr4v!sCI', 'Tr4v!sCI');
         $this->assertTrue($TestUser->SignUpUser() > 0);
-        //Verify that an email address can be added to the database. This test will be run as a logged in user
-        //therefore the email should be added successfully (0).
+        //Verify that an email address can be added to the user's account.
         $this->assertEquals(0, Website\functions\UserEmail::addEmailToDB($TestUser->mUserId,'737MaxMCAS@Boeing.com'));
         //Duplicate Username
         $this->assertEquals(-2, $TestUser->SignUpUser());
