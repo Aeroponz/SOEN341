@@ -1,4 +1,4 @@
-CREATE DATABASE bludata;
+--CREATE DATABASE bludata;
 USE bludata;
 
 CREATE TABLE users (
