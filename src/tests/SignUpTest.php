@@ -7,6 +7,7 @@ $root = dirname(__FILE__, 3);
 require_once($root . '/src/db/DBConfig.php');
 require($root . '/src/pages/SignUpPage/SignUp.php');
 require($root . '/src/pages/FunctionBlocks/checkUsernameAndPassword.php');
+require($root . '/src/pages/FunctionBlocks/AddEmailToDB.php');
 
 use PHPUnit\Framework\TestCase;
 use Website;
@@ -63,6 +64,14 @@ final class SignUpTest extends TestCase
         $this->assertTrue($TestUser->SignUpUser() > 0);
         //Duplicate Username
         $this->assertEquals(-2, $TestUser->SignUpUser());
+    }
+
+    function testModalPopUp():void
+    {
+        //Verify that an email address can be added to the database. This test will be run as a logged in user
+        //therefore the email should be added successfully (0). If the email is not added (user not found) the add email
+        //functions will return 1.
+        $this->assertEquals(0, Website\functions\UserEmail::addEmailToDB('737MaxMCAS@Boeing.com'));
     }
 
 
