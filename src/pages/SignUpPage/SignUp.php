@@ -4,8 +4,6 @@
 namespace Website;
 
 
-use SqlDb\Database;
-
 class SignUp
 {
     var $mUsername, $mPassword, $mPasswordConfirm, $mUserId;
