@@ -1,14 +1,25 @@
 <!DOCTYPE html>
-<?php require_once('../../db/DBConfig.php'); ?>
+<?php require_once('../../db/DBConfig.php'); 
+	  require('../FunctionBlocks/checkUsernameAndPassword.php');
+?>	
 <html lang = "en">
 	<head>
 		<meta charset = "utf-8">
-		<title>Login</title>
+		<title>Sign Up</title>
 		<link rel = "stylesheet" type = "text/css" href = "signUpPageStyle.css"/>
+		
 	</head>
 	<body>
 		<center><div class = "backgroundColor">
 			<img src = "../GenericResources/Blu.png" class = "logo">
+		
+			<?php
+				//Outputs a custom message depending if user was redirected to this page.
+				if(isset($_GET["source"])) {
+					if($_GET["source"] == 'post') echo "<p style = \"color:red;\"> You must have an account to create posts.</p>";
+				}				
+			?>
+			
 			<p>Sign up to view photos and videos<br>from your friends and family</p>
 			<?php session_start();?>
 			<form action = "signUp.php" method = "post">
@@ -33,58 +44,47 @@
 
 		<?php if ($_POST) {
 			if(isset($_POST['submit'])){
-				checkingDB();
-			}
-		}
+				$result = Database::safeQuery("SELECT u_id, name, pass FROM users");
+				$availableUsername = true;
+				$_SESSION['userID'] = "";
+				if(checkUsername($_POST['username']) && checkPassword($_POST['password'])){
+					while($row = $result->fetch_assoc()){ 	//fetches values of results and stores in array $row 
+						if($row["name"] != $_POST['username'])
+								$availableUsername = true;
+						else {
+							$availableUsername = false;
+							break;
+						}
+					}	
 
-		function checkingDB(){
-			$sql = "SELECT u_id, name, pass FROM users";
-			$dbconnection = Database::getConnection();
-			$result = $dbconnection->query($sql);
-			$dbconnection = null;
-			$availableUsername = true;
-			$_SESSION['userID'] = "";
-			if(!(preg_match("/[^\w\.\-]/", $_POST['username'])) && preg_match("/^(?=.*\d)(?=.*[A-Za-z])(?=.*[_\W]).{6,}$/",$_POST['password'])) {
-				while($row = $result->fetch_assoc()){ 	//fetches values of results and stores in array $row 
-					if($row["name"] != $_POST['username'])
-							$availableUsername = true;
-					else {
-						$availableUsername = false;
-						break;
+					if($availableUsername == true && $_POST['password'] == $_POST['passwordConfirm']){
+						$username = $_POST['username'];
+						$password = $_POST['password'];
+						$result2 = Database::safeQuery("SELECT u_id FROM users ORDER BY u_id DESC LIMIT 1");
+						$valueID = $result2->fetch_assoc();
+						$valueID['u_id'] += 1;
+						$userIDValue = $valueID['u_id'];
+						echo $userIDValue;
+						$_SESSION['userID'] = $userIDValue;
+						$result3 = Database::safeQuery("INSERT INTO users(u_id, name, pass) VALUES ('$userIDValue', '$username', '$password')");
+						$result4 = Database::safeQuery("INSERT INTO user_profile(u_id) VALUES ('$userIDValue')");
+						header("Location: ModalPopUp.php");
 					}
-				}	
-
-				if($availableUsername == true && $_POST['password'] == $_POST['passwordConfirm']){
-					$username = $_POST['username'];
-					$password = $_POST['password'];
-					$sql2 = "SELECT u_id FROM users ORDER BY u_id DESC LIMIT 1";
-					$dbconnection = Database::getConnection();
-					$result2 = $dbconnection->query($sql2);
-					$valueID = $result2->fetch_assoc();
-					$valueID['u_id'] += 1;
-					$result3 = $valueID['u_id'];
-					$_SESSION['userID'] = $result3;
-					$sql3 = "INSERT INTO users(u_id, name, pass) VALUES ('$result3', '$username', '$password')";
-					$result4 = $dbconnection->query($sql3);
-					$dbconnection = null;
-					$_SESSION['message'] = "Add a recovery email address to your account";
-					header("Location: ../HomePage/HomepageBase.php");
+					else if($availableUsername == false)
+						echo "<script type = \"text/JavaScript\">
+								document.getElementById('password').innerHTML = \"Username already exists\";
+								</script>";
+					else
+						echo "<script type = \"text/JavaScript\">
+								document.getElementById('password').innerHTML = \"Passwords don't match\";
+								</script>";
 				}
-				else if($availableUsername == false)
-					echo "<script type = \"text/JavaScript\">
-							document.getElementById('password').innerHTML = \"Username already exists\";
-							</script>";
 				else
 					echo "<script type = \"text/JavaScript\">
-							document.getElementById('password').innerHTML = \"Passwords don't match\";
-							</script>";
+							document.getElementById('password').innerHTML = \"Your username/password does not match the required format.\";
+						</script>";
 			}
-			else
-				echo "<script type = \"text/JavaScript\">
-						document.getElementById('password').innerHTML = \"Your username/password does not match the required format.\";
-					</script>";
 		}
-		
 		?>
 	</body>
 	

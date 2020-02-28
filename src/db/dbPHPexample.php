@@ -9,7 +9,7 @@ require_once('../pages/FunctionBlocks/followBlock.php');
 	<body>
 		<!-- inserting post upload block -->
 		<?php
-			echo uploadBlock::insertForm();
+			uploadBlock::insertForm();
 		?>
 		
 		<!-- new part-->

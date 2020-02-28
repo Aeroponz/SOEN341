@@ -1,0 +1,17 @@
+1. Create a MailTrap account (https://mailtrap.io/)
+2. Follow instructions for email confirmation
+3. Once you sign in, you'll see a list of inboxes. The one we will be using is the "Demo Inbox". Click on the "Demo Inbox" link.
+4. Open the following file in our git repository: SOEN341/src/pages/ResetPasswordPage/MailTrap/PhpMailer.php
+5. Change the value of "Username" (line 19) to the Username value given on the MailTrap page under "Credentials"
+6. Change the value of "Password" (line 20) to the Password value given on the MailTrap page under "Credentials"
+7. Go to https://github.com/PHPMailer/PHPMailer and download the zip of the entire repository (master branch)
+8. Unzip the file
+9. Cut the folder and paste it in your "xampp" folder 
+10. Test that sending emails works by running resetPassword.php on your browser:
+    10.1 Start XAMPP
+    10.2 Click "Start" for the Apache and MySQL modules
+    10.3 Open your browser
+    10.4 Type the following address:
+         localhost/SOEN341/src/pages/ResetPasswordPage/resetPassword.php
+    10.5 Enter any email address in the DB in the field (dummy@email.com OR dummy2@email.com)
+    10.6 Click "Email Link". The email should appear in the Demo Inbox on MailTrap, with the correct sender and recipient email address.
