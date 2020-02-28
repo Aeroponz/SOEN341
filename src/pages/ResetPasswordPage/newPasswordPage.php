@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<?php require_once('../../db/DBConfig.php'); ?>
+<?php require_once('../../db/DBConfig.php'); 
+	  require('../FunctionBlocks/checkUsernameAndPassword.php');
+?>
 <html lang = "en">
 	<head>
 		<meta charset = "utf-8">
@@ -36,14 +38,11 @@
 		}
 		
 		function checkingPassword(){
-			if(preg_match("/^(?=.*\d)(?=.*[A-Za-z])(?=.*[_\W]).{6,}$/",$_POST['password'])) {
+			if(checkPassword($_POST['password'])) {
 				if($_POST['password'] == $_POST['passwordConfirm']){
 					$password = $_POST['password'];
 					$user = $_SESSION['userID'];
-					$sql = "UPDATE users SET pass = '$password' WHERE u_id = '$user'";
-					$dbconnection = Database::getConnection();
-					$result = $dbconnection->query($sql);
-					$dbconnection = null;
+					$result = Database::safeQuery("UPDATE users SET pass = '$password' WHERE u_id = '$user'");
 					header("Location: ../HomePage/HomepageBase.php");
 				}
 				else
