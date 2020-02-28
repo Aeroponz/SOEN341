@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-//$path = getenv('TRAVIS_BUILD_DIR')."/src/pages/LoginPage/uploadPostToDB.php";
+define(__ROOT__, getenvv('TRAVIS_BUILD_DIR'));
+require_once (__ROOT__.'/src/db/DBConfig.php');
+
 include 'TestFunction.php';
 //include $path;
 
