@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-
+namespace UnitTesting;
 $root = dirname(__FILE__, 3);
 require_once ($root.'/src/db/DBConfig.php');
 include $root.'/src/db/uploadPostToDB.php';

@@ -1,9 +1,10 @@
-<!DOCTYPE html>
 <?php
+namespace Website\SignUp;
 $root = dirname(__FILE__, 4);
 require_once($root . '/src/db/DBConfig.php');
 require($root . '/src/pages/FunctionBlocks/checkUsernameAndPassword.php');
 ?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -25,7 +26,7 @@ require($root . '/src/pages/FunctionBlocks/checkUsernameAndPassword.php');
 
         <p>Sign up to view photos and videos<br>from your friends and family</p>
         <?php session_start(); ?>
-        <form action="signUp.php" method="post">
+        <form action="signUp.php" method="post"/>
 
             <!-- The code: echo htmlspecialchars($_POST['username'], ENT_QUOTES); written below as the value for username was taken from https://www.gamedev.net/forums/topic/564843-how-to-keep-input-fields-after-page-refresh/ -->
             <input type="text" name="username" placeholder="Username" value="<?php if (isset($_POST['username'])) {
@@ -49,7 +50,9 @@ require($root . '/src/pages/FunctionBlocks/checkUsernameAndPassword.php');
 </center>
 
 
-<?php if ($_POST) {
+<?php
+namespace Website\SignUp;
+if ($_POST) {
     if (isset($_POST['submit'])) {
         $availableUsername = true;
         $_SESSION['userID'] = "";

@@ -1,4 +1,5 @@
-<?php 
+<?php
+namespace Website\functions;
 	function checkUsername($username){
 		if(!preg_match("/[^\w\.\-]/", $username))
 			return true;
