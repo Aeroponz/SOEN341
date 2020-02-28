@@ -1,6 +1,7 @@
 <?php 
 	require_once('../../db/DBConfig.php'); 
 	require('../FunctionBlocks/AddEmailToDB.php');
+	session_start();
 ?>
 <html lang = "en">
 	<head>

@@ -27,7 +27,7 @@
 
 		<?php if ($_POST) {
 			if(isset($_POST['submit'])){
-				$result = safeQuery("SELECT u_id, name, pass FROM users");
+				$result = Database::safeQuery("SELECT u_id, name, pass FROM users");
 				$validUsername = true;
 				$_SESSION['userID'] = "";
 				if(checkUsername($_POST['username']) && checkPassword($_POST['password'])){

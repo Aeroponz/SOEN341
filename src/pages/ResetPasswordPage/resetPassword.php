@@ -23,7 +23,7 @@
 		
 		<?php if ($_POST) {
 			if(isset($_POST['submit'])){
-				$result = safeQuery("SELECT u_id, email FROM users");
+				$result = Database::safeQuery("SELECT u_id, email FROM users");
 				$validEmail = true;
 				$_SESSION['userID'] = "";
 				$_SESSION['email'] = "";

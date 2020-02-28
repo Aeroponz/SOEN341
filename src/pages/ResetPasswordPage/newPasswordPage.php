@@ -40,7 +40,7 @@
 				if($_POST['password'] == $_POST['passwordConfirm']){
 					$password = $_POST['password'];
 					$user = $_SESSION['userID'];
-					$safeQuery("UPDATE users SET pass = '$password' WHERE u_id = '$user'");
+					$result = Database::safeQuery("UPDATE users SET pass = '$password' WHERE u_id = '$user'");
 					header("Location: ../HomePage/HomepageBase.php");
 				}
 				else

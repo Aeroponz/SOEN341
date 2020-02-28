@@ -44,7 +44,7 @@
 
 		<?php if ($_POST) {
 			if(isset($_POST['submit'])){
-				$result = safeQuery("SELECT u_id, name, pass FROM users");
+				$result = Database::safeQuery("SELECT u_id, name, pass FROM users");
 				$availableUsername = true;
 				$_SESSION['userID'] = "";
 				if(checkUsername($_POST['username']) && checkPassword($_POST['password'])){
@@ -60,13 +60,14 @@
 					if($availableUsername == true && $_POST['password'] == $_POST['passwordConfirm']){
 						$username = $_POST['username'];
 						$password = $_POST['password'];
-						$result2 = safeQuery("SELECT u_id FROM users ORDER BY u_id DESC LIMIT 1");
+						$result2 = Database::safeQuery("SELECT u_id FROM users ORDER BY u_id DESC LIMIT 1");
 						$valueID = $result2->fetch_assoc();
 						$valueID['u_id'] += 1;
 						$userIDValue = $valueID['u_id'];
+						echo $userIDValue;
 						$_SESSION['userID'] = $userIDValue;
-						$result3 = safeQuery("INSERT INTO users(u_id, name, pass) VALUES ('$userIDValue', '$username', '$password')");
-						$result4 = safeQuery("INSERT INTO user_profile(u_id) VALUES ('$userIDValue')");
+						$result3 = Database::safeQuery("INSERT INTO users(u_id, name, pass) VALUES ('$userIDValue', '$username', '$password')");
+						$result4 = Database::safeQuery("INSERT INTO user_profile(u_id) VALUES ('$userIDValue')");
 						header("Location: ModalPopUp.php");
 					}
 					else if($availableUsername == false)
