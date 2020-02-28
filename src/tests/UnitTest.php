@@ -4,7 +4,7 @@ declare(strict_types=1);
 //define(__DIR__, getenv('TRAVIS_BUILD_DIR'));
 //require_once (__DIR__.'/src/db/DBConfig.php');
 
-$__DIR__ = dirname(dirname(dirname(__FILE__)));
+$__DIR__ = dirname(__FILE__, 3);
 require_once (__DIR__.'/src/db/DBConfig.php');
 
 include 'TestFunction.php';
