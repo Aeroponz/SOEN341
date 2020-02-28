@@ -1,4 +1,5 @@
 <?php
+namespace SqlDb;
 class Database{
 	
 	//Credentials
