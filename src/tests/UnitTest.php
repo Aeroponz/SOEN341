@@ -12,10 +12,10 @@ final class UploadPostToDbTest extends TestCase
     public  function testGenerateString():void
     {
         //String Is Random
-        $this -> assertFalse('Plane' == generate_string('Plane'));
+        $this -> assertFalse('Boeing' == generate_string('Boeing'));
 
         //Default Length
-        $this -> assertTrue(strlen(generate_string('Plane')) == 16);
+        $this -> assertTrue(strlen(generate_string('Airbus')) == 16);
 
         //Custom Length
         $this -> assertTrue(strlen(generate_string('Plane',5)) == 5);
@@ -27,7 +27,13 @@ final class UploadPostToDbTest extends TestCase
     }
     public  function testFetchUserID():void
     {
+        //Logged Out
         $this -> assertEquals(-1, fetch_user());
+
+        //Logged In
+        //LOGIN() --Fixed userID
+        //$this -> assertEquals( FixedUserID, fetch_user());
+        //LOGOUT()
     }
 
 }
