@@ -1,8 +1,11 @@
 <?php
 declare(strict_types=1);
 
-define(__ROOT__, getenv('TRAVIS_BUILD_DIR'));
-require_once (__ROOT__.'/src/db/DBConfig.php');
+//define(__DIR__, getenv('TRAVIS_BUILD_DIR'));
+//require_once (__DIR__.'/src/db/DBConfig.php');
+
+$__DIR__ = dirname(dirname(dirname(__FILE__)));
+require_once (__DIR__.'/src/db/DBConfig.php');
 
 include 'TestFunction.php';
 //include $path;
