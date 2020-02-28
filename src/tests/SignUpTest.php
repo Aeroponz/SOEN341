@@ -3,8 +3,7 @@ declare(strict_types=1);
 
 $root = dirname(__FILE__, 3);
 require_once ($root.'/src/db/DBConfig.php');
-//include $root.'/src/pages/FunctionBlocks/checkUsernameAndPassword.php';
-include $root.'/src/pages/SignUpPage/signUp.php';
+require($root.'/src/pages/SignUpPage/signUp.php');
 
 use PHPUnit\Framework\TestCase;
 
