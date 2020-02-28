@@ -5,7 +5,8 @@ namespace UnitTesting;
 
 $root = dirname(__FILE__, 3);
 require_once($root . '/src/db/DBConfig.php');
-//require($root . '/src/pages/SignUpPage/signUp.php');
+require($root . '/src/pages/SignUpPage/SignUp.php');
+require($root . '/src/pages/FunctionBlocks/checkUsernameAndPassword.php');
 
 use PHPUnit\Framework\TestCase;
 use Website;

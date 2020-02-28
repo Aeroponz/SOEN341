@@ -21,7 +21,7 @@
 				<input type = "Submit" name = "submit" value = "Log In"  class = "button"/><br><br>
 				<label id = "password" class = "message"></label><br><br><br>
 				<a href = "../ResetPasswordPage/resetPassword.php">Forgot password?</a>
-				<p><b>Don't have an account? <a class = "signUp" href = "../SignUpPage/signUp.php"> Sign up </a></b></p>	
+				<p><b>Don't have an account? <a class = "signUp" href = "../SignUpPage/signUpPage.php"> Sign up </a></b></p>
 		</div>
 		</center>
 
