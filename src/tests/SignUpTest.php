@@ -62,17 +62,10 @@ final class SignUpTest extends TestCase
         //User Successfully Created
         $TestUser->withInput('TestUser', 'Tr4v!sCI', 'Tr4v!sCI');
         $this->assertTrue($TestUser->SignUpUser() > 0);
+        //Verify that an email address can be added to the database. This test will be run as a logged in user
+        //therefore the email should be added successfully (0).
+        $this->assertEquals(0, Website\functions\UserEmail::addEmailToDB($TestUser->mUserId,'737MaxMCAS@Boeing.com'));
         //Duplicate Username
         $this->assertEquals(-2, $TestUser->SignUpUser());
     }
-
-    function testModalPopUp():void
-    {
-        //Verify that an email address can be added to the database. This test will be run as a logged in user
-        //therefore the email should be added successfully (0). If the email is not added (user not found) the add email
-        //functions will return 1.
-        $this->assertEquals(0, Website\functions\UserEmail::addEmailToDB('737MaxMCAS@Boeing.com'));
-    }
-
-
 }
