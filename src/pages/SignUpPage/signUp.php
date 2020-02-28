@@ -50,15 +50,16 @@ require($root . '/src/pages/FunctionBlocks/checkUsernameAndPassword.php');
 
 
 <?php if ($_POST) {
-if (isset($_POST['submit'])) {
-    $availableUsername = true;
-    $_SESSION['userID'] = "";
-    $wUsername = $_POST['username'];
-    $wPassword = $_POST['password'];
-    $wPasswordConfirm = $_POST['passwordConfirm'];
+    if (isset($_POST['submit'])) {
+        $availableUsername = true;
+        $_SESSION['userID'] = "";
+        $wUsername = $_POST['username'];
+        $wPassword = $_POST['password'];
+        $wPasswordConfirm = $_POST['passwordConfirm'];
 
-    $_SESSION['userID'] = SignUp($wUsername, $wPassword, $wPasswordConfirm);
+        $_SESSION['userID'] = SignUp($wUsername, $wPassword, $wPasswordConfirm);
 
+    }
 }
 function SignUp($iUsername, $iPassword, $iPassConfirm)
 {
@@ -93,7 +94,6 @@ function SignUp($iUsername, $iPassword, $iPassConfirm)
 						</script>";
         return -1;
     }
-}
 }
 
 function get_Username_Availability($iUsername)
