@@ -2,7 +2,7 @@
 
 
 namespace Website;
-
+use SqlDb\Database;
 
 class SignUp
 {
