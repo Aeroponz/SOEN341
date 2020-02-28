@@ -6,7 +6,7 @@ services:
   - mysql
 
 before_script:
-  - mysql -u root -e $TRAVIS_BUILD_DIR/src/db/Setup/BluTableSetup.sql
+  - mysql -u root -e '$TRAVIS_BUILD_DIR/src/db/Setup/BluDataSetup.sql'
   - mysql -u root bludata < $TRAVIS_BUILD_DIR/src/db/Setup/BluDataSetup.sql
 
 script: phpunit $TRAVIS_BUILD_DIR/src/tests/UnitTest.php
