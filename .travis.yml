@@ -1,25 +1,12 @@
 
 language: php
 
-php:
-  - 7.0
-  - 7.1
 
 services:
   - mysql
 
-addons:
-  apt:
-    sources:
-      - mysql-5.7-trusty
-    packages:
-      - mysql-server
-
-dist: trusty
-
-sudo: required
-
 before_script:
-  - mysql -e 'create database antvel;'
+  - mysql -u root -e 'CREATE DATABASE bludata;'
+  - mysql -u root bludata < $TRAVIS_BUILD_DIR/src/db/Setup/BluTableSetup.sql
 
 script: phpunit $TRAVIS_BUILD_DIR/src/tests/UnitTest.php
