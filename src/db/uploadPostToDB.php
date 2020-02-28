@@ -1,5 +1,6 @@
-<?php 
-require_once('../db/DBConfig.php'); 
+<?php
+$root = dirname(__FILE__, 1);
+require_once ($root.'/DBConfig.php');
 //Author: Pierre-Alexis Barras <Pyxsys>
 	
 //Functions
