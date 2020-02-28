@@ -64,7 +64,6 @@ class SignUp
         echo $userIDValue;
         Database::safeQuery("INSERT INTO users(u_id, name, pass) VALUES ('$userIDValue', '$iUsername', '$iPassword')");
         Database::safeQuery("INSERT INTO user_profile(u_id) VALUES ('$userIDValue')");
-        //header("Location: ModalPopUp.php");
         return $userIDValue;
 
     }

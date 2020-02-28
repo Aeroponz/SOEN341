@@ -58,6 +58,10 @@ if ($_POST) {
     if (isset($_POST['submit'])) {
         $NewUser = new SignUp();
         $_SESSION['userID'] = $NewUser->SignUpUser();
+        if($_SESSION['userID'] > 0)
+        {
+            header("Location: ModalPopUp.php");
+        }
 
     }
 }
