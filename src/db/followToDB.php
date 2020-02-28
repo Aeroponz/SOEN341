@@ -1,5 +1,7 @@
-<?php 
-require_once('../db/DBConfig.php'); 
+<?php
+
+$root = dirname(__FILE__, 1);
+require_once ($root.'/DBConfig.php');
 session_start();
 	//Author: Jasen Ratnam 40094237
 	$dbconn = Database::getConnection();

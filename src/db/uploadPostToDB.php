@@ -1,5 +1,6 @@
-<?php 
-require_once('../db/DBConfig.php'); 
+<?php
+$root = dirname(__FILE__, 1);
+require_once ($root.'/DBConfig.php');
 //Author: Pierre-Alexis Barras <Pyxsys>
 	
 //Functions
@@ -136,7 +137,6 @@ require_once('../db/DBConfig.php');
 		/*no post info*/ case(0): return "/SOEN341/src/pages/CreatePostPage/createPostPage.php?source=empty";
 		/*post success*/ default: return "/SOEN341/src/pages/HomePage/HomepageBase.php";
 		}
-		return "/SOEN341/src/pages/CreatePostPage/createPostPage.php?source=fail,value=$value";
 	}
 	
 	//script
