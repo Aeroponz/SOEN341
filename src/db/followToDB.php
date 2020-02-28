@@ -2,12 +2,11 @@
 require_once('../db/DBConfig.php'); 
 session_start();
 	//Author: Jasen Ratnam 40094237
-	$dbconn = Database::getConnection();
-	function follows($u_id2){
-		global $loggenOnUser, $dbconn;
+	
+	function follows($loggenOnUser,$u_id2){
 		$dbconn = Database::getConnection();
 		$sql = "SELECT * FROM follow_tbl";  
-		$result = $dbconn->query($sql);
+		$result = Database::query($sql, $dbconn);
 		
 		if ($result->num_rows > 0) {
 			// each row
@@ -25,40 +24,58 @@ session_start();
 		}
 	}
 	
-	//get current user id
-	 if (isset($_SESSION["userID"])) {
-		 $loggenOnUser = $_SESSION["userID"];
-	 } else {
-		 $loggenOnUser = " a public user";
-	 }
-	
-	$u_id = $loggenOnUser;
-	 
-	//Declare variables
-	$dbconn = null;
-	$sql = null;
-	
-	// User ID of account you want to follow
-	$u_id2 = $_POST["u_id2"];
-	if(!follows($u_id2)){
-			
-		$sql = "INSERT INTO follow_tbl (u_id, follows) VALUES($u_id, $u_id2)";
+	//get u_id from session.
+	function fetch_user() {
 		
-		$dbconn = Database::getConnection();
-		$dbconn->query($sql);
-		$dbconn = null;	
-	}
-	else{	 
-		$sql = "DELETE FROM follow_tbl WHERE u_id= $u_id AND follows = $u_id2";
-	
-		$dbconn = Database::getConnection();
-		
-		if ($dbconn->query($sql) === TRUE) {
-			echo "Record deleted successfully";
-		} 
-		else {
-			echo "Error deleting record: " . $conn->error;
+		if (isset($_SESSION["userID"])) {
+			$loggenOnUser = $_SESSION["userID"];
+			echo "Found User: ", $loggenOnUser, "<br />";
+		}else {
+			 $loggenOnUser = -1;
 		}
-		$dbconn = null;	
+		return $loggenOnUser + 0; //ensures a numerical value is returned	
 	}
+	
+	//get u_id of following user.
+	function fetch_follow_user() {
+		
+		if (isset($_POST["u_id2"])) {
+			$loggenOnUser = $_POST["u_id2"];
+			echo "Found User: ", $loggenOnUser, "<br />";
+		}else {
+			 $loggenOnUser = -1;
+		}
+		return $loggenOnUser + 0; //ensures a numerical value is returned	
+	}
+	
+	function add_follow_to_db(){
+		$sql = null;
+		$u_id =null;
+		$u_id2 =null;
+		
+		$u_id = fetch_user();
+		if($u_id == -1){return -3;} //no user
+		
+		$u_id2 = fetch_follow_user();
+		if($u_id2 == -1){return -4;} //no user to follow
+		
+		$followRes = 0;
+		if(!follows($u_id, $u_id2)){
+			$followRes  = 1; //followd
+			$sql = "INSERT INTO follow_tbl (u_id, follows) VALUES($u_id, $u_id2)";
+			
+			Database::safeQuery($sql);
+		}
+		else{
+			$followRes = 2;	//unfollowed		
+			$sql = "DELETE FROM follow_tbl WHERE u_id= $u_id AND follows = $u_id2";
+		
+			Database::safeQuery($sql);
+		}
+		return $followRes;
+	}
+	
+	//script
+	$output = add_follow_to_db();
+	
 ?>

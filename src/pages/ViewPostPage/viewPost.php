@@ -2,28 +2,6 @@
 <?php
 require_once('../../db/DBConfig.php'); //Must have at the top of any file that needs db connection.
 session_start();
-
-function follows($u_id2){
-	global $loggenOnUser, $dbconn;
-	$dbconn = Database::getConnection();
-	$sql = "SELECT * FROM follow_tbl";  
-	$result = $dbconn->query($sql);
-	
-	if ($result->num_rows > 0) {
-		// each row
-		while($row = $result->fetch_assoc()) {
-			
-			if($loggenOnUser == $row["u_id"]){
-				if($u_id2 == $row["follows"]){
-					return true;
-				}	
-			}
-		}
-	} 
-	else{
-		return false;
-	}
-}
 ?>
 
 <!-- insert this when the image is clicked:
@@ -36,42 +14,81 @@ function follows($u_id2){
     <meta name="viewpost" content="width-device-width, initial-scale=1"/>
     <title>ViewPost Feed</title>
     <link rel="stylesheet" href="../css/viewPostStyle.css"/>
+	<!-- remove blue link for usernames -->
 	<style>
 		a { text-decoration: none; color: #000; }
 	</style>
 </head>
+
 <body>
+	
 	<!-- get current user id & connect to DB-->
 	<?php
-	 if (isset($_SESSION["userID"])) {
-		 $loggenOnUser = $_SESSION["userID"];
-	 } else {
-		 $loggenOnUser = " a public user";
-	 }
-	 $dbconn = Database::getConnection();
-	 $tab = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-	 $u_id = $loggenOnUser;
-	 $p_id = 0;
-	if(isset($_GET['id']) && $_GET['id'] !== ''){
-	  $p_id = $_GET['id'];
-	  //echo $p_id; //comment out echo when not debugging
-	} 
-	else {
-	  //echo "failed";
+	function follows($loggenOnUser,$u_id2){
+		$dbconn = Database::getConnection();
+		$sql = "SELECT * FROM follow_tbl";
+		$result = Database::query($sql, $dbconn);		
+		
+		if ($result->num_rows > 0) {
+			// each row
+			while($row = $result->fetch_assoc()) {
+				if($loggenOnUser == $row["u_id"]){
+					if($u_id2 == $row["follows"]){
+						return true;
+					}	
+				}
+			}
+		} 
+		else{
+			return false;
+		}
+	}
+	function fetch_user() {
+		
+		if (isset($_SESSION["userID"])) {
+			$loggenOnUser = $_SESSION["userID"];
+			//echo "Found User: ", $loggenOnUser, "<br />";
+		}else {
+			 $loggenOnUser = -1;
+		}
+		return $loggenOnUser + 0; //ensures a numerical value is returned	
 	}
 	
-	$sql = "SELECT * FROM posts 
-				INNER JOIN users on posts.u_id = users.u_id
-				INNER JOIN user_profile on users.u_id = user_profile.u_id";
-	$result = $dbconn->query($sql);
+	function fetch_p_id() {
+		$p_id = 0;
+		if(isset($_REQUEST['id']) && $_REQUEST['id'] !== ''){
+		  $p_id = $_REQUEST['id'];
+		  //echo $p_id; //comment out echo when not debugging
+		} else {
+			 $p_id = -1;
+		}
+		return $p_id; //ensures a numerical value is returned	
+	}
 
+	$dbconn = Database::getConnection();
+	$tab = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+	
+	$u_id = fetch_user();
+	if($u_id == -1){return -3;}
+	
+	$p_id = fetch_p_id();
+	if($p_id == -1){return -4;}
+	
+
+	$sql = "SELECT * FROM posts 
+			INNER JOIN users on posts.u_id = users.u_id
+			INNER JOIN user_profile on users.u_id = user_profile.u_id";
+	
+	$result = Database::query($sql, $dbconn);
+
+	//declare variables
 	$username = null;
 	$TimeofPost = null;
 	$image = null;
 	$text = null;	
-	$profile = "../GenericResources/Post_Frame/Avatar%20Picture%20Circle.png";
-			
-	
+	$profile = null;
+		
+	// if post exists
 	if ($result->num_rows > 0) {
 		// each row
 		while($row = $result->fetch_assoc()) {
@@ -83,7 +100,7 @@ function follows($u_id2){
 				$downvote = $row["downvote"];
 				$ranking = $upvote + $downvote;
 				
-				if(follows($u_id2))
+				if(follows($u_id, $u_id2))
 				{
 					$followLabel = 'UnFollow';
 				}
@@ -127,7 +144,6 @@ function follows($u_id2){
         <?php include '../Header/Header.html'; ?>
         <div class="Main">
             <div class="Posts">
-                
                 <div class="PostContent">
                     <figure>
 					<?php 
@@ -159,7 +175,7 @@ function follows($u_id2){
 					
 					<a aria-label="follow_button" class="follow">
 						<div id = "follow_user">
-							<iframe name="follow" style="display:none;"></iframe>
+						    <iframe name="follow" style="display:none;"></iframe>
 							<form target= "follow" method="post" action="../../db/followToDB.php" enctype="multipart/form-data">
 								<input type="hidden" name="u_id2" value="<?php echo $u_id2;?>"> 
 								<input id="followbutton" onclick="return changeText('followbutton');" type="submit" value="<?php echo $followLabel;?>" /> 
@@ -172,19 +188,15 @@ function follows($u_id2){
 					</a>
 				</div>
 				
-				<script type="text/javascript">
-					function changeText(followId) {
-						var follow = document.getElementById(followId);
-						if(follow.value == 'Follow')
-						{
-							follow.value = 'Unfollow';
+				<?php
+						//Outputs a custom message depending if user was redirected to this page.
+						if(isset($_GET["source"])) {
+							if($_GET["source"] == 'noUserToFollow') echo "<p style = \"color:red;\"> Can't find user. Try again later.</p>";
+							if($_GET["source"] == 'noP_id') echo "<p style = \"color:red;\"> Something went wrong. Try again later.</p>";
 						}
-						else{
-							follow.value = 'Follow';
-						}
-						return true;
-					};
-				</script>
+				?>
+				
+				<script type="text/javascript" src="/SOEN341/src/pages/FunctionBlocks/followJS.js"></script>
 				
 				<div class="comments_wrap">
 				<?php
@@ -194,10 +206,8 @@ function follows($u_id2){
 							WHERE p_id = '$p_id'
 							ORDER BY 
 								posted_on DESC";
-					$result = $dbconn->query($sql); 
-					if (!$result) {
-						trigger_error('Invalid query: ' . $dbconn->error);
-					}
+					$result = Database::query($sql, $dbconn);
+					
 					
 					if ($result->num_rows > 0) {
 						// each row
@@ -281,6 +291,12 @@ function follows($u_id2){
                     </div>
 					
                     <div class="Comment">
+						<?php
+							//Outputs a custom message depending if user was redirected to this page.
+							if(isset($_GET["source"])) {
+								if($_GET["source"] == 'noComment') echo "<p style = \"color:red;\"> You must write something to comment.</p>";
+								}
+						?>
                         <img src="../GenericResources/Post_Frame/Comment%20Divider.png" width="300">
                         <form id="CommentTextField" action="../../db/commentToDB.php" method="post">
                             <input style="width: 90%; height: 28px; box-sizing: border-box; border-radius: 5px;" type="text" name="CommentText" placeholder="Share your thoughts...">
