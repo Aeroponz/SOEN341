@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<?php require_once('../../db/DBConfig.php'); ?>
+<?php require_once('../../db/DBConfig.php'); 
+	  require('../FunctionBlocks/checkUsernameAndPassword.php');
+?>
 <html lang = "en">
 	<head>
 		<meta charset = "utf-8">
