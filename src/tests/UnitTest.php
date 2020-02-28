@@ -5,7 +5,7 @@ $root = dirname(__FILE__, 3);
 require_once ($root.'/src/db/DBConfig.php');
 
 include 'TestFunction.php';
-include $root.'/db/uploadPostToDB.php';
+include $root.'/src/db/uploadPostToDB.php';
 
 use PHPUnit\Framework\TestCase;
 
