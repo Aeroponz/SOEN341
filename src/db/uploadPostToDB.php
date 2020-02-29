@@ -51,5 +51,5 @@ require_once ($root.'/UploadClass.php');
 	echo $output;
 
 	//redirects user to another page (Ideally where the post is viewable.) if-statement needed for travis.
-	if(true){header('Location: '. Website\Upload::get_redirect_path($output));}
+	if($output != null){header('Location: '. Website\Upload::get_redirect_path($output));}
 ?>
