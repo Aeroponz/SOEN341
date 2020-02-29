@@ -46,7 +46,7 @@ require_once ($root.'/UploadClass.php');
 	$file = validFile();
 	
 	//script
-	$output = Upload::add_post_to_db($user,$file,$text);
+	$output = Website\Upload::add_post_to_db($user,$file,$text);
 	echo fetch_user();
 	echo $output;
 
