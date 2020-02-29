@@ -5,6 +5,9 @@ namespace Website;
 
 use SqlDb\Database;
 
+$root = dirname(__FILE__, 4);
+require($root . '/src/pages/FunctionBlocks/checkUsernameAndPassword.php');
+
 class LogIn
 {
     var $mUsername, $mPassword, $mUserId;
