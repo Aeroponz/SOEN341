@@ -47,9 +47,10 @@ require_once ($root.'/UploadClass.php');
 	
 	//script
 	$output = Website\Upload::add_post_to_db($user,$file,$text);
+	$redirect = Website\Upload::get_redirect_path($output);
 	echo fetch_user();
 	echo $output;
 
 	//redirects user to another page (Ideally where the post is viewable.) if-statement needed for travis.
-	if($output != null){header('Location: '. Website\Upload::get_redirect_path($output));}
+	if($output != null){header('Location: '.$redirect);}
 ?>
