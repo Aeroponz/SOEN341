@@ -57,9 +57,9 @@ use SqlDb\Database;
 if ($_POST) {
     if (isset($_POST['submit'])) {
         $NewUser = new SignUp();
+        $NewUser->withPost();
         $_SESSION['userID'] = $NewUser->SignUpUser();
-        if($_SESSION['userID'] > 0)
-        {
+        if ($_SESSION['userID'] > 0) {
             header("Location: ModalPopUp.php");
         }
 
