@@ -1,6 +1,6 @@
 <?php
 $root = dirname(__FILE__, 1);
-require_once ($root.'$UploadClass.php');
+require_once ($root.'/UploadClass.php');
 //Author: Pierre-Alexis Barras <Pyxsys>
 	
 	//get u_id from session.
