@@ -1,5 +1,5 @@
 <?php
-require_once ($UploadClass.php');
+require_once ($UploadClass.php);
 //Author: Pierre-Alexis Barras <Pyxsys>
 	
 	//get u_id from session.
