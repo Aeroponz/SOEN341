@@ -1,7 +1,7 @@
 <?php
 namespace Website;
 use SqlDb\Database;
-require_once ($root.'/DBConfig.php');
+require_once ('DBConfig.php');
 class Upload{
 	
 	//Functions
