@@ -6,7 +6,7 @@ class Upload{
 	
 	//Functions
 	//Generates a random string
-	private static function generate_string($input, $strength = 16) {
+	public static function generate_string($input, $strength = 16) {
 		$input_length = strlen($input);
 		$random_string = '';
 		for($i = 0; $i < $strength; $i++) {
@@ -19,7 +19,7 @@ class Upload{
 	
 	
 	//returns 'y' or 'n' for if there is a #hashtag found in the text.
-	private static function check_for_hashtag($text){
+	public static function check_for_hashtag($text){
 		if(preg_match('/\#[a-zA-Z0-9]+/', $text)) return 'y';
 		else return 'n';
 	}
