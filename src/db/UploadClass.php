@@ -24,7 +24,7 @@ class Upload{
 	
 	
 	//returns a server path to a page
-	public function get_redirect_path($value){
+	public static function get_redirect_path($value){
 		
 		switch($value){
 		/*no user*/		 case(-3): return "/SOEN341/src/pages/SignUpPage/signUP.php?source=post";
@@ -40,7 +40,7 @@ class Upload{
 			-1 -> error in uploading: failure
 			0 -> no data: failure
 	*/
-	public function add_post_to_db($u_id,$file,$text){
+	public static function add_post_to_db($u_id,$file,$text){
 	
 		//Declare variables
 		$dbconn = null;
