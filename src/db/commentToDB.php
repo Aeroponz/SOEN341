@@ -1,9 +1,17 @@
 <?php 
-require_once('../db/DBConfig.php'); 
+$root = dirname(__FILE__,3);
+require_once($root . '/src/db/DBConfig.php'); 
 session_start();
+
 	//Author: Jasen Ratnam
-	
-	global $p_id;
+	//Default Constructor to be used when creating a new user
+    //var $mU_id, $mP_id, $mCommentText;
+	function withPost()
+    {
+        $this->mU_id = $_SESSION['userID'];
+        $this->mP_id = $_REQUEST['p_id'];
+        $this->mCommentText = $_POST["CommentText"];
+    }
 	//get u_id from session.
 	function fetch_user() {
 		
@@ -57,12 +65,12 @@ session_start();
 		$p_id = fetch_p_id();
 		if($p_id == -1){$value = -4;}
 		switch($value){
-		/*no user*/		 case(-3): return "../pages/SignUpPage/signUP.php?source=post";
-		/*no p_id*/		 case(-4): return "../pages/viewPostPage/viewPost.php?id= $p_id&source=noP_id";
-		/*no comment*/   case(-1): return "../pages/viewPostPage/viewPost.php?id= $p_id&source=noComment";
-		/*comment success*/ default: return "../pages/viewPostPage/viewPost.php?id= $p_id";
+		/*no user*/		 case(-3): return "$root ../pages/SignUpPage/signUP.php?source=post";
+		/*no p_id*/		 case(-4): return "$root ../pages/viewPostPage/viewPost.php?id= $p_id&source=noP_id";
+		/*no comment*/   case(-1): return "$root ../pages/viewPostPage/viewPost.php?id= $p_id&source=noComment";
+		/*comment success*/ default: return "$root ../pages/viewPostPage/viewPost.php?id= $p_id";
 		}
-		return "../pages/viewPostPage/viewPost.php?id= $p_id";
+		return "$root ../pages/viewPostPage/viewPost.php?id= $p_id";
 	}
 	
 	//script

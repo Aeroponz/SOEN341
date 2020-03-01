@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
-require_once('../../db/DBConfig.php'); //Must have at the top of any file that needs db connection.
+$root = dirname(__FILE__, 4);
+require_once($root . '/src/db/DBConfig.php'); //Must have at the top of any file that needs db connection.
 session_start();
 ?>
 
