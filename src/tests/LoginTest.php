@@ -17,7 +17,10 @@ final class LoginTest extends TestCase
     {
         $TestUserLogin = new Website\Login();
         //Wrong Password
-        $TestUserLogin->withInput('Aeroponz', 'Ileplanes123');
+        $TestUserLogin->withInput('TestUser', 'TravisCI');
+        $this->assertEquals(-1, $TestUserLogin->Login());
+        //Wrong Username
+        $TestUserLogin->withInput('TestUer', 'Tr4v!sCI');
         $this->assertEquals(-1, $TestUserLogin->Login());
         //Login Success
         $TestUserLogin->withInput('TestUser', 'Tr4v!sCI');
