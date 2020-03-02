@@ -12,12 +12,12 @@ require($root . '/src/pages/FunctionBlocks/AddEmailToDB.php');
 //Account to be created and used for tests
 define('__TESTUSERNAME__', 'TestUser', true);
 define('__TESTPASSWORD__', 'Tr4v!sCI', true);
-$gUserId = -1;
 
 use PHPUnit\Framework\TestCase;
 use Website;
 final class SignUpTest extends TestCase
 {
+    var $mUserID = -1;
     //Summary
     //This test checks the username requirements functions
     public function testCheckUsernameRequirements(): void
@@ -68,10 +68,10 @@ final class SignUpTest extends TestCase
         $this->assertEquals(-1, $TestUser->SignUpUser());
         //User Successfully Created
         $TestUser->withInput(__TESTUSERNAME__, __TESTPASSWORD__, __TESTPASSWORD__);
-        $gUserId = $TestUser->SignUpUser();
-        $this->assertTrue( $gUserId > 0);
+        $mUserID = $TestUser->SignUpUser();
+        $this->assertTrue( $mUserID > 0);
         //Verify that an email address can be added to the user's account.
-        $this->assertEquals(0, Website\functions\UserEmail::addEmailToDB($gUserId,'737MaxMCAS@Boeing.com'));
+        $this->assertEquals(0, Website\functions\UserEmail::addEmailToDB($mUserID,'737MaxMCAS@Boeing.com'));
         //Duplicate Username
         $this->assertEquals(-2, $TestUser->SignUpUser());
     }

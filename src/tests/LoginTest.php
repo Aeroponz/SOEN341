@@ -7,6 +7,10 @@ $root = dirname(__FILE__, 3);
 require_once($root . '/src/db/DBConfig.php');
 require($root . '/src/pages/LoginPage/LogIn.php');
 
+//Account Used for testing
+define('__TESTUSERNAME__', 'TestUser', true);
+define('__TESTPASSWORD__', 'Tr4v!sCI', true);
+
 use PHPUnit\Framework\TestCase;
 use Website;
 final class LoginTest extends TestCase
