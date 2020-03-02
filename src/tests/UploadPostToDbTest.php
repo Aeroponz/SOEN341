@@ -5,11 +5,11 @@ namespace UnitTesting;
 $root = dirname(__FILE__, 3);
 require_once($root . '/src/db/DBConfig.php');
 require_once($root . '/src/db/UploadClass.php');
+require('LoginTest.php');
 include $root . '/src/db/uploadPostToDB.php';
 
 use PHPUnit\Framework\TestCase;
 use Website;
-use UnitTesting\LoginTest;
 
 final class UploadPostToDbTest extends TestCase
 {

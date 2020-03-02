@@ -39,6 +39,8 @@ final class LoginTest extends TestCase
         //Login Success
         $TestUserLogin->withInput(__TESTUSERNAME__, __TESTPASSWORD__);
         $this->assertTrue($TestUserLogin->Login() > 0);
+        session_start();
+        $_SESSION['userID'] = $TestUserLogin->mUserId;
     }
 
     function testLogOut(): void
