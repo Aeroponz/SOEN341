@@ -13,6 +13,10 @@ use PHPUnit\Framework\TestCase;
 use Website;
 final class SignUpTest extends TestCase
 {
+    //Account to be created and used for tests
+    public static $mUserId = -1;
+    public static $mTestUsername = "TestUser";
+    public static $mTestPassword = "Tr4v!sCI";
     //Summary
     //This test checks the username requirements functions
     public function testCheckUsernameRequirements(): void
@@ -62,8 +66,9 @@ final class SignUpTest extends TestCase
         $TestUser->withInput('Aeroponz', '12345', '12345');
         $this->assertEquals(-1, $TestUser->SignUpUser());
         //User Successfully Created
-        $TestUser->withInput('TestUser', 'Tr4v!sCI', 'Tr4v!sCI');
-        $this->assertTrue($TestUser->SignUpUser() > 0);
+        $TestUser->withInput($this->mTestUsername, $this->mTestPassword, $this->mTestPassword);
+        $this->mUserId = $TestUser->SignUpUser();
+        $this->assertTrue( $this->mUserId > 0);
         //Verify that an email address can be added to the user's account.
         $this->assertEquals(0, Website\functions\UserEmail::addEmailToDB($TestUser->mUserId,'737MaxMCAS@Boeing.com'));
         //Duplicate Username

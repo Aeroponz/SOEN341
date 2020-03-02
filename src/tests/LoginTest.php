@@ -11,19 +11,28 @@ use PHPUnit\Framework\TestCase;
 use Website;
 final class LoginTest extends TestCase
 {
-    //This function will use the user create in the Signup tests to Login. Login returns a negative number if failed, and
-    //a positive userID if successful.
-    function testLogin():void
+    function testLoginWrongPass():void
     {
         $TestUserLogin = new Website\Login();
         //Wrong Password
-        $TestUserLogin->withInput('TestUser', 'TravisCI');
+        $TestUserLogin->withInput(SignUpTest::$mTestUsername, 'TravisCI');
         $this->assertEquals(-1, $TestUserLogin->Login());
+    }
+    function testLoginWrongUsername():void
+    {
+        $TestUserLogin = new Website\Login();
         //Wrong Username
-        $TestUserLogin->withInput('TestUer', 'Tr4v!sCI');
+        $TestUserLogin->withInput('TestUer', SignUpTest::$mTestPassword);
         $this->assertEquals(-1, $TestUserLogin->Login());
+    }
+    function testLoginSuccess():void
+    {
+        $TestUserLogin = new Website\Login();
         //Login Success
-        $TestUserLogin->withInput('TestUser', 'Tr4v!sCI');
-        $this->assertTrue($TestUserLogin->Login() > 0);
+        $TestUserLogin->withInput(SignUpTest::$mTestUsername, SignUpTest::$mTestPassword);
+        $wUID = $TestUserLogin->Login();
+        $this->assertTrue($wUID > 0);
+        //User ID should match the one given at account creation due to it being unique to the user's account
+        $this->assertEquals($wUID, SignUpTest::$mUserId);
     }
 }
