@@ -1,12 +1,13 @@
 <?php
 declare(strict_types=1);
-
+namespace UnitTesting;
 $root = dirname(__FILE__, 3);
 require_once ($root.'/src/db/DBConfig.php');
 require_once ($root.'/src/db/UploadClass.php');
 include $root.'/src/db/uploadPostToDB.php';
 
 use PHPUnit\Framework\TestCase;
+use Website;
 
 final class UploadPostToDbTest extends TestCase
 {

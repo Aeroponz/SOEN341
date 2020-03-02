@@ -1,4 +1,6 @@
 <?php
+namespace SqlDb;
+use MySQLi;
 class Database{
 	
 	//Credentials

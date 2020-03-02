@@ -1,6 +1,10 @@
-<?php 
-	require_once('../../db/DBConfig.php'); 
-	require('../FunctionBlocks/AddEmailToDB.php');
+<?php
+namespace Website;
+use Website\functions\UserEmail;
+
+$root = dirname(__FILE__, 4);
+require_once($root . '/src/db/DBConfig.php');
+require($root . '/src/pages/FunctionBlocks/AddEmailToDB.php');
 	session_start();
 ?>
 <html lang = "en">
@@ -27,7 +31,9 @@
 			if($_POST){
 				if(isset($_POST['add']))
 					$email = $_POST['email'];
-					addEmailToDB($email); 
+                    $u_id = $_SESSION['userID'];
+                    echo $u_id;
+					UserEmail::addEmailToDB($u_id, $email);
 					header('Location: ../HomePage/HomepageBase.php');
 			}
 		?>
