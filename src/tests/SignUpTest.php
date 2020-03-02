@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace UnitTesting;
+namespace UnitTesting\SignUp;
 
 $root = dirname(__FILE__, 3);
 require_once($root . '/src/db/DBConfig.php');

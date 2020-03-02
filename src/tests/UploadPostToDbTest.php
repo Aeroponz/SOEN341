@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace UnitTesting;
+namespace UnitTesting\UploadToDb;
 $root = dirname(__FILE__, 3);
 require_once($root . '/src/db/DBConfig.php');
 require_once($root . '/src/db/UploadClass.php');
@@ -10,6 +10,7 @@ include $root . '/src/db/uploadPostToDB.php';
 
 use PHPUnit\Framework\TestCase;
 use Website;
+use UnitTesting\Login;
 
 final class UploadPostToDbTest extends TestCase
 {
@@ -43,7 +44,7 @@ final class UploadPostToDbTest extends TestCase
 
     public function testFetchUserIDLoggedIn(): void
     {
-        $TempUser = new LoginTest();
+        $TempUser = new Login\LoginTest();
         $TempUser->testLoginSuccess();
         //Logged IN
         $this->assertTrue(fetch_user() > 0);
@@ -52,7 +53,7 @@ final class UploadPostToDbTest extends TestCase
     public function testFetchUserIDLoggedOut(): void
     {
         //Log Out
-        $TempUser = new LoginTest();
+        $TempUser = new Login\LoginTest();
         $TempUser->testLogOut();
         //Logged Out (failure)
         $this->assertEquals(-1, fetch_user());

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace UnitTesting;
+namespace UnitTesting\Login;
 
 $root = dirname(__FILE__, 3);
 require_once($root . '/src/db/DBConfig.php');
@@ -45,6 +45,7 @@ final class LoginTest extends TestCase
 
     function testLogOut(): void
     {
+        session_start();
         $_SESSION = array();
         session_destroy();
         //Log Out
