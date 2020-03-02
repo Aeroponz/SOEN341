@@ -50,13 +50,13 @@ final class UploadPostToDbTest extends TestCase
         $this->assertTrue(fetch_user() > 0);
     }
 
-    public function testFetchUserIDLoggedOut(): void
-    {
-        //Log Out
-        $TempUser = new Login\LoginTest();
-        $TempUser->testLogOut();
-        //Logged Out (failure)
-        $this->assertEquals(-1, fetch_user());
-    }
+//    public function testFetchUserIDLoggedOut(): void
+//    {
+//        //Log Out
+//        $TempUser = new Login\LoginTest();
+//        $TempUser->testLogOut();
+//        //Logged Out (failure)
+//        $this->assertEquals(-1, fetch_user());
+//    }
 
 }

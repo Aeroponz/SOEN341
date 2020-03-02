@@ -41,12 +41,12 @@ final class LoginTest extends TestCase
         $this->assertTrue($TestUserLogin->Login() > 0);
     }
 
-    function testLogOut(): void
-    {
-        //session_start();
-        $_SESSION = array();
-        //session_destroy();
-        //Log Out
-        $this->assetFalse(fetch_user() > 0);
-    }
+//    function testLogOut(): void
+//    {
+//        //session_start();
+//        $_SESSION = array();
+//        //session_destroy();
+//        //Log Out
+//        $this->assetFalse(fetch_user() > 0);
+//    }
 }
