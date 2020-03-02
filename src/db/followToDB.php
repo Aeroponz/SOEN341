@@ -1,9 +1,19 @@
 <?php 
-require_once('../db/DBConfig.php'); 
-session_start();
-	//Author: Jasen Ratnam 40094237
+$root = dirname(__FILE__,3);
+require_once($root . '/src/db/DBConfig.php'); 
+//session_start();
+
+class follow{
+	//Author: Jasen Ratnam
+	//Default Constructor to be used when creating a new user
+    var $mU_id, $mU_id2;
+	function withPost()
+    {
+        $this->mU_id = $_SESSION['userID'];
+		$this->mU_id2 = $_POST["u_id2"];
+    }
 	
-	function follows($loggenOnUser,$u_id2){
+	function follows($iLoggenOnUser,$iU_id2){
 		$dbconn = Database::getConnection();
 		$sql = "SELECT * FROM follow_tbl";  
 		$result = Database::query($sql, $dbconn);
@@ -12,8 +22,8 @@ session_start();
 			// each row
 			while($row = $result->fetch_assoc()) {
 				
-				if($loggenOnUser == $row["u_id"]){
-					if($u_id2 == $row["follows"]){
+				if($iLoggenOnUser == $row["u_id"]){
+					if($iU_id2 == $row["follows"]){
 						return true;
 					}	
 				}
@@ -22,13 +32,14 @@ session_start();
 		else{
 			return false;
 		}
+		$dbconn = null;
 	}
 	
 	//get u_id from session.
 	function fetch_user() {
 		
-		if (isset($_SESSION["userID"])) {
-			$loggenOnUser = $_SESSION["userID"];
+		if (isset($this->mU_id)) {
+			$loggenOnUser = $this->mU_id;
 			echo "Found User: ", $loggenOnUser, "<br />";
 		}else {
 			 $loggenOnUser = -1;
@@ -39,8 +50,8 @@ session_start();
 	//get u_id of following user.
 	function fetch_follow_user() {
 		
-		if (isset($_POST["u_id2"])) {
-			$loggenOnUser = $_POST["u_id2"];
+		if (isset($this->mU_id2)) {
+			$loggenOnUser = $this->mU_id2;
 			echo "Found User: ", $loggenOnUser, "<br />";
 		}else {
 			 $loggenOnUser = -1;
@@ -53,14 +64,14 @@ session_start();
 		$u_id =null;
 		$u_id2 =null;
 		
-		$u_id = fetch_user();
+		$u_id = $this->fetch_user();
 		if($u_id == -1){return -3;} //no user
 		
-		$u_id2 = fetch_follow_user();
+		$u_id2 = $this->fetch_follow_user();
 		if($u_id2 == -1){return -4;} //no user to follow
 		
 		$followRes = 0;
-		if(!follows($u_id, $u_id2)){
+		if(!$this->follows($u_id, $u_id2)){
 			$followRes  = 1; //followd
 			$sql = "INSERT INTO follow_tbl (u_id, follows) VALUES($u_id, $u_id2)";
 			
@@ -75,7 +86,19 @@ session_start();
 		return $followRes;
 	}
 	
+	//returns a server path to a page
+	function get_redirect_path($value,$p_id){
+		
+		
+		switch($value){
+		/*no user*/		 		case(-3): return "../SignUpPage/signUP.php?source=post";
+		/*no user to follow*/	case(-4): return "../viewPostPage/viewPost.php?id= $p_id&source=noUserToFollow";
+		/*follow success*/ 	default: return "../viewPostPage/viewPost.php?id= $p_id";
+		}
+		return "../viewPostPage/viewPost.php?id= $p_id";
+	}
+}
 	//script
-	$output = add_follow_to_db();
+	//$output = add_follow_to_db();
 	
 ?>

@@ -1,14 +1,42 @@
-<!DOCTYPE html>
 <?php
 $root = dirname(__FILE__, 4);
 require_once($root . '/src/db/DBConfig.php'); //Must have at the top of any file that needs db connection.
+require($root . '/src/db/commentToDB.php');
+require($root . '/src/db/followToDB.php');
+require('viewPostClass.php');
 session_start();
+
+	if ($_POST) {
+		if (isset($_POST['comment'])) {
+			$New = new comment();
+			$New->withPost();
+			$_SESSION['com'] = $New->add_comment_to_db();
+			$com = $_SESSION['com'];
+			echo $com;
+			if ($com != null) {
+				header('Location: '.$uri. $New->get_redirect_path($com));
+			} 
+
+		}
+		
+		if (isset($_POST['follow_button1'])) {
+			$New2 = new follow();
+			$New2->withPost();
+			$_SESSION['follow'] = $New2->add_follow_to_db();
+			$follow = $_SESSION['follow'];
+			echo $follow;
+			if ($follow != null) {
+				header('Location: '.$uri. $New2->get_redirect_path($follow,fetch_p_id()));
+			 } 
+		}
+	}
 ?>
 
 <!-- insert this when the image is clicked:
   <a href="viewPost.php?id=<?php //echo $p_id; ?>">
   -->
-
+  
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,56 +53,14 @@ session_start();
 	
 	<!-- get current user id & connect to DB-->
 	<?php
-	function follows($loggenOnUser,$u_id2){
-		$dbconn = Database::getConnection();
-		$sql = "SELECT * FROM follow_tbl";
-		$result = Database::query($sql, $dbconn);		
-		
-		if ($result->num_rows > 0) {
-			// each row
-			while($row = $result->fetch_assoc()) {
-				if($loggenOnUser == $row["u_id"]){
-					if($u_id2 == $row["follows"]){
-						return true;
-					}	
-				}
-			}
-		} 
-		else{
-			return false;
-		}
-	}
-	function fetch_user() {
-		
-		if (isset($_SESSION["userID"])) {
-			$loggenOnUser = $_SESSION["userID"];
-			//echo "Found User: ", $loggenOnUser, "<br />";
-		}else {
-			 $loggenOnUser = -1;
-		}
-		return $loggenOnUser + 0; //ensures a numerical value is returned	
-	}
-	
-	function fetch_p_id() {
-		$p_id = 0;
-		if(isset($_REQUEST['id']) && $_REQUEST['id'] !== ''){
-		  $p_id = $_REQUEST['id'];
-		  //echo $p_id; //comment out echo when not debugging
-		} else {
-			 $p_id = -1;
-		}
-		return $p_id; //ensures a numerical value is returned	
-	}
-
 	$dbconn = Database::getConnection();
 	$tab = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 	
-	$u_id = fetch_user();
-	if($u_id == -1){return -3;}
+	$view = new view();
+	$view->withPost();
 	
-	$p_id = fetch_p_id();
-	if($p_id == -1){return -4;}
-	
+	$u_id = $view->fetch_user();
+	$p_id = $view->fetch_p_id();
 
 	$sql = "SELECT * FROM posts 
 			INNER JOIN users on posts.u_id = users.u_id
@@ -101,7 +87,7 @@ session_start();
 				$downvote = $row["downvote"];
 				$ranking = $upvote + $downvote;
 				
-				if(follows($u_id, $u_id2))
+				if(follow::follows($u_id, $u_id2))
 				{
 					$followLabel = 'UnFollow';
 				}
@@ -171,15 +157,15 @@ session_start();
 					</a>
 					
 					<a href="../UserPage/UserPage.php?id= <?php echo $u_id2; ?>" aria-label="OpUsername" class="Username">
-						<h4 class="Username"><?php echo $username; ?></h4>
+						<h4 class="Username"><?php echo $username?></h4>
 					</a>
 					
 					<a aria-label="follow_button" class="follow">
 						<div id = "follow_user">
-						    <iframe name="follow" style="display:none;"></iframe>
-							<form target= "follow" method="post" action="../../db/followToDB.php" enctype="multipart/form-data">
+						   <iframe name="follow" style="display:none;"></iframe>
+							<form target= "follow" method="post" action="" enctype="multipart/form-data">
 								<input type="hidden" name="u_id2" value="<?php echo $u_id2;?>"> 
-								<input id="followbutton" onclick="return changeText('followbutton');" type="submit" value="<?php echo $followLabel;?>" /> 
+								<input id="followbutton" onclick="return changeText('followbutton');" type="submit" name="follow_button1" value="<?php echo $followLabel;?>" /> 
 							</form>
 						</div>
 					</a>
@@ -189,17 +175,16 @@ session_start();
 					</a>
 				</div>
 				
-				<?php
-						//Outputs a custom message depending if user was redirected to this page.
-						if(isset($_GET["source"])) {
-							if($_GET["source"] == 'noUserToFollow') echo "<p style = \"color:red;\"> Can't find user. Try again later.</p>";
-							if($_GET["source"] == 'noP_id') echo "<p style = \"color:red;\"> Something went wrong. Try again later.</p>";
-						}
-				?>
-				
 				<script type="text/javascript" src="/SOEN341/src/pages/FunctionBlocks/followJS.js"></script>
 				
 				<div class="comments_wrap">
+				<?php
+					//Outputs a custom message depending if user was redirected to this page.
+					if(isset($_GET["source"])) {
+						if($_GET["source"] == 'noUserToFollow') echo "<p style = \"color:red;\"> Can't find user. Try again later.</p>";
+						if($_GET["source"] == 'noP_id') echo "<p style = \"color:red;\"> Something went wrong. Try again later.</p>";
+					}
+				?>
 				<?php
 					$sql = "SELECT * FROM comments 
 							INNER JOIN users ON comments.u_id = users.u_id
@@ -240,6 +225,7 @@ session_start();
 							?>
 							<!-- div for displaying each comment repeated for each comment -->
 							<div class="comment" id="<?php echo $comment_id; ?>">
+							
 							   <img src="../GenericResources/Post_Frame/Comment%20Divider.png" width="300">
 							   <div class="CommentInfo"><br>
 									<a aria-label="AccountPage_AvatarPic" class="Avatar">
@@ -299,10 +285,10 @@ session_start();
 								}
 						?>
                         <img src="../GenericResources/Post_Frame/Comment%20Divider.png" width="300">
-                        <form id="CommentTextField" action="../../db/commentToDB.php" method="post">
+                        <form id="CommentTextField" action="" method="post">
                             <input style="width: 90%; height: 28px; box-sizing: border-box; border-radius: 5px;" type="text" name="CommentText" placeholder="Share your thoughts...">
                             <input type='hidden' name='p_id' value='<?php echo "$p_id";?>'/> 
-							<button style = "border-radius: 5px; height: 25px; position: relative; top: 3px;" aria-label="UploadComment">
+							<button style = "border-radius: 5px; height: 25px; position: relative; top: 3px;" aria-label="UploadComment" name="comment" value="commenting">
                                 <img src="../GenericResources/Post_Frame/Paper%20Airplane.png">
                             </button>
                         </form>
@@ -313,3 +299,6 @@ session_start();
     </div>
 </body>
 </html>
+
+
+
