@@ -9,6 +9,7 @@ include $root . '/src/db/uploadPostToDB.php';
 
 use PHPUnit\Framework\TestCase;
 use Website;
+use UnitTesting\LoginTest;
 
 final class UploadPostToDbTest extends TestCase
 {
@@ -32,7 +33,7 @@ final class UploadPostToDbTest extends TestCase
 
     public function testCheckForHashtagsTrue(): void
     {
-        $this->assertEquals('n', Website\Upload::check_for_hashtag('Plop'));
+        $this->assertEquals('y', Website\Upload::check_for_hashtag('#Plop'));
     }
 
     public function testCheckForHashtagsFalse(): void
@@ -40,14 +41,21 @@ final class UploadPostToDbTest extends TestCase
         $this->assertEquals('n', Website\Upload::check_for_hashtag('Plop'));
     }
 
-//    public function testFetchUserIDLoggedIn(): void
-//    {
-//        //Logged Out
-//        //$this->assertEquals(-1, fetch_user());
-//
-//        //Logged IN
-//        //$this -> assertTrue( fetch_user() > 0);
-//        //LOGOUT()
-//    }
+    public function testFetchUserIDLoggedIn(): void
+    {
+        $TempUser = new LoginTest();
+        $TempUser->testLoginSuccess();
+        //Logged IN
+        $this->assertTrue(fetch_user() > 0);
+    }
+
+    public function testFetchUserIDLoggedOut(): void
+    {
+        //Log Out
+        $TempUser = new LoginTest();
+        $TempUser->testLogOut();
+        //Logged Out (failure)
+        $this->assertEquals(-1, fetch_user());
+    }
 
 }
