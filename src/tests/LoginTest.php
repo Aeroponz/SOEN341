@@ -33,13 +33,13 @@ final class LoginTest extends TestCase
         $this->assertEquals(-1, $TestUserLogin->Login());
     }
 
-//    function testLoginSuccess(): void
-//    {
-//        $TestUserLogin = new Website\Login();
-//        //Login Success
-//        $TestUserLogin->withInput(__TESTUSERNAME__, __TESTPASSWORD__);
-//        $this->assertTrue($TestUserLogin->Login() > 0);
-//    }
+    function testLoginSuccess(): void
+    {
+        $TestUserLogin = new Website\Login();
+        //Login Success
+        $TestUserLogin->withInput(__TESTUSERNAME__, __TESTPASSWORD__);
+        $this->assertTrue($TestUserLogin->Login() > 0);
+    }
 
 //    function testLogOut(): void
 //    {
