@@ -40,14 +40,14 @@ final class UploadPostToDbTest extends TestCase
         $this->assertEquals('n', Website\Upload::check_for_hashtag('Plop'));
     }
 
-    public function testFetchUserIDLoggedIn(): void
-    {
-        //Logged Out
-        //$this->assertEquals(-1, fetch_user());
-
-        //Logged IN
-        $this -> assertTrue( fetch_user() > 0);
-        //LOGOUT()
-    }
+//    public function testFetchUserIDLoggedIn(): void
+//    {
+//        //Logged Out
+//        //$this->assertEquals(-1, fetch_user());
+//
+//        //Logged IN
+//        //$this -> assertTrue( fetch_user() > 0);
+//        //LOGOUT()
+//    }
 
 }

@@ -10,8 +10,8 @@ require($root . '/src/pages/FunctionBlocks/checkUsernameAndPassword.php');
 require($root . '/src/pages/FunctionBlocks/AddEmailToDB.php');
 
 //Account to be created and used for tests
-define("__TESTUSERNAME__", "TestUser");
-define("__TESTPASSWORD__", "Tr4v!sCI");
+define('__TESTUSERNAME__', 'TestUser', true);
+define('__TESTPASSWORD__', 'Tr4v!sCI', true);
 $gUserId = -1;
 
 use PHPUnit\Framework\TestCase;
