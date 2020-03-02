@@ -2,7 +2,6 @@
 
 
 namespace Website;
-
 use SqlDb\Database;
 
 class SignUp
@@ -13,7 +12,6 @@ class SignUp
     {
         //PHP doesn't allow multiple constructors...
     }
-
     //Default Constructor to be used when creating a new user
     function withPost()
     {
@@ -21,7 +19,6 @@ class SignUp
         $this->mPassword = $_POST['password'];
         $this->mPasswordConfirm = $_POST['passwordConfirm'];
     }
-
     //Constructor used by TravisCI
     function withInput($iUsername, $iPassword, $iPasswordConfirm)
     {
@@ -29,7 +26,6 @@ class SignUp
         $this->mPassword = $iPassword;
         $this->mPasswordConfirm = $iPasswordConfirm;
     }
-
     //This function checks the validity of the different signup parameters. If valid it calls the NewUserToDb function
     function SignUpUser()
     {
@@ -57,7 +53,6 @@ class SignUp
         $this->mUserId = $this->NewUserToDb($this->mUsername, $this->mPassword);
         return $this->mUserId;
     }
-
     //Add the new user to the database
     function NewUserToDb($iUsername, $iPassword)
     {
@@ -72,7 +67,6 @@ class SignUp
         return $userIDValue;
 
     }
-
     //This function checks the username availability during signup
     function get_Username_Availability($iUsername)
     {
@@ -86,7 +80,6 @@ class SignUp
         }
         return $wOutput;
     }
-
     //This function checks that the password and the confirm password fields match
     function checkPasswordMatch($iPassword, $iPassConfirm)
     {

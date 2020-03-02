@@ -53,9 +53,7 @@ require('SignUp.php');
 
 <?php
 namespace Website;
-
 use SqlDb\Database;
-
 if ($_POST) {
     if (isset($_POST['submit'])) {
         $NewUser = new SignUp();
