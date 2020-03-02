@@ -20,7 +20,7 @@ final class LoginTest extends TestCase
         $TestUserLogin->withInput('Aeroponz', 'Ileplanes123');
         $this->assertEquals(-1, $TestUserLogin->Login());
         //Login Success
-        $TestUserLogin->withInput('Aeroponz', 'Il!keplanes123');
+        $TestUserLogin->withInput('TestUser', 'Tr4v!sCI');
         $this->assertTrue($TestUserLogin->Login() > 0);
     }
 }
