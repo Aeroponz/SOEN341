@@ -1,3 +1,4 @@
+
 <?php 
 $root = dirname(__FILE__,3);
 require_once($root . '/src/db/DBConfig.php'); 
@@ -14,6 +15,7 @@ class follow{
     }
 	
 	function follows($iLoggenOnUser,$iU_id2){
+
 		$dbconn = Database::getConnection();
 		$sql = "SELECT * FROM follow_tbl";  
 		$result = Database::query($sql, $dbconn);
