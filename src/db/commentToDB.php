@@ -71,10 +71,4 @@ class comment{
 		return "../viewPostPage/viewPost.php?id= $p_id";
 	}
 }
-	//script
-	/* $output = add_comment_to_db();
-	echo fetch_user();
-	echo $output;
-	
-	header('Location: '.$uri. get_redirect_path($output)); */
 ?>
