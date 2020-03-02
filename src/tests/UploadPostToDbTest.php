@@ -46,7 +46,7 @@ final class UploadPostToDbTest extends TestCase
         //$this->assertEquals(-1, fetch_user());
 
         //Logged IN
-        $this -> assertEquals( FixedUserID, fetch_user());
+        $this -> assertTrue( fetch_user() > 0);
         //LOGOUT()
     }
 

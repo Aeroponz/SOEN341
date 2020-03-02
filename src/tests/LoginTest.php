@@ -15,24 +15,24 @@ final class LoginTest extends TestCase
     {
         $TestUserLogin = new Website\Login();
         //Wrong Password
-        $TestUserLogin->withInput(SignUpTest::$mTestUsername, 'TravisCI');
+        $TestUserLogin->withInput(__TESTUSERNAME__, 'TravisCI');
         $this->assertEquals(-1, $TestUserLogin->Login());
     }
     function testLoginWrongUsername():void
     {
         $TestUserLogin = new Website\Login();
         //Wrong Username
-        $TestUserLogin->withInput('TestUer', SignUpTest::$mTestPassword);
+        $TestUserLogin->withInput('TestUer', __TESTPASSWORD__);
         $this->assertEquals(-1, $TestUserLogin->Login());
     }
     function testLoginSuccess():void
     {
         $TestUserLogin = new Website\Login();
         //Login Success
-        $TestUserLogin->withInput(SignUpTest::$mTestUsername, SignUpTest::$mTestPassword);
+        $TestUserLogin->withInput(__TESTUSERNAME__, __TESTPASSWORD__);
         $wUID = $TestUserLogin->Login();
         $this->assertTrue($wUID > 0);
         //User ID should match the one given at account creation due to it being unique to the user's account
-        $this->assertEquals($wUID, SignUpTest::$mUserId);
+        //$this->assertEquals($wUID, $gUserId);
     }
 }
