@@ -1,31 +1,40 @@
 <?php
 declare(strict_types=1);
-include 'TestFunction.php';
+
+$root = dirname(__FILE__, 3);
+require_once ($root.'/src/db/DBConfig.php');
+require_once ($root.'/src/db/UploadClass.php');
+include $root.'/src/db/uploadPostToDB.php';
 
 use PHPUnit\Framework\TestCase;
 
-final class EmailTest extends TestCase
+final class UploadPostToDbTest extends TestCase
 {
-    public function testCanBeCreatedFromValidEmailAddress(): void
+    public  function testGenerateString():void
     {
-        $this->assertInstanceOf(
-            Email::class,
-            Email::fromString('user@example.com')
-        );
+        //String Is Random
+        $this -> assertFalse('Boeing' == Website\Upload::generate_string('Boeing'));
+
+        //Default Length
+        $this -> assertTrue(strlen(Website\Upload::generate_string('Airbus')) == 16);
+
+        //Custom Length
+        $this -> assertTrue(strlen(Website\Upload::generate_string('Plane',5)) == 5);
+    }
+    public function testCheckForHashtags():void
+    {
+        $this -> assertEquals('y', Website\Upload::check_for_hashtag('#ILOVEPLANES'));
+        $this -> assertEquals('n', Website\Upload::check_for_hashtag('Plop'));
+    }
+    public  function testFetchUserID():void
+    {
+        //Logged Out
+        $this -> assertEquals(-1, fetch_user());
+
+        //Logged In
+        //LOGIN() --Fixed userID
+        //$this -> assertEquals( FixedUserID, fetch_user());
+        //LOGOUT()
     }
 
-    public function testCannotBeCreatedFromInvalidEmailAddress(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-
-        Email::fromString('invalid');
-    }
-
-    public function testCanBeUsedAsString(): void
-    {
-        $this->assertEquals(
-            'user@example.com',
-            Email::fromString('user@example.com')
-        );
-    }
 }
