@@ -1,4 +1,6 @@
 <?php 
+namespace Website;
+use SqlDb\Database;
 $root = dirname(__FILE__,3);
 require_once($root . '/src/db/DBConfig.php'); 
 //session_start();

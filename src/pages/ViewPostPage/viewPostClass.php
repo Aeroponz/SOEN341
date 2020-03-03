@@ -1,4 +1,6 @@
 <?php
+namespace Website;
+use SqlDb\Database;
 $root = dirname(__FILE__, 4);
 require_once($root . '/src/db/DBConfig.php'); //Must have at the top of any file that needs db connection.
 
