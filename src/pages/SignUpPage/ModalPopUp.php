@@ -32,7 +32,6 @@ require($root . '/src/pages/FunctionBlocks/AddEmailToDB.php');
 				if(isset($_POST['add']))
 					$email = $_POST['email'];
                     $u_id = $_SESSION['userID'];
-                    echo $u_id;
 					UserEmail::addEmailToDB($u_id, $email);
 					header('Location: ../HomePage/HomepageBase.php');
 			}

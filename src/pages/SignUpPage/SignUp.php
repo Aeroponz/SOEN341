@@ -61,7 +61,6 @@ class SignUp
         $valueID = $wDbQuery->fetch_assoc();
         $valueID['u_id'] += 1;
         $userIDValue = $valueID['u_id'];
-        echo $userIDValue;
         Database::safeQuery("INSERT INTO users(u_id, name, pass) VALUES ('$userIDValue', '$iUsername', '$iPassword')");
         Database::safeQuery("INSERT INTO user_profile(u_id) VALUES ('$userIDValue')");
         return $userIDValue;
