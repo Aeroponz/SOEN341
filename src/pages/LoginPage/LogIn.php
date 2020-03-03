@@ -41,7 +41,7 @@ class LogIn
             return -1;
         }
 
-        $wDbQuery = Database::safeQuery("SELECT u_id, name, pass FROM users ORDER BY u_id DESC LIMIT 1");
+        $wDbQuery = Database::safeQuery("SELECT u_id, name, pass FROM users");
 
         while ($row = $wDbQuery->fetch_assoc()) {    //fetches values of results and stores in array $row
             if ($row["name"] == $this->mUsername) {
