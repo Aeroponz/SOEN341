@@ -1,6 +1,10 @@
-<!DOCTYPE html>
-<?php require_once('../../db/DBConfig.php'); 
+<?php 
+namespace Website;
+$root = dirname(__FILE__, 4);
+require_once($root . '/src/db/DBConfig.php');
+require('GetEmail.php');
 ?>
+<!DOCTYPE html>
 <html lang = "en">
 	<head>
 		<meta charset = "utf-8">
@@ -23,27 +27,16 @@
 		
 		<?php if ($_POST) {
 			if(isset($_POST['submit'])){
-				$result = Database::safeQuery("SELECT u_id, email FROM users");
-				$validEmail = true;
-				$_SESSION['userID'] = "";
-				$_SESSION['email'] = "";
-				while($row = $result->fetch_assoc()){ 	//fetches values of results and stores in array $row 
-					if($row["email"] == $_POST['email']) {
-						$validEmail = true;
-						$_SESSION['userID'] = $row["u_id"];
-						$_SESSION['email'] = $row["email"];
-						require_once('MailTrap/PhpMailer.php');
-						echo "<script type = \"text/JavaScript\"> 
+				$UserEmail = new GetEmail();
+				$UserID = new GetEmail();
+				$UserEmail->withPost();
+				$_SESSION['email'] = $UserEmail->Get_email();
+				$_SESSION['userID'] = $UserID->Get_userID($_POST['email']);
+				if($_SESSION['email'] != -1) {
+					require_once('MailTrap/PhpMailer.php');
+					echo "<script type = \"text/JavaScript\"> 
 						document.getElementById('message').innerHTML = \"An email has been sent with a link to reset your password. <br>Please make sure to check your spam folder\";</script>";
-						break;
-					}
-					else 
-						$validEmail = false;
-				}
-				if($validEmail == false){
-					echo "<script type = \"text/JavaScript\">
-						document.getElementById('message').innerHTML = \"Email address provided is not associated to an account\";
-						</script>";
+
 				}
 			}
 		}

@@ -1,7 +1,11 @@
-<!DOCTYPE html>
-<?php require_once('../../db/DBConfig.php'); 
-	  require('../FunctionBlocks/checkUsernameAndPassword.php');
+<?php
+	namespace Website;
+	$root = dirname(__FILE__, 4);
+	require_once($root . '/src/db/DBConfig.php');
+	require($root . '/src/pages/FunctionBlocks/checkUsernameAndPassword.php');
+	require('ResettingPassword.php');
 ?>
+<!DOCTYPE html>
 <html lang = "en">
 	<head>
 		<meta charset = "utf-8">
@@ -31,31 +35,22 @@
 		</div>
 		</center>
 		
-		<?php if ($_POST) {
-			if(isset($_POST['submit'])){
-				checkingPassword();
-			}
-		}
+		<?php 
+		namespace Website;
+		use SqlDb\Database;
 		
-		function checkingPassword(){
-			if(checkPassword($_POST['password'])) {
-				if($_POST['password'] == $_POST['passwordConfirm']){
-					$password = $_POST['password'];
-					$user = $_SESSION['userID'];
-					$result = Database::safeQuery("UPDATE users SET pass = '$password' WHERE u_id = '$user'");
+		if ($_POST) {
+			if(isset($_POST['submit'])){
+				$UserPassword = new ResettingPassword();
+				$UserPassword->withPost();
+				$_SESSION['userID'] = $UserPassword->CheckingPasswordValidity();
+				echo $_SESSION['userID'];
+				if ($_SESSION['userID'] > 0) {
 					header("Location: ../HomePage/HomepageBase.php");
 				}
-				else
-					echo "<script type = \"text/JavaScript\">
-							document.getElementById('message').innerHTML = \"Passwords don't match\";
-							</script>";
-				}	
-			else
-				echo "<script type = \"text/JavaScript\">
-						document.getElementById('message').innerHTML = \"Your password does not match the required format.\";
-					</script>";
-		
+			}
 		}
+	
 		?>
 		
 	</body>
