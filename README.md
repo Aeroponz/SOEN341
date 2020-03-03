@@ -35,3 +35,5 @@ Project description and key features
   - Photoshop
   - MySQL
   - Apache web server
+  - MailTrap
+  - PHPMailer (gitHub project for sending emails)
