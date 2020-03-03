@@ -1,6 +1,5 @@
 <?php
 namespace Website;
-use SqlDb\Database;
 $root = dirname(__FILE__, 4);
 require_once($root . '/src/db/DBConfig.php');
 require('LogIn.php');
