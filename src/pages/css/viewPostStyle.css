@@ -16,21 +16,6 @@ img.one {
     max-height: 150%;
 }
 
-.comment_warning {
-	margin-left: auto;
-	margin-bottom: 5px;
-	padding: 5px 13%;
-	border: none;
-	
-	
-	font: Calibri;
-	font-weight: 550;
-	word-wrap: break-word;
-	
-	color: #FF0000;
-	background-color: #ffcccc;
-}
-
 body{
 
     background-color: #F5F8FA;

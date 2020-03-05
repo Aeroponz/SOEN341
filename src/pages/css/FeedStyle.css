@@ -10,6 +10,10 @@ body{
     background-color: #F5F8FA;
 }
 
+p{
+    background-color: #FFFFFF;  
+}
+
 .FeedPage
 {
     display: grid;
@@ -34,9 +38,9 @@ body{
 }
 
 #SearchTextField{
-	display: inline-block;
-	height: 100%;
-	width: 100%;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
 }
 
 .header-LeftSide
@@ -84,6 +88,7 @@ body{
 {
     border-radius: 5px;
     background-color: #FFFFFF;
+    height: 100%;
     grid-area: Posts;
     display: grid;
     grid-template-rows: 45px 1fr 80px;
@@ -95,7 +100,8 @@ body{
 
 .PostInfo
 {
-    grid-area: PostInfo;
+
+    background-color: #FFFFFF;
     display: grid;
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 45px 1fr;
@@ -122,13 +128,14 @@ body{
 
 .PostContent
 {
-    grid-area: PostContent;
+
+    background-color: #FFFFFF;
 }
 
 .PostBottom
 {
-    grid-area: PostBottom;
-    display:grid;
+    background-color: #FFFFFF;
+    padding-bottom: 10px;
 
 }
 
@@ -141,6 +148,7 @@ button{
     border-radius: 5px;
     grid-area: Sidebar;
     background-color: #FFFFFF;
+    max-height: 500px;
 
 }
 
