@@ -42,21 +42,22 @@ class Upload{
 			-1 -> error in uploading: failure
 			0 -> no data: failure
 	*/
-	public static function add_post_to_db($u_id,$file,$text){
+	public static function add_post_to_db($u_id,$file,$text, $fileContent){
 	
 		//Declare variables
 		$dbconn = null;
 		$sql = null;
 		$name = null;
 		$upload_type = 0; 
-	
+		
 		/* upload_type key
 			0 -> nothing submitted
 			1 -> text only
 			2 -> image only
 			3 -> image + text
 		*/
-		
+
+
 		//check inputs for errors
 		if($u_id == -1){return -3;}
 		if($text == "error"){return -1;}
@@ -67,7 +68,6 @@ class Upload{
 		
 		//If there is an image uploaded
 		if($upload_type >= 2){
-			
 			$fileType = explode("/",strtolower($file["type"]));	//[1] will be file extension
 			$dbconn = Database::getConnection();
 		
@@ -75,7 +75,6 @@ class Upload{
 			$permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 			do{
 				$name = "images/".Upload::generate_string($permitted_chars, 16).".".$fileType[1];
-				//$result = $dbconn->query("SELECT img_path FROM posts WHERE img_path = '$name';");
 				$result = Database::query("SELECT img_path FROM posts WHERE img_path = '$name';", $dbconn);
 			}while($result->num_rows > 0);
 			$dbconn = null;
@@ -121,3 +120,4 @@ class Upload{
 	
 }
 ?>
+

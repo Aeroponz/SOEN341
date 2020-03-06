@@ -2,7 +2,7 @@
 $root = dirname(__FILE__, 1);
 require_once ($root.'/UploadClass.php');
 //Author: Pierre-Alexis Barras <Pyxsys>
-	
+	session_start();
 	//get u_id from session.
 	function fetch_user() {
 		
@@ -18,8 +18,8 @@ require_once ($root.'/UploadClass.php');
 	//returns the posted file if it is set and valid.
 	//returns 'null' on no file, and "error" on errors.
 	function validFile() {
-		if(isset($_POST["postText"])){
-			if($_FILES["postImage"]["error"] == 0){ //file uploaded succesfully		
+		if(isset($_FILES["postImage"])){
+			if($_FILES["postImage"]["error"] == 0){ //file uploaded succesfully	
 				//check if file 12 bytes or larger and an image?
 				if( preg_match('/^image\b/',$_FILES["postImage"]["type"]) && filesize($_FILES["postImage"]["tmp_name"]) > 11 ){
 					if(exif_imagetype($_FILES["postImage"]["tmp_name"]) > 0 ) {return $_FILES["postImage"];}
@@ -44,13 +44,14 @@ require_once ($root.'/UploadClass.php');
 	$user = fetch_user();
 	$text = validText();
 	$file = validFile();
+	$fileContent = $_FILES["postImage"];
+	
 	
 	//script
-	$output = Website\Upload::add_post_to_db($user,$file,$text);
+	$output = Website\Upload::add_post_to_db($user,$file,$text,$fileContent);
 	$redirect = Website\Upload::get_redirect_path($output);
-	echo fetch_user();
 	echo $output;
 
 	//redirects user to another page (Ideally where the post is viewable.) if-statement needed for travis.
-	if($output != null){header('Location: '.$redirect);}
+	//if($output != null){header('Location: '.$redirect);}
 ?>
