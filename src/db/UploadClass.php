@@ -111,7 +111,7 @@ class Upload{
 		//debug
 			echo "TYPE: ". $upload_type ."<br/>";
 			echo "QUERY: ". $sql ."<br/>";
-			echo "RESULT: ". $result. "<br/>"
+			echo "RESULT: ". $result. "<br/>";
 			echo "TEXT DATA: ".$text."<br/>";
 			echo "FILE DATA:" ."<br/>";
 			echo "<pre>";
