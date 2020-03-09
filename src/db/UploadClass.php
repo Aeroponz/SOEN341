@@ -29,34 +29,32 @@ class Upload{
 	public static function get_redirect_path($value){
 		
 		switch($value){
-		/*no user*/		 case(-3): return "/SOEN341/src/pages/SignUpPage/signUP.php?source=post";
+		/*DB Error*/ 	 case(-4): return "/SOEN341/src/pages/CreatePostPage/createPostPage.php?source=dberror";
+		/*no user*/		 case(-3): return "/SOEN341/src/pages/SignUpPage/signUpPage.php?source=post";
 		/*no post info*/ case(0): return "/SOEN341/src/pages/CreatePostPage/createPostPage.php?source=empty";
 		/*post success*/ default: return "/SOEN341/src/pages/HomePage/HomepageBase.php";
 		}
 	}
 	
 	/*records posted information to DB
-		//Error Exit Codes//
-			-3 -> no user
-			-2 -> bad file size/type
-			-1 -> error in uploading: failure
-			0 -> no data: failure
+		//Exit Codes// - $upload_type
+			-4 -> Failure: Database error / Bad query;
+			-3 -> Failure: no user
+			-2 -> Failure: bad file size/type
+			-1 -> Failure: error in uploading
+			0 -> Failure: no data
+			1 -> Sucess: Text only
+			2 -> Sucess: Image only
+			3 -> Sucess: Image + text
 	*/
 	public static function add_post_to_db($u_id,$file,$text, $fileContent){
 	
 		//Declare variables
-		$dbconn = null;
-		$sql = null;
-		$name = null;
-		$upload_type = 0; 
-		
-		/* upload_type key
-			0 -> nothing submitted
-			1 -> text only
-			2 -> image only
-			3 -> image + text
-		*/
-
+		$dbconn = null; 	//db connection
+		$sql = null;		//query to be passed
+		$name = null;		//name of picture (if applicable)
+		$upload_type = 0; 	//Return Code
+		$result = null; 	//Query result
 
 		//check inputs for errors
 		if($u_id == -1){return -3;}
@@ -66,7 +64,7 @@ class Upload{
 		if($text != null){$upload_type += 1;} //text is set
 		if($file != null){$upload_type += 2;}
 		
-		//If there is an image uploaded
+		//Build Query for if there is an image uploaded
 		if($upload_type >= 2){
 			$fileType = explode("/",strtolower($file["type"]));	//[1] will be file extension
 			$dbconn = Database::getConnection();
@@ -77,7 +75,7 @@ class Upload{
 				$name = "images/".Upload::generate_string($permitted_chars, 16).".".$fileType[1];
 				$result = Database::query("SELECT img_path FROM posts WHERE img_path = '$name';", $dbconn);
 			}while($result->num_rows > 0);
-			$dbconn = null;
+			$dbconn = null; //close connection
 		
 			//upload picture into image directory
 			if( move_uploaded_file($_FILES["postImage"]["tmp_name"], realpath(dirname(getcwd()))."/db/".$name) ){ 
@@ -94,7 +92,7 @@ class Upload{
 			}
 		}
 		
-		//If only text was submitted
+		//Build Query for if only text was submitted
 		if($upload_type == 1) { 
 			$discover = Upload::check_for_hashtag($text);
 			$sql = "INSERT INTO posts (u_id, txt_content, discoverable) VALUES($u_id, '$text','$discover')";
@@ -102,14 +100,20 @@ class Upload{
 		
 		//Insert post into database
 		if($upload_type > 0){
-			Database::safeQuery($sql);
+			$result = Database::safeQuery($sql);
+		}
+		
+		//check for error in sql result
+		if (preg_match('/\berror\b/', $result.strtolower())) {
+			$upload_type = -4;
 		}
 		
 		//debug
-			echo "TYPE: ". $upload_type ."<br>";
-			echo "QUERY: ". $sql ."<br>";
-			echo "TEXT DATA: ".$text."<br>";
-			echo "FILE DATA:" ."<br>";
+			echo "TYPE: ". $upload_type ."<br/>";
+			echo "QUERY: ". $sql ."<br/>";
+			echo "RESULT: ". $result. "<br/>";
+			echo "TEXT DATA: ".$text."<br/>";
+			echo "FILE DATA:" ."<br/>";
 			echo "<pre>";
 			print_r($file);
 			echo realpath(dirname(getcwd()))."/db/" . $name;

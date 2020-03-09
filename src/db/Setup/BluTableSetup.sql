@@ -53,3 +53,12 @@ CREATE TABLE comments(
 );
 ALTER TABLE comments 
 ADD FOREIGN KEY (thread_id) REFERENCES comments(c_id);
+
+CREATE TABLE likes(
+	u_id INT NOT NULL,
+	p_id INT NOT NULL,
+	rating CHAR(1) NOT NULL DEFAULT 'y',
+	FOREIGN KEY (u_id) REFERENCES users(u_id),
+	FOREIGN KEY (p_id) REFERENCES posts(p_id),
+	PRIMARY KEY (u_id, p_id)
+);
