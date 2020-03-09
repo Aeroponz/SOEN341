@@ -3,6 +3,7 @@ $root = dirname(__FILE__, 1);
 require_once ($root.'/UploadClass.php');
 //Author: Pierre-Alexis Barras <Pyxsys>
 	session_start();
+	
 	//get u_id from session.
 	function fetch_user() {
 		
