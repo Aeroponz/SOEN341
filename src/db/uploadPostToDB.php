@@ -2,6 +2,7 @@
 //Author: Pierre-Alexis Barras <Pyxsys>
 $root = dirname(__FILE__, 1);
 require_once ($root.'/UploadClass.php');
+
 session_start();
 	
 	//returns the posted file if it is set and valid.

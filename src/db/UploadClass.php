@@ -88,7 +88,7 @@ class Upload{
 		$name = null;		//name of picture (if applicable)
 		$upload_type = 0; 	//Return Code
 		$result = null; 	//Query result
-		
+    
 		$cooldown_time = Upload::get_user_delay($u_id);
 		$elapsed_time = Upload::get_time_since_last_post($u_id);
 		
@@ -97,7 +97,7 @@ class Upload{
 		echo "User cooldown time: ". $cooldown_time. " second(s) <br/>";
 		echo "Time since last Post: ". $elapsed_time . " second(s) <br/>";
 		echo "Time left: ". max($cooldown_time-$elapsed_time, 0) . " second(s) left<br/>";
-		
+
 		//check inputs for errors
 		if($u_id == -1){return -3;}
 		if($text == 'BLU::INPUT_EXCEPTION::error'){return -1;}
