@@ -4,6 +4,12 @@
 var button = document.getElementById("submitbutton");
 button.disabled = true;
 
+//If there is an active cooldwn, triggr=ered by redirect, display countdown
+var targetTime = document.getElementById("targetTime");
+if(typeof(targetTime) != 'undefined' && targetTime != null){
+	countdown(targetTime.value);
+}
+
 // Adds an element to the document
 function addElement(parentId, elementTag, elementId, class_name, html) {
 	
@@ -110,4 +116,38 @@ function validateText() {
 		return regex.test(text);
 	}
 	else {return "isempty"}	
+}
+
+function countdown(target) { //source:: w3schools
+	
+	// Update the count down every second
+	var x = setInterval(function() {
+
+		// Get today's date and time
+		var now = new Date().getTime();
+    
+		// Find the distance between now and the count down date
+		var distance = target - now;
+    
+		// Time calculations for days, hours, minutes and seconds
+		var hours = Math.floor((distance % (1000 * 3600 * 24)) / (1000 * 3600));
+		var minutes = Math.floor((distance % (1000 * 3600)) / (1000 * 60));
+		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+		
+		//adjust string to be dynamic and remove unecessary information
+		var output = "";
+		if(hours > 0){output += hours + "h ";}
+		if(minutes > 0){output += minutes + "m ";}
+		if(seconds >= 0){output += seconds + "s ";}
+    
+		// Output the result in the element
+		document.getElementById("timeout").innerHTML = output;
+    
+		// If the count down is over, write some text 
+		if (distance < 0) {
+			clearInterval(x);
+			modifyElement("timeoutWarning", "block", "* You are eligible to post again.")
+		}
+		
+	}, 1000);
 }
