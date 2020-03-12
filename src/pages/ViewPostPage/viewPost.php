@@ -162,6 +162,9 @@ session_start();
 						<h4 class="Username"><?php echo $username?></h4>
 					</a>
 					
+					<?php
+					if($u_id !=$u_id2){?>
+						
 					<a aria-label="follow_button" class="follow">
 						<div id = "follow_user">
 						   <iframe name="follow" style="display:none;"></iframe>
@@ -172,6 +175,8 @@ session_start();
 						</div>
 					</a>
 					
+					<?php
+						}?>
 					<a aria-label="DeltaTime" class="TimeOfPost">
 						<h6 class="TimeOfPost"><?php echo $TimeofPost; ?> </h6>
 					</a>
