@@ -162,7 +162,7 @@
                         echo "</br>";                   
                     }
                 } else {
-                    echo "0 results";
+                    echo "Your followers haven't posted anything.";
                 }
                 ?> 
                 </div>
