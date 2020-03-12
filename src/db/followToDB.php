@@ -101,7 +101,5 @@ class follow{
 		return "../viewPostPage/viewPost.php?id= $p_id";
 	}
 }
-	//script
-	//$output = add_follow_to_db();
 	
 ?>

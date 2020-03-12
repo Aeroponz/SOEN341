@@ -100,19 +100,27 @@ p{
 
 .PostInfo
 {
-
+    margin-top: 5px;
+    margin-left: 5px;
+    grid-area: PostInfo;
     background-color: #FFFFFF;
     display: grid;
     grid-template-rows: 1fr 1fr;
-    grid-template-columns: 45px 1fr;
+    grid-template-columns: 45px 1fr 350px;
     grid-template-areas:
-    "Avatar Username"
-    "Avatar TimeOfPost";
+    "Avatar Username follow"
+    "Avatar TimeOfPost follow";
+}
+
+.follow
+{
+    grid-area: follow;
+    line-height: 44px;
 }
 
 .Avatar{
     grid-area: Avatar;
-    padding: 10px;
+    padding: 7.5px;
 }
 .Username{
     grid-area: Username;
@@ -175,3 +183,16 @@ button{
     position: relative; 
     top: -7px;
 }
+
+input[type=submit] {
+    background:#1DA1F2; 
+    border: none;
+    color: white;
+    padding: 2px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    border-radius: 5px; 
+}
+
