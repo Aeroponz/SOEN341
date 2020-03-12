@@ -91,11 +91,11 @@
 					}
 					?> 
 					<div class="PostInfo"><br>
-						<a aria-label="AccountPage_AvatarPic" class="Avatar">
+						<a href="../UserPage/UserPage.php?id=<?php echo $username; ?>" aria-label="AccountPage_AvatarPic" class="Avatar">
 							<img class="one" src= <?php echo $profile?>>
 						</a>
 						
-						<a href="../UserPage/UserPage.php?id= <?php echo $u_id2; ?>" aria-label="OpUsername" class="Username">
+						<a href="../UserPage/UserPage.php?id=<?php echo $username?>" aria-label="OpUsername" class="Username">
 							<h4 class="Username"><?php echo $username?></h4>
 						</a>
 						<?php
