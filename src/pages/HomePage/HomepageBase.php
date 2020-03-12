@@ -120,7 +120,7 @@
 						</a>
 					</div>
 						
-					<script type="text/javascript" src="/SOEN341/src/pages/FunctionBlocks/followJS.js"></script>
+					<script type="text/javascript" src="/SOEN341/src/pages/FunctionBlocks/followJSFeed.js"></script>
 					
 					<?php
 					$i++;
