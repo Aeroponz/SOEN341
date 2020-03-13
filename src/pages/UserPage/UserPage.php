@@ -4,6 +4,7 @@
 	
 	$root = dirname(__FILE__, 4);
 	require($root . '/src/db/followToDB.php');
+	require($root . '/src/db/commentToDB.php');
 	session_start();
 	$value = $_SESSION["userID"];
 	$dbconn = Database::getConnection();
@@ -151,14 +152,15 @@
                                     </a>
                                 </div>
                                 <div class="Comment">
-                                    <img src="../GenericResources/Post_Frame/Comment%20Divider.png">
-                                    <form id="CommentTextField" action="">
-                                        <input style="width: 90%; height: 28px; box-sizing: border-box; border-radius: 5px; border: 5px;" type="text" name="CommentText" placeholder="Share your thoughts...">
-                                        <button style = "border-radius: 5px; height: 25px; position: relative; top: 3px;" aria-label="UploadComment">
-                                            <img src="../GenericResources/Post_Frame/Paper%20Airplane.png">
-                                        </button>
-                                    </form>
-                                </div>
+									<img src="../GenericResources/Post_Frame/Comment%20Divider.png">
+									<form id="CommentTextField" action="" method="post">
+										<input style="width: 90%; height: 28px; box-sizing: border-box; border-radius: 5px; border: 5px;" type="text" name="CommentText" placeholder="Share your thoughts...">
+										<input type="hidden" name="p_id" value="'.$row["p_id"].'"> 
+										<button style = "border-radius: 5px; height: 25px; position: relative; top: 3px;" aria-label="UploadComment" name="comment" value="commenting">
+											<img src="../GenericResources/Post_Frame/Paper%20Airplane.png">
+										</button>
+									</form>
+								</div>
                             </div>';
                             echo "</br>";  
                         }
