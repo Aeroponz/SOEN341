@@ -154,14 +154,17 @@ session_start();
             </div>
 			<div class="Comments">
                 <div class="PostInfo"><br>
-					<a aria-label="AccountPage_AvatarPic" class="Avatar">
+					<a href="../UserPage/UserPage.php?id=<?php echo $username; ?>" aria-label="AccountPage_AvatarPic" class="Avatar">
 						<img class="one" src= <?php echo $profile?>>
 					</a>
 					
-					<a href="../UserPage/UserPage.php?id= <?php echo $u_id2; ?>" aria-label="OpUsername" class="Username">
+					<a href="../UserPage/UserPage.php?id=<?php echo $username; ?>" aria-label="OpUsername" class="Username">
 						<h4 class="Username"><?php echo $username?></h4>
 					</a>
 					
+					<?php
+					if($u_id !=$u_id2){?>
+						
 					<a aria-label="follow_button" class="follow">
 						<div id = "follow_user">
 						   <iframe name="follow" style="display:none;"></iframe>
@@ -172,6 +175,8 @@ session_start();
 						</div>
 					</a>
 					
+					<?php
+						}?>
 					<a aria-label="DeltaTime" class="TimeOfPost">
 						<h6 class="TimeOfPost"><?php echo $TimeofPost; ?> </h6>
 					</a>
@@ -233,11 +238,11 @@ session_start();
 									<a aria-label="AccountPage_AvatarPic" class="Avatar">
 										<img src= <?php echo $profile?>>
 									</a>
-									<a aria-label="OpUsername" class="Username">
+									<a href="../UserPage/UserPage.php?id=<?php echo $username; ?>" aria-label="OpUsername" class="Username">
 										<h4 class="Username"><?php echo $username; ?></h4>
 									</a>
 									
-									<a href="../UserPage/UserPage.php?id= <?php echo $u_id2; ?>" aria-label="OpUsername" class="Username">
+									<a href="../UserPage/UserPage.php?id=<?php echo $username; ?>" aria-label="OpUsername" class="Username">
 										<h4 class="Username"><?php echo $username; ?></h4>
 									</a>
 									

@@ -1,5 +1,9 @@
+<?php 
+	require_once ('../../db/UploadClass.php');
+	session_start();
+?>
+
 <!DOCTYPE HTML>
-<?php require_once('../functionBlocks/uploadBlock.php');?>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
@@ -28,10 +32,18 @@
 
 				<div id="warnings">
 				<?php
-					//Outputs a custom message depending if user attempted to post nothing.
+					//Outputs a custom message depending on if variables are set
 					if(isset($_GET["source"])) {
 						if($_GET["source"] == 'empty'){
 							echo "<p class = \"upload_warning\" id=\"badPostWarning\"> * You cannot submit an empty post!</p>";
+						}
+						if($_GET["source"] == 'timeout'){
+							$u_id = Website\Upload::fetch_user();
+							$cooldown = Website\Upload::get_user_delay($u_id) - Website\Upload::get_time_since_last_post($u_id);
+
+							$target_time = (time() + max($cooldown, 0))* 1000;	//convert from php seconds to js milliseconds
+							echo "<input id=targetTime value=\"".$target_time."\" style=\"display: none;\">"; 
+							echo "<p class = \"upload_warning\" id=\"timeoutWarning\" value> * You need to wait another <strong id=timeout></strong>before posting again.</p>";
 						}
 					}				
 				?>
