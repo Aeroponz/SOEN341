@@ -14,6 +14,10 @@ p{
     background-color: #FFFFFF;  
 }
 
+img{
+    border-radius: 5px; border: 0px;
+}
+
 .FeedPage
 {
     display: grid;
@@ -149,6 +153,13 @@ p{
 
 button{
     border-radius: 5px;
+    border: 0px;
+}
+
+.ButtonStyle
+{
+    border-radius: 5px;
+    border: 0px;
 }
 
 .Sidebar
@@ -171,7 +182,8 @@ button{
     width: 90%; 
     height: 25px; 
     box-sizing: border-box; 
-    border-radius: 5px;
+    border-radius: 5px; 
+    border: 0px;
 }
 
 .SearchBarButtons{
@@ -184,6 +196,16 @@ button{
     top: -7px;
 }
 
+
+
+#CommentText{
+    width: 90%; 
+    height: 28px; 
+    box-sizing: border-box; 
+    border-radius: 5px;
+    border: 0px;
+}
+=======
 input[type=submit] {
     background:#1DA1F2; 
     border: none;
