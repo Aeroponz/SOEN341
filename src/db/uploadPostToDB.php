@@ -8,7 +8,7 @@ session_start();
 	//returns the posted file if it is set and valid.
 	//returns 'null' on no file, and "error" on errors.
 	function validFile() {
-		if(isset($_POST["postImage"])){ //TODO, MAY NEED TO SWAP BETWEEN $_POST AND $_FILES
+		if(isset($_FILES["postImage"])){ 
 			if($_FILES["postImage"]["error"] == 0){ //file uploaded succesfully	
 				//check if file 12 bytes or larger and an image?
 				if( preg_match('/^image\b/',$_FILES["postImage"]["type"]) && filesize($_FILES["postImage"]["tmp_name"]) > 11 ){
