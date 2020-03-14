@@ -5,6 +5,7 @@ $root = dirname(__FILE__, 4);
 require_once($root . '/src/db/DBConfig.php'); //Must have at the top of any file that needs db connection.
 require($root . '/src/db/commentToDB.php');
 require($root . '/src/db/followToDB.php');
+require($root . '/src/db/ratingToDB.php');
 require('viewPostClass.php');
 session_start();
 
@@ -17,6 +18,30 @@ session_start();
 			echo $com;
 			if ($com != null) {
 				header('Location: '.$uri. $New->get_redirect_path($com));
+			} 
+
+		}
+		
+		if (isset($_POST['UpvoteButton'])) {
+			$New = new rating();
+			$New->withPost();
+			$_SESSION['up'] = $New->add_like_to_db();
+			$up = $_SESSION['up'];
+			echo $up;
+			if ($up != null) {
+				header('Location: '.$uri. $New->get_redirect_path($up));
+			} 
+
+		}
+		
+		if (isset($_POST['DownvoteButton'])) {
+			$New = new rating();
+			$New->withPost();
+			$_SESSION['down'] = $New->add_dislike_to_db();
+			$down = $_SESSION['down'];
+			echo $down;
+			if ($down != null) {
+				header('Location: '.$uri. $New->get_redirect_path($down));
 			} 
 
 		}
@@ -87,7 +112,7 @@ session_start();
 				$TimeofPost = $row["posted_on"];
 				$upvote = $row["upvote"];
 				$downvote = $row["downvote"];
-				$ranking = $upvote + $downvote;
+				$ranking = $upvote - $downvote;
 				
 				if(follow::follows($u_id, $u_id2))
 				{
@@ -275,13 +300,17 @@ session_start();
 				
 				<div class="PostBottom">
                     <div class="Buttons">
-                        <button name="UpvoteButton">
-                            <img src="../GenericResources/Post_Frame/upvote.png">
-                        </button>
-                        <button style = "width: 20px;" name="DownvoteButton">
-                            <img src="../GenericResources/Post_Frame/downvote.png">
-                        </button>
-						<?php echo $ranking ?>
+						<form method="post"> 
+							<input type='hidden' name='p_id' value='<?php echo "$p_id";?>'/> 
+							<input type="hidden" name="u_id2" value="<?php echo $u_id2;?>"> 
+							<button name="UpvoteButton">
+								<img src="../GenericResources/Post_Frame/upvote.png">
+							</button>
+							<button style = "width: 20px;" name="DownvoteButton">
+								<img src="../GenericResources/Post_Frame/downvote.png">
+							</button>
+							<?php echo $ranking ?>
+						</form>           
                     </div>
 					
                     <div class="Comment">
