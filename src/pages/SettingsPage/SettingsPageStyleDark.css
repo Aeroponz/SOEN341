@@ -1,0 +1,107 @@
+.backgroundColor{
+	background-color: #454545;
+	width: 500px;
+	height: 605px;
+	margin: 10px;
+	border: solid;
+	border-width: 0.2px;
+	border-color: #454545;
+	position: relative;
+	
+}
+
+.logoLogin{
+	height:60px;
+	width:100px;
+	margin-top: 80px;
+	margin-bottom: 20px;
+}
+
+a {
+	text-decoration: none;
+	color: #121212
+	
+}
+
+.close {
+	position: absolute;
+	top: 0;
+	right: 14px;
+	font-size: 42px;
+	transform: rotate(45deg);
+	color: #ccc;
+	cursor: pointer;
+}
+
+body {margin: 0; background-color: #121212; font-family: "Calibri"}
+
+button { background-color: #000033; color: white; border: none; height: 40px; width: 312px; cursor: pointer;}
+button:hover {background-color: #333366}
+.delete { background-color: #800000; color: white; border: none; height: 40px; width: 312px; cursor: pointer;}
+.delete:hover {background-color: #b30000}
+
+/*Code taken from https://stackoverflow.com/questions/45473416/toggle-switch-with-text-beside-it*/
+
+.sliderWrapper{display: inline-block;margin:24px 24px 24px 24px;}
+.sliderWrapper div{display: inline-block;}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+  vertical-align: middle;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #121212;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #000033;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #000033;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(18px);
+  -ms-transform: translateX(18px);
+  transform: translateX(18px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}

@@ -1,51 +1,60 @@
+<?php
+namespace Website;
+$root = dirname(__FILE__, 4);
+require_once($root . '/src/db/DBConfig.php');
+require('Settings.php');
+session_start();
+?>
 <!DOCTYPE html>
-<html>
-
-	<head>
-		<title>Settings</title>
-		<!-- Below can be imported later from CSS files -->
-		<!-- Using: <link rel="stylesheet" href="StyleSheet.css"> -->
-		<link rel="stylesheet" type="text/css" href="SettingsStyle.css">
-	</head>
-
-	<body>
-		<!--Header Format-->
-		<div id = "container_top">
-			<img class="post" src = "Blu_logo_square.png" alt="Company Logo"
-			style="width:75px;height:75px;">
-		</div>
-		
-		<!--Sidebar Format-->
-		<div id = "container_sideL">
-			<img class="post" src = "Blu.png" alt="Company Logo"
-			style="width:112.5px;height:45px;">
-			<p>Welcome to Blu</p>
-			<ul>
-				<li><a href="../HomePage/HomepageBase.php">Home</li>
-				<li><a href="../SettingsPage/SettingsPage.php">Settings</a></li>
-				<li><a href="../LoginPage/loginPage.php">Logout</a></li>
-			</ul>
-		</div>
-		
-		<div class = "main">
-			<div id = "container_settings">
-
-				<form id="settings" action="" >
-					<input type="text" name="nameChange" placeholder="New Username">
-					<br>
-					<input type="password" name="newPassword" placeholder="New Password">
-					<br>
-					Enable Dark Mode:  
-					<input type="checkbox" name="enableDarkmode">
-					<br>
-					<input type="submit" >
-				</form>
-
-				<button class="logOut" id="logoutSignout" name="logout" >Logout</button> <br>
-				<button class="deleteAcc" id="logoutSignout">Delete Account</button>
-				</form>
-			</div>
-		</div>
-		
-	</body>
-</html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Settings</title>
+    <link id = "style" rel="stylesheet" type="text/css" href="settingsPageStyle.css"/>
+	<?php
+		$_SESSION['u_id'] = 3;
+		$wUserId = $_SESSION['u_id'];
+		$wMode = new Settings();
+		$wResult = $wMode->GetMode($wUserId);
+	?>
+</head>
+<body>
+<center>
+    <div class="backgroundColor">
+		<div class = "close"><a href = "../HomePage/HomepageBase.php">+</a></div>
+        <img src="../GenericResources/Blu.png" class="logoLogin">
+        <br><br><br>
+		<button type = "button" name = "ChangePassword">Change Password</button><br><br>
+		<button type = "button" name = "Email">Add or change recovery email address</button><br>
+		<form action = "SettingsPage.php" method = "post" id = "form">
+		<div class = "sliderWrapper">
+				<div>Dark mode:</div>
+				<label class = "switch">
+					<input type = "checkbox" value = "dark" name = "dark" onclick = "document.getElementById('form').submit();" <?php echo (isset($_POST['dark']))? "checked='checked'": "";?>/>
+					<span class = "slider round"></span>
+				</label>
+			</div><br>
+		<form>
+		<button type = "button" name = "Logout">Log out</button><br><br>
+		<button type = "button" name = "DeleteAccount" class = "delete">Delete Account</button>
+       
+       
+    </div>
+<?php
+	if (isset($_POST))
+	{
+		$wUserId = $_SESSION['u_id'];
+		if(isset($_POST['dark'])){
+			echo "<script>document.getElementById('style').setAttribute('href', 'settingsPageStyleDark.css');</script>";
+			$wDark = new Settings();
+			$wResult = $wDark->ChangeToDark($wUserId);
+		}
+		else {
+			echo "<script>document.getElementById('style').setAttribute('href', 'settingsPageStyle.css');</script>";
+			$wLight = new Settings();
+			$wResult = $wLight->ChangeToLight($wUserId);
+		}
+	}
+	?>
+	</script>
+</center>

@@ -85,3 +85,4 @@ class SignUp
         return $iPassword == $iPassConfirm;
     }
 }
+?>

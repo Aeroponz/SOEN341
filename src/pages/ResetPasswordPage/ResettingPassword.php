@@ -47,7 +47,7 @@ class ResettingPassword
         $this->mUserId = $this->ChangingPassword($_SESSION['userID'], $this->mPassword);
         return $this->mUserId;
     }
-    //Add the new user to the database
+    //Changing Password
     function ChangingPassword($iUserId, $iPassword)
     {
         $wDbQuery = Database::safeQuery("UPDATE users SET pass = '$iPassword' WHERE u_id = '$iUserId'");
