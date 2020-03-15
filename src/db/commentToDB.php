@@ -21,7 +21,7 @@ class comment{
 		
 		if (isset($this->mU_id)) {
 			$loggenOnUser = $this->mU_id;
-			echo "Found User: ", $loggenOnUser, "<br />";
+			//echo "Found User: ", $loggenOnUser, "<br />";
 		}else {
 			 $loggenOnUser = -1;
 		}
@@ -31,7 +31,7 @@ class comment{
 	function fetch_p_id() {
 		if(isset($this->mP_id) && $this->mP_id !== ''){
 		  $p_id = $this->mP_id;
-		  echo $p_id; //comment out echo when not debugging
+		  //echo $p_id; //comment out echo when not debugging
 		} else {
 			 $p_id = -1;
 		}
