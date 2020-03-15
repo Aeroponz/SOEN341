@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width-device-width, initial-scale=1"/>
     <title>HomePageBase Feed</title>
-    <link rel="stylesheet" href="../css/FeedStyle.css"/>
+    <link id = "style" rel="stylesheet" href="../css/FeedStyle.css"/>
     <?php require_once('../../db/DBConfig.php'); ?>
 </head>
 <body>
@@ -15,10 +15,9 @@
                 <div class="Contain">
                    <?php
                 use SqlDb\Database;
-                session_start();
+				session_start();
                 $value = $_SESSION["userID"];
                 $dbconn = Database::getConnection();
-
 
                 //query 2
                 $result = $dbconn->query("
