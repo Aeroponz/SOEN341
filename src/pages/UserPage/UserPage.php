@@ -1,3 +1,41 @@
+<?php
+	namespace Website;
+	use SqlDb\Database;
+	
+	$root = dirname(__FILE__, 4);
+	require($root . '/src/db/followToDB.php');
+	require($root . '/src/db/commentToDB.php');
+	session_start();
+	$value = $_SESSION["userID"];
+	$dbconn = Database::getConnection();
+	
+	
+	if ($_POST) {
+		if (isset($_POST['comment'])) {
+			$New = new comment();
+			$New->withPost();
+			$_SESSION['com'] = $New->add_comment_to_db();
+			$com = $_SESSION['com'];
+			echo $com;
+			if ($com != null) {
+				header('Location: '.$uri. $New->get_redirect_path($com));
+			} 
+
+		}
+		
+		if (isset($_POST['follow_button1'])) {
+			$New2 = new follow();
+			$New2->withPost();
+			$_SESSION['follow'] = $New2->add_follow_to_db();
+			$follow = $_SESSION['follow'];
+			echo $follow;
+			if ($follow != null) {
+				header('Location: '.$uri. $New2->get_redirect_path($follow,fetch_p_id()));
+			 } 
+		}
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +43,10 @@
     <meta name="viewport" content="width-device-width, initial-scale=1"/>
     <title>User Feed</title>
     <link rel="stylesheet" href="../css/FeedStyle.css"/>
+	<!-- remove blue link for usernames -->
+	<style>
+		a { text-decoration: none; color: #000; }
+	</style>
     <?php require_once('../../db/DBConfig.php'); ?> 
 
 </head>
@@ -15,36 +57,76 @@
             <div class="Posts">
                <div class= "Contain">
               <?php
-                use SqlDb\Database;
-                session_start();
-                $dbconn = Database::getConnection();
                 
                 $view = $_GET['id'];
 
                 //query 2
                 $result = $dbconn->query("
-                    SELECT posts.img_path, posts.txt_content, users.name, posts.posted_on, posts.p_id
-                    FROM posts
-                    INNER JOIN users ON posts.u_id = users.u_id
+					SELECT * FROM posts
+                    INNER JOIN users ON users.u_id = posts.u_id
+					INNER JOIN user_profile on user_profile.u_id = users.u_id
                     ORDER BY 
                     posted_on DESC;
                     ");
-                
+                $i=1;
                 if ($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
                     if ($row["name"] == $view)  {
-                        echo '  
-                            <div class="PostInfo">
-                                    <a href="../UserPage/UserPage.php?id='.$view.'" aria-label="AccountPage_AvatarPic" class="Avatar">
-                                        <img src="../GenericResources/Post_Frame/Avatar%20Picture%20Circle.png">
-                                    </a>
-                                    <a href="../UserPage/UserPage.php?id='.$view.'" aria-label="OpUsername" class="Username">
-                                        <h4 class="Username">' .$row["name"]. '</h4>
-                                    </a>
-                                <a aria-label="DeltaTime" class="TimeOfPost">
-                                    <h6 class="TimeOfPost">' .$row["posted_on"].'</h6>
-                                </a>
-                            </div> ';
+						$u_id2 = $row["u_id"];
+						$username = $row["name"];
+						$TimeofPost = $row["posted_on"];
+						
+						if(follow::follows($value, $u_id2))
+						{
+							$followLabel = 'UnFollow';
+						}
+						else
+						{
+							$followLabel = 'Follow';
+						}
+						if($row["pic"] != null)
+						{
+							$profile = $row["pic"];
+						}
+						else 
+						{ 
+							$profile = "../GenericResources/Post_Frame/Avatar%20Picture%20Circle.png";
+						}
+						?>
+							<div class="PostInfo"><br>
+								<a aria-label="AccountPage_AvatarPic" class="Avatar">
+									<img class="one" src= <?php echo $profile?>>
+								</a>
+								
+								<a href="../UserPage/UserPage.php?id=<?php echo $username?>" aria-label="OpUsername" class="Username">
+									<h4 class="Username"><?php echo $username?></h4>
+								</a>
+								<?php
+								if($value !=$u_id2){?>
+								
+								<a aria-label="follow_button" class="follow">
+									<div id = "follow_user">
+									   <iframe name="follow" style="display:none;"></iframe>
+										<form target= "follow" method="post" action="" enctype="multipart/form-data">
+											<input type="hidden" name="u_id2" value="<?php echo $u_id2;?>"> 
+											<input id="followbutton<?php echo $i;?>" onclick="return changeText('followbutton<?php echo $i;?>');" type="submit" name="follow_button1" value="<?php echo $followLabel;?>" /> 
+										</form>
+									</div>
+								</a>
+								
+								<?php
+								}?>
+								
+								<a aria-label="DeltaTime" class="TimeOfPost">
+									<h6 class="TimeOfPost"><?php echo $TimeofPost; ?> </h6>
+								</a>
+							</div>
+								
+						<script type="text/javascript" src="/SOEN341/src/pages/FunctionBlocks/followJSFeed.js"></script>
+					
+					
+						<?php
+						$i++;
                         if($row["img_path"] != null){
                             echo '
                                 <div class="PostContent">
@@ -70,14 +152,15 @@
                                     </a>
                                 </div>
                                 <div class="Comment">
-                                    <img src="../GenericResources/Post_Frame/Comment%20Divider.png">
-                                    <form id="CommentTextField" action="">
-                                        <input style="width: 90%; height: 28px; box-sizing: border-box; border-radius: 5px;" type="text" name="CommentText" placeholder="Share your thoughts...">
-                                        <button style = "border-radius: 5px; height: 25px; position: relative; top: 3px;" aria-label="UploadComment">
-                                            <img src="../GenericResources/Post_Frame/Paper%20Airplane.png">
-                                        </button>
-                                    </form>
-                                </div>
+									<img src="../GenericResources/Post_Frame/Comment%20Divider.png">
+									<form id="CommentTextField" action="" method="post">
+										<input style="width: 90%; height: 28px; box-sizing: border-box; border-radius: 5px; border: 5px;" type="text" name="CommentText" placeholder="Share your thoughts...">
+										<input type="hidden" name="p_id" value="'.$row["p_id"].'"> 
+										<button style = "border-radius: 5px; height: 25px; position: relative; top: 3px;" aria-label="UploadComment" name="comment" value="commenting">
+											<img src="../GenericResources/Post_Frame/Paper%20Airplane.png">
+										</button>
+									</form>
+								</div>
                             </div>';
                             echo "</br>";  
                         }
