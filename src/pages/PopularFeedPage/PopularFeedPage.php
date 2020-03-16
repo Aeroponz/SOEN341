@@ -30,10 +30,6 @@
 			$_SESSION['up'] = $New->add_like_to_db();
 			$up = $_SESSION['up'];
 			echo $up;
-			if ($up != null) {
-				header('Location: '.$uri. $New->get_redirect_path($up));
-			} 
-
 		}
 		
 		if (isset($_POST['DownvoteButton'])) {
@@ -42,10 +38,6 @@
 			$_SESSION['down'] = $New->add_dislike_to_db();
 			$down = $_SESSION['down'];
 			echo $down;
-			if ($down != null) {
-				header('Location: '.$uri. $New->get_redirect_path($down));
-			} 
-
 		}
 		
 		if (isset($_POST['follow_button1'])) {
@@ -54,9 +46,6 @@
 			$_SESSION['follow'] = $New2->add_follow_to_db();
 			$follow = $_SESSION['follow'];
 			echo $follow;
-			if ($follow != null) {
-				header('Location: '.$uri. $New2->get_redirect_path($follow,fetch_p_id()));
-			 } 
 		}
 	}
 ?>

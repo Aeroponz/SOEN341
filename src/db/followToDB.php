@@ -88,18 +88,6 @@ class follow{
 		}
 		return $followRes;
 	}
-	
-	//returns a server path to a page
-	function get_redirect_path($value,$p_id){
-		
-		
-		switch($value){
-		/*no user*/		 		case(-3): return "../SignUpPage/signUP.php?source=post";
-		/*no user to follow*/	case(-4): return "../viewPostPage/viewPost.php?id= $p_id&source=noUserToFollow";
-		/*follow success*/ 	default: return "../viewPostPage/viewPost.php?id= $p_id";
-		}
-		return "../viewPostPage/viewPost.php?id= $p_id";
-	}
 }
 	
 ?>

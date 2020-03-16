@@ -21,19 +21,19 @@ class rating{
 		
 		if (isset($this->mU_id)) {
 			$loggenOnUser = $this->mU_id;
-			echo "Found User: ", $loggenOnUser, "<br />";
+			//echo "Found User: ", $loggenOnUser, "<br />";
 		}else {
 			 $loggenOnUser = -1;
 		}
 		return $loggenOnUser + 0; //ensures a numerical value is returned	
 	}
 	
-	//get u_id of following user.
+	//get u_id of poster user.
 	function fetch_poster() {
 		
 		if (isset($this->mU_id2)) {
 			$loggenOnUser = $this->mU_id2;
-			echo "Found User: ", $loggenOnUser, "<br />";
+			//echo "Found User: ", $loggenOnUser, "<br />";
 		}else {
 			 $loggenOnUser = -1;
 		}
@@ -43,7 +43,7 @@ class rating{
 	function fetch_p_id() {
 		if(isset($this->mP_id) && $this->mP_id !== ''){
 		  $p_id = $this->mP_id;
-		  echo $p_id; //comment out echo when not debugging
+		  //echo $p_id; //comment out echo when not debugging
 		} else {
 			 $p_id = -1;
 		}
@@ -104,7 +104,7 @@ class rating{
 			$sql = "UPDATE posts SET upvote = upvote-1 WHERE p_id= $p_id";
 			Database::safeQuery($sql);
 			
-			//update rating of posters
+			//update rating of posters, remove like
 			$sql = "UPDATE users SET rating = rating-1 WHERE u_id= $u_id2";
 			Database::safeQuery($sql);
 			
@@ -123,7 +123,7 @@ class rating{
 			$sql = "UPDATE posts SET downvote = downvote-1 WHERE p_id= $p_id";
 			Database::safeQuery($sql);
 			
-			//update rating of posters
+			//update rating of posters, remove dislike (+1) and add like (+1)
 			$sql = "UPDATE users SET rating = rating+2 WHERE u_id= $u_id2";
 			Database::safeQuery($sql);
 		}
@@ -137,7 +137,7 @@ class rating{
 			$sql = "UPDATE posts SET upvote = upvote+1 WHERE p_id= $p_id";
 			Database::safeQuery($sql);
 			
-			//update rating of posters
+			//update rating of posters, add like (+1)
 			$sql = "UPDATE users SET rating = rating+1 WHERE u_id= $u_id2";
 			Database::safeQuery($sql);
 		}
@@ -204,19 +204,6 @@ class rating{
 			Database::safeQuery($sql);
 		}
 		return $ratingRes;
-	}
-	
-	//returns a server path to a page
-	function get_redirect_path($value){
-		
-		$p_id = $this->fetch_p_id();
-		if($p_id == -1){$value = -4;}
-		switch($value){
-		/*no user*/		 		case(-3): return "../SignUpPage/signUP.php?source=post";
-		/*no poster*/			case(-4): return "../viewPostPage/viewPost.php?id= $p_id&source=noUserToFollow";
-		/*rating success*/ 	default: return "../viewPostPage/viewPost.php?id= $p_id";
-		}
-		return "../viewPostPage/viewPost.php?id= $p_id";
 	}
 }
 	
