@@ -4,11 +4,11 @@ use SqlDb\Database;
 $root = dirname(__FILE__,3);
 require_once($root . '/src/db/DBConfig.php'); 
 
-class rating{
+class Rating{
 	//Author: Jasen Ratnam
 	//Default Constructor to be used when creating a new user
     var $mU_id, $mU_id2, $mP_id;
-	function withPost()
+	function WithPost()
     {
         $this->mU_id = $_SESSION['userID'];
 		$this->mU_id2 = $_POST["u_id2"];
@@ -16,7 +16,7 @@ class rating{
     }
 	
 	//get u_id from session.
-	function fetch_user() {
+	function FetchUser() {
 		
 		if (isset($this->mU_id)) {
 			$oLoggenOnUser = $this->mU_id;
@@ -27,7 +27,7 @@ class rating{
 	}
 	
 	//get u_id of poster user.
-	function fetch_poster() {
+	function FetchPoster() {
 		
 		if (isset($this->mU_id2)) {
 			$oLoggenOnUser = $this->mU_id2;
@@ -38,7 +38,7 @@ class rating{
 	}
 	
 	//get post id
-	function fetch_p_id() {
+	function FetchPId() {
 		if(isset($this->mP_id) && $this->mP_id !== ''){
 		  $oP_id = $this->mP_id;
 		} else {
@@ -48,7 +48,7 @@ class rating{
 	}
 	
 	//check if post is liked/disliked
-	function liked($iLoggenOnUser,$iP_id){
+	function Liked($iLoggenOnUser,$iP_id){
 
 		$wDbConn = Database::getConnection();
 		$wSql = "SELECT * FROM likes";  
@@ -78,22 +78,22 @@ class rating{
 	}
 	
 	//add rating to db
-	function add_like_to_db(){
+	function AddLikeToDb(){
 		$wSql = null;
 		$wU_id =null;
 		$wU_id2 =null;
 		
-		$wU_id = $this->fetch_user();
+		$wU_id = $this->FetchUser();
 		if($wU_id == -1){return -3;} //no user
 		
-		$wU_id2 = $this->fetch_poster();
+		$wU_id2 = $this->FetchPoster();
 		if($wU_id2 == -1){return -4;} //no poster
 		
-		$wP_id = $this->fetch_p_id();
+		$wP_id = $this->FetchPId();
 		if($wP_id == -1){return -4;} 
 		
 		$oRatingRes = 0;
-		if($this->liked($wU_id, $wP_id)==1){ //already liked
+		if($this->Liked($wU_id, $wP_id)==1){ //already liked
 			$oRatingRes  = 1; //like
 			//remove like, no rating done
 			$wSql = "DELETE FROM likes WHERE u_id= $wU_id AND p_id= $wP_id";
@@ -144,22 +144,22 @@ class rating{
 	}
 	
 	//add rating to db
-	function add_dislike_to_db(){
+	function AddDislikeToDb(){
 		$wSql = null;
 		$wU_id =null;
 		$wU_id2 =null;
 		
-		$wU_id = $this->fetch_user();
+		$wU_id = $this->FetchUser();
 		if($wU_id == -1){return -3;} //no user
 		
-		$wU_id2 = $this->fetch_poster();
+		$wU_id2 = $this->FetchPoster();
 		if($wU_id2 == -1){return -4;} //no poster
 		
-		$wP_id = $this->fetch_p_id();
+		$wP_id = $this->FetchPId();
 		if($wP_id == -1){$value = -4;} 
 		
 		$oRatingRes = 0;
-		if($this->liked($wU_id, $wP_id)==2){ //already disliked
+		if($this->Liked($wU_id, $wP_id)==2){ //already disliked
 			$oRatingRes  = 2; //dislike
 			//remove dislike, no rating done
 			$wSql = "DELETE FROM likes WHERE u_id= $wU_id AND p_id= $wP_id";
@@ -173,7 +173,7 @@ class rating{
 			$wSql = "UPDATE users SET rating = rating+1 WHERE u_id= $wU_id2";
 			Database::safeQuery($wSql);
 		}
-		elseif($this->liked($wU_id, $wP_id)==1){ //if liked
+		elseif($this->Liked($wU_id, $wP_id)==1){ //if liked
 			$oRatingRes = 1;	//liked	
 			//change to dislike
 			$wSql = "UPDATE likes SET rating = 'n' WHERE u_id = $wU_id AND p_id= $wP_id";
@@ -189,7 +189,7 @@ class rating{
 			$wSql = "UPDATE users SET rating = rating-2 WHERE u_id= $wU_id2";
 			Database::safeQuery($wSql);
 		}
-		elseif($this->liked($wU_id, $wP_id)==-1){//no rating
+		elseif($this->Liked($wU_id, $wP_id)==-1){//no rating
 			$oRatingRes = -1; //no rating found
 			//add like
 			$wSql = "INSERT INTO likes (u_id, p_id, rating) VALUES($wU_id, $wP_id, 'n')";

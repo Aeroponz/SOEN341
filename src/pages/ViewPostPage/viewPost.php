@@ -24,20 +24,21 @@ session_start();
 		}
 		
 		if (isset($_POST['UpvoteButton'])) {
-			$New = new rating();
-			$New->withPost();
-			$_SESSION['up'] = $New->add_like_to_db();
-			$up = $_SESSION['up'];
-			//echo $up;
+			$New = new Rating();
+			$New->WithPost();
+			$_SESSION['up'] = $New->AddLikeToDb();
+			$Up = $_SESSION['up'];
+			//echo $Up;
 		}
 		
 		if (isset($_POST['DownvoteButton'])) {
-			$New = new rating();
-			$New->withPost();
-			$_SESSION['down'] = $New->add_dislike_to_db();
-			$down = $_SESSION['down'];
-			//echo $down;
+			$New = new Rating();
+			$New->WithPost();
+			$_SESSION['down'] = $New->AddDislikeToDb();
+			$Down = $_SESSION['down'];
+			//echo $Down;
 		}
+		
 		
 		if (isset($_POST['follow_button1'])) {
 			$New2 = new follow();
