@@ -35,7 +35,7 @@ h2 {
 	color: white;
 }
 
-.no { background-color: #F5F2F; color: white; border: none; height: 40px; width: 150px; cursor: pointer;}
+.no { background-color: #000033; color: white; border: none; height: 40px; width: 150px; cursor: pointer;}
 .no:hover {background-color: #333366;}
 .yes { background-color: #800000; color: white; border: none; height: 40px; width: 150px; cursor: pointer;}
 .yes:hover {background-color: #b30000;}
