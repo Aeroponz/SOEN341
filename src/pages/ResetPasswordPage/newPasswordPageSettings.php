@@ -55,7 +55,7 @@
 				$wUserPassword->withPost();
 				$wResult = $wUserPassword->CheckingPasswordValidity();	
 				if ($wResult > 0) {
-					echo "<script type='text/javascript'>alert('Password changed successfully!');window.location = '../HomePage/HomepageBase.php';</script>";
+					echo "<script type='text/javascript'>alert('Password changed successfully!');window.location = '../HomePage/HomepageBase.php';</script>";	
 				}
 			}
 		}

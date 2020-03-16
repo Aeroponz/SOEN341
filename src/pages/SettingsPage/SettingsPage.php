@@ -3,6 +3,7 @@ namespace Website;
 $root = dirname(__FILE__, 4);
 require_once($root . '/src/db/DBConfig.php');
 require('Settings.php');
+require('Logout.php');
 session_start();
 ?>
 <!DOCTYPE html>
@@ -27,14 +28,14 @@ session_start();
         <img src="../GenericResources/Blu.png" class="logoLogin">
         <br><br><br>
 		<a href = "../ResetPasswordPage/newPasswordPageSettings.php"><button type = "button" name = "ChangePassword">Change Password</button><br><br></a>
-		<button type = "button" name = "Email">Add or change recovery email address</button><br><br>
+		<a href = "../SignUpPage/ModalPopUpSettings.php"><button type = "button" name = "Email">Add or change recovery email address</button><br><br></a>
 		<form action = "SettingsPage.php" method = "post" id = "form">
 			<input type = "submit" value = "Dark mode" class= "dark" name = "dark"/>
 			<input type = "submit" value = "Light mode" class= "light" name = "light"/>
 			<br><br>
 		<form>
-		<button type = "button" name = "Logout">Log out</button><br><br>
-		<button type = "button" name = "DeleteAccount" class = "delete">Delete Account</button>
+		<button type = "submit" name = "Logout">Log out</button><br><br>
+		<button type = "submit" name = "DeleteAccount" class = "delete">Delete Account</button>
        
        
     </div>
@@ -50,6 +51,19 @@ session_start();
 			echo "<script>document.getElementById('style').setAttribute('href', 'settingsPageStyle.css');</script>";
 			$wLight = new Settings();
 			$wResult = $wLight->ChangeToLight($cUserId);
+		}
+		else if(isset($_POST['Logout'])){
+			$wLogOut = new LogOut();
+			$wResult = $wLogOut->LogOut();
+			if($wResult)
+				header('Location: ../LoginPage/loginPage.php');
+		}
+		else if(isset($_POST['DeleteAccount'])){
+			header('Location: DeleteAccountPage.php');
+			$wDeleteAccount = new DeleteAccount();
+			$wResult = $wDeleteAccount->DeleteAccount($_SESSION['userID']);
+			if($wResult)
+				header('Location: ../LoginPage/loginPage.php');
 		}
 	}
 	?>

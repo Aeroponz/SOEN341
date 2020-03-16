@@ -16,7 +16,7 @@ require('LogIn.php');
     <div class="backgroundColor">
         <img src="../GenericResources/Blu.png" class="logoLogin">
 
-        <?php session_start(); ?>
+        <?php session_start();?>
         <br><br><br>
         <form action="loginPage.php" method="post">
             <input type="text" name="username" placeholder="Username" class="creds"/><br><br>

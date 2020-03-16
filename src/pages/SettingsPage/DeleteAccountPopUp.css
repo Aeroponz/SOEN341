@@ -12,7 +12,7 @@
 
 .modal-content {
 	width: 500px;
-	height: 300px;
+	height: 200px;
 	background-color: white;
 	border-radius: 4px;
 	font-family: "Calibri";
@@ -35,18 +35,10 @@ h2 {
 	color: #1DA1F2;
 }
 
-.button { background-color: #1DA1F2; color: white; border: none; height: 40px; width: 150px; cursor: pointer;}
-.button:hover {background-color: #36b0d9}
-
-input {	
-	width:300px; 
-	height: 30px; 
-	padding: 5px; 
-	background-color: #F5F8FA; 
-	border-style: solid; 
-	border-width: 0.2px; 
-	border-color: #E1E8ED;
-}
+.no { background-color: #1DA1F2; color: white; border: none; height: 40px; width: 150px; cursor: pointer;}
+.no:hover {background-color: #36b0d9;}
+.yes { background-color: #E00000; color: white; border: none; height: 40px; width: 150px; cursor: pointer;}
+.yes:hover {background-color: #FF3232;}
 
 form {
 	display: inline-block;
