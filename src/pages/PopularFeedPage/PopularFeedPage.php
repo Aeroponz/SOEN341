@@ -29,7 +29,7 @@
 			$New->withPost();
 			$_SESSION['up'] = $New->add_like_to_db();
 			$up = $_SESSION['up'];
-			echo $up;
+			//echo $up;
 		}
 		
 		if (isset($_POST['DownvoteButton'])) {
@@ -37,7 +37,7 @@
 			$New->withPost();
 			$_SESSION['down'] = $New->add_dislike_to_db();
 			$down = $_SESSION['down'];
-			echo $down;
+			//echo $down;
 		}
 		
 		if (isset($_POST['follow_button1'])) {
@@ -45,7 +45,7 @@
 			$New2->withPost();
 			$_SESSION['follow'] = $New2->add_follow_to_db();
 			$follow = $_SESSION['follow'];
-			echo $follow;
+			//echo $follow;
 		}
 	}
 ?>
@@ -181,11 +181,10 @@
                         echo "</br>";                   
                     }
                 } else {
-                    echo "0 results";
+                    echo "No posts";
                 }
                 ?>
                 </div>
-
             </div>
             <div class="Sidebar">
                 <div class="Feeds">

@@ -29,7 +29,7 @@
 			$New->withPost();
 			$_SESSION['up'] = $New->add_like_to_db();
 			$up = $_SESSION['up'];
-			echo $up;
+			//echo $up;
 		}
 		
 		if (isset($_POST['DownvoteButton'])) {
@@ -37,7 +37,7 @@
 			$New->withPost();
 			$_SESSION['down'] = $New->add_dislike_to_db();
 			$down = $_SESSION['down'];
-			echo $down;
+			//echo $down;
 		}
 		
 		if (isset($_POST['follow_button1'])) {
@@ -45,7 +45,7 @@
 			$New2->withPost();
 			$_SESSION['follow'] = $New2->add_follow_to_db();
 			$follow = $_SESSION['follow'];
-			echo $follow;
+			//echo $follow;
 		}
 	}
 ?>
@@ -158,10 +158,10 @@
 								<form method="post"> 
 									<input type="hidden" name="p_id" value="'.$row["p_id"].'"/> 
 									<input type="hidden" name="u_id2" value="'.$u_id2.'"> 
-									<button name="UpvoteButton">
+									<button id="like" name="UpvoteButton">
 										<img src="../GenericResources/Post_Frame/upvote.png">
 									</button>
-									<button style = "width: 20px;" name="DownvoteButton">
+									<button id="dislike" style = "width: 20px;" name="DownvoteButton">
 										<img src="../GenericResources/Post_Frame/downvote.png">
 									</button>
 									'.$ranking.'

@@ -10,6 +10,7 @@ require('viewPostClass.php');
 session_start();
 
 	if ($_POST) {
+		
 		if (isset($_POST['comment'])) {
 			$New = new comment();
 			$New->withPost();
@@ -27,7 +28,7 @@ session_start();
 			$New->withPost();
 			$_SESSION['up'] = $New->add_like_to_db();
 			$up = $_SESSION['up'];
-			echo $up;
+			//echo $up;
 		}
 		
 		if (isset($_POST['DownvoteButton'])) {
@@ -35,7 +36,7 @@ session_start();
 			$New->withPost();
 			$_SESSION['down'] = $New->add_dislike_to_db();
 			$down = $_SESSION['down'];
-			echo $down;
+			//echo $down;
 		}
 		
 		if (isset($_POST['follow_button1'])) {
@@ -44,6 +45,9 @@ session_start();
 			$_SESSION['follow'] = $New2->add_follow_to_db();
 			$follow = $_SESSION['follow'];
 			echo $follow;
+			/*if ($follow != null) {
+				header('Location: '.$uri. $New2->get_redirect_path($follow,fetch_p_id()));
+			 }  */
 		}
 	}
 ?>
@@ -183,7 +187,7 @@ session_start();
 						<div id = "follow_user">
 						   <iframe name="follow" style="display:none;"></iframe>
 							<form target= "follow" method="post" action="" enctype="multipart/form-data">
-								<input type="hidden" name="poster" value="<?php echo $poster;?>"> 
+								<input type="hidden" name="u_id2" value="<?php echo $poster;?>"> 
 								<input id="followbutton" onclick="return changeText('followbutton');" type="submit" name="follow_button1" value="<?php echo $followLabel;?>" /> 
 							</form>
 						</div>
@@ -293,10 +297,10 @@ session_start();
 							<input type='hidden' name='p_id' value='<?php echo "$p_id";?>'/> 
 							<input type="hidden" name="u_id2" value="<?php echo "$poster";?>"> 
 							<button name="UpvoteButton">
-								<img src="../GenericResources/Post_Frame/upvote.png">
+								<img src="../GenericResources/Post_Frame/upvote.png" id="like">
 							</button>
 							<button style = "width: 20px;" name="DownvoteButton">
-								<img src="../GenericResources/Post_Frame/downvote.png">
+								<img src="../GenericResources/Post_Frame/downvote.png" id="dislike">
 							</button>
 							<?php echo $ranking ?>
 						</form>           
