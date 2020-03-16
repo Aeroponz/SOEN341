@@ -34,8 +34,12 @@ a {
 
 body {margin: 0; background-color: #F5F8FA; font-family: "Calibri"}
 
-button { background-color: #1DA1F2; color: white; border: none; height: 40px; width: 312px; cursor: pointer;}
+button { background-color: #1DA1F2; color: white; border: none; height: 40px; width: 312px; cursor: pointer;box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.19);}
 button:hover {background-color: #36b0d9}
+.dark, .light {background-color: #1DA1F2; color: white; border: none; cursor: pointer; border-radius: 20px; padding: 10px; box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.19);}
+.dark:hover {background-color: black; color: white;}
+.light:hover {background-color:white; color:black;}
+.dark:focus, .light:focus {outline:none;}
 .delete { background-color: #E11313; color: white; border: none; height: 40px; width: 312px; cursor: pointer;}
 .delete:hover {background-color: #E14646}
 

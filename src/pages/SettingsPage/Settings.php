@@ -22,21 +22,15 @@ class Settings
     }
 	
 	//Determine if light or dark based on value stored in DB
-	function GetMode($iUserId)
+	function GetMode($iUserId, $iLight, $iDark)
 	{
 		$wDbQuery = Database::safeQuery("SELECT dark FROM user_profile WHERE u_id = '$iUserId'");
 		$wValue = $wDbQuery->fetch_assoc();
-		if($wValue["dark"] == 1) {
-			echo "<script type = \"text/JavaScript\">
-								document.getElementById('style').setAttribute('href', 'settingsPageStyleDark.css');
-								</script>";
-			return true;
+		if($wValue["dark"] == "1") {
+			return $iDark;
 		}
 		else {
-			echo "<script type = \"text/JavaScript\">
-								document.getElementById('style').setAttribute('href', 'settingsPageStyle.css');
-								</script>";
-			return false;
+			return $iLight;
 		}
 	}
 }

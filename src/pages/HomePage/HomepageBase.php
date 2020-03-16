@@ -5,11 +5,11 @@
 	$root = dirname(__FILE__, 4);
 	require($root . '/src/db/followToDB.php');
 	require($root . '/src/db/commentToDB.php');
+	require("../SettingsPage/Settings.php");
 	session_start();
 	
 	$value = $_SESSION["userID"];
 	$dbconn = Database::getConnection();
-	
 	
 	if ($_POST) {
 		if (isset($_POST['comment'])) {
@@ -43,12 +43,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width-device-width, initial-scale=1"/>
     <title>HomePageBase Feed</title>
-    <link rel="stylesheet" href="../css/FeedStyle.css"/>
+    <link id = "style" rel="stylesheet" href="../css/FeedStyle.css"/>
 	<!-- remove blue link for usernames -->
 	<style>
 		a { text-decoration: none; color: #000; }
 	</style>
->>>>>>> develop
+	<?php 		
+		$cUserId = $_SESSION['userID'];
+		$mMode = new Settings();
+		$cLight = "../css/FeedStyle.css";
+		$cDark = "../css/FeedStyleDark.css";
+		$mResult = $mMode->GetMode($cUserId, $cLight, $cDark);
+		echo "<script>document.getElementById('style').setAttribute('href', '$mResult');</script>";?>
     <?php require_once('../../db/DBConfig.php'); ?>
 </head>
 <body>
