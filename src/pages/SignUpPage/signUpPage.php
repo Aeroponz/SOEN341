@@ -1,8 +1,9 @@
 <?php
+//Author: Alya Naseer
 namespace Website;
-$root = dirname(__FILE__, 4);
-require_once($root . '/src/db/DBConfig.php');
-require($root . '/src/pages/FunctionBlocks/checkUsernameAndPassword.php');
+$cRoot = dirname(__FILE__, 4);
+require_once($cRoot . '/src/db/DBConfig.php');
+require($cRoot . '/src/pages/FunctionBlocks/checkUsernameAndPassword.php');
 require('SignUp.php');
 ?>
 <!DOCTYPE html>
@@ -57,7 +58,7 @@ use SqlDb\Database;
 if ($_POST) {
     if (isset($_POST['submit'])) {
         $NewUser = new SignUp();
-        $NewUser->withPost();
+        $NewUser->WithPost();
         $_SESSION['userID'] = $NewUser->SignUpUser();
         if ($_SESSION['userID'] > 0) {
             header("Location: ModalPopUp.php");

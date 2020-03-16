@@ -1,7 +1,8 @@
 <?php
+//Author: Alya Naseer
 namespace Website;
-$root = dirname(__FILE__, 4);
-require_once($root . '/src/db/DBConfig.php');
+$cRoot = dirname(__FILE__, 4);
+require_once($cRoot . '/src/db/DBConfig.php');
 require('Settings.php');
 require('Logout.php');
 session_start();

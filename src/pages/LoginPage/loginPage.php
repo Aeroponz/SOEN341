@@ -1,7 +1,8 @@
 <?php
+//Author: Alya Naseer
 namespace Website;
-$root = dirname(__FILE__, 4);
-require_once($root . '/src/db/DBConfig.php');
+$cRoot = dirname(__FILE__, 4);
+require_once($cRoot . '/src/db/DBConfig.php');
 require('LogIn.php');
 ?>
 <!DOCTYPE html>
@@ -30,9 +31,9 @@ require('LogIn.php');
 
 <?php if ($_POST) {
     if (isset($_POST['submit'])) {
-        $UserLogin = new LogIn();
-        $UserLogin->withPost();
-        $_SESSION['userID'] = $UserLogin->Login();
+        $wUserLogin = new LogIn();
+        $wUserLogin->WithPost();
+        $_SESSION['userID'] = $wUserLogin->LogIn();
         if ($_SESSION['userID'] > 0) {
             header("Location: ../HomePage/HomepageBase.php");
         }

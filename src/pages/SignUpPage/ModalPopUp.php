@@ -2,9 +2,9 @@
 namespace Website;
 use Website\functions\UserEmail;
 
-$root = dirname(__FILE__, 4);
-require_once($root . '/src/db/DBConfig.php');
-require($root . '/src/pages/FunctionBlocks/AddEmailToDB.php');
+$cRoot = dirname(__FILE__, 4);
+require_once($cRoot . '/src/db/DBConfig.php');
+require($cRoot . '/src/pages/FunctionBlocks/AddEmailToDB.php');
 	session_start();
 ?>
 <html lang = "en">
@@ -30,9 +30,9 @@ require($root . '/src/pages/FunctionBlocks/AddEmailToDB.php');
 		<?php
 			if($_POST){
 				if(isset($_POST['add']))
-					$email = $_POST['email'];
-                    $u_id = $_SESSION['userID'];
-					UserEmail::addEmailToDB($u_id, $email);
+					$wEmail = $_POST['email'];
+                    $wUId = $_SESSION['userID'];
+					UserEmail::AddEmailToDB($wUId, $wEmail);
 					header('Location: ../HomePage/HomepageBase.php');
 			}
 		?>

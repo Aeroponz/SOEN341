@@ -1,7 +1,8 @@
 <?php
+//Author: Alya Naseer
 namespace Website;
 use SqlDb\Database;
-$root = dirname(__FILE__, 4);
+$cRoot = dirname(__FILE__, 4);
 class ResettingPassword
 {
     var $mPassword, $mPasswordConfirm, $mUserId;
@@ -13,7 +14,7 @@ class ResettingPassword
     }
 
     //Default Constructor to be used to log in
-    function withPost()
+    function WithPost()
     {
         $this->mPassword = $_POST['password'];
 		$this->mPasswordConfirm = $_POST['passwordConfirm'];
@@ -21,7 +22,7 @@ class ResettingPassword
     }
 
     //Constructor used by TravisCI
-    function withInput($iPassword, $iPasswordConfirm)
+    function WithInput($iPassword, $iPasswordConfirm)
     {
         $this->mPassword = $iPassword;
 		$this->mPasswordConfirm = $iPasswordConfirm;
@@ -30,7 +31,7 @@ class ResettingPassword
 	
    function CheckingPasswordValidity()
     {
-		if (!(functions\CheckFormat::checkPassword($this->mPassword))){
+		if (!(functions\CheckFormat::CheckPassword($this->mPassword))){
 		
             echo "<script type = \"text/JavaScript\">
 							document.getElementById('message').innerHTML = \"Your password does not match the required format.\";
@@ -38,7 +39,7 @@ class ResettingPassword
             return -1;
         }
 
-        if (!$this->checkPasswordMatch($this->mPassword, $this->mPasswordConfirm)) {
+        if (!$this->CheckPasswordMatch($this->mPassword, $this->mPasswordConfirm)) {
             echo "<script type = \"text/JavaScript\">
 								document.getElementById('message').innerHTML = \"Passwords don't match\";
 								</script>";
@@ -59,7 +60,7 @@ class ResettingPassword
     }
 	
 	//This function checks that the password and the confirm password fields match
-    function checkPasswordMatch($iPassword, $iPassConfirm)
+    function CheckPasswordMatch($iPassword, $iPassConfirm)
     {
         return $iPassword == $iPassConfirm;
     }

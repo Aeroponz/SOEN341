@@ -1,8 +1,9 @@
 <?php
+//Author: Alya Naseer
 	namespace Website;
-	$root = dirname(__FILE__, 4);
-	require_once($root . '/src/db/DBConfig.php');
-	require($root . '/src/pages/FunctionBlocks/checkUsernameAndPassword.php');
+	$cRoot = dirname(__FILE__, 4);
+	require_once($cRoot . '/src/db/DBConfig.php');
+	require($cRoot . '/src/pages/FunctionBlocks/checkUsernameAndPassword.php');
 	require('ResettingPassword.php');
 	require('../SettingsPage/Settings.php');
 	session_start();
@@ -51,7 +52,7 @@
 		if ($_POST) {
 			if(isset($_POST['submit'])){
 				$wUserPassword = new ResettingPassword();
-				$wUserPassword->withPost();
+				$wUserPassword->WithPost();
 				$wResult = $wUserPassword->CheckingPasswordValidity();				
 				if ($wResult > 0) {
 					header("Location: ../HomePage/HomepageBase.php");
