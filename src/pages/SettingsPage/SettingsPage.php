@@ -26,7 +26,7 @@ session_start();
 		<div class = "close"><a href = "../HomePage/HomepageBase.php">+</a></div>
         <img src="../GenericResources/Blu.png" class="logoLogin">
         <br><br><br>
-		<button type = "button" name = "ChangePassword">Change Password</button><br><br>
+		<a href = "../ResetPasswordPage/newPasswordPageSettings.php"><button type = "button" name = "ChangePassword">Change Password</button><br><br></a>
 		<button type = "button" name = "Email">Add or change recovery email address</button><br><br>
 		<form action = "SettingsPage.php" method = "post" id = "form">
 			<input type = "submit" value = "Dark mode" class= "dark" name = "dark"/>

@@ -32,6 +32,7 @@ require('GetEmail.php');
 				$UserEmail->withPost();
 				$_SESSION['email'] = $UserEmail->Get_email();
 				$_SESSION['userID'] = $UserID->Get_userID($_POST['email']);
+				echo $_SESSION['userID'];
 				if($_SESSION['email'] != -1) {
 					require_once('MailTrap/PhpMailer.php');
 					echo "<script type = \"text/JavaScript\"> 

@@ -25,10 +25,11 @@
 	<body>
 		<center>
 		<div class = "backgroundColor">
+			<div class = "close"><a class = "a" href = "../SettingsPage/SettingsPage.php">+</a></div>
 			<img src = "../GenericResources/Blu.png" class = "logoLogin">
 			<br><br>
 			<p>Enter below your new password</p>
-			<form action = "newPasswordPage.php" method = "post">
+			<form action = "newPasswordPageSettings.php" method = "post">
 				<input type = "password" name = "password" placeholder = "Password" class = "creds"/><br><br>
 				<input type = "password" name = "passwordConfirm" placeholder = "Confirm Password" class = "creds"/><br><br>
 				<input type = "Submit" name = "submit" value = "Change Password"  class = "button"/><br><br>
@@ -52,9 +53,9 @@
 			if(isset($_POST['submit'])){
 				$wUserPassword = new ResettingPassword();
 				$wUserPassword->withPost();
-				$wResult = $wUserPassword->CheckingPasswordValidity();				
+				$wResult = $wUserPassword->CheckingPasswordValidity();	
 				if ($wResult > 0) {
-					header("Location: ../HomePage/HomepageBase.php");
+					echo "<script type='text/javascript'>alert('Password changed successfully!');window.location = '../HomePage/HomepageBase.php';</script>";
 				}
 			}
 		}

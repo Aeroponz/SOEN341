@@ -30,7 +30,7 @@ class ResettingPassword
 	
    function CheckingPasswordValidity()
     {
-        if (!(functions\CheckFormat::checkPassword($this->mPassword))){
+		if (!(functions\CheckFormat::checkPassword($this->mPassword))){
 		
             echo "<script type = \"text/JavaScript\">
 							document.getElementById('message').innerHTML = \"Your password does not match the required format.\";
@@ -44,8 +44,11 @@ class ResettingPassword
 								</script>";
             return -2;
         }
-        $this->mUserId = $this->ChangingPassword($_SESSION['userID'], $this->mPassword);
-        return $this->mUserId;
+		else {
+			$this->mUserId = $this->ChangingPassword($_SESSION['userID'], $this->mPassword);
+			$_SESSION['userID'];
+			return $this->mUserId;
+		}
     }
     //Changing Password
     function ChangingPassword($iUserId, $iPassword)
