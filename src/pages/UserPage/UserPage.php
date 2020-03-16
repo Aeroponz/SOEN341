@@ -13,16 +13,16 @@
 	
 	
 	if ($_POST) {
+		
 		if (isset($_POST['comment'])) {
-			$New = new comment();
-			$New->withPost();
-			$_SESSION['com'] = $New->add_comment_to_db();
-			$com = $_SESSION['com'];
-			echo $com;
-			if ($com != null) {
-				header('Location: '.$uri. $New->get_redirect_path($com));
+			$New = new Comment();
+			$New->WithPost();
+			$_SESSION['result'] = $New->AddCommentToDb();
+			$Result = $_SESSION['result'];
+			echo $Result;
+			if ($Result != null) {
+				header('Location: '.$uri. $New->GetRedirectPath($Result));
 			} 
-
 		}
 		
 		if (isset($_POST['UpvoteButton'])) {
@@ -44,7 +44,7 @@
 		if (isset($_POST['follow_button1'])) {
 			$New2 = new follow();
 			$New2->withPost();
-			$_SESSION['follow'] = $New2->add_follow_to_db();
+			$_SESSION['follow'] = $New2->AddFollowToDb();
 			$follow = $_SESSION['follow'];
 			//echo $follow;
 		}

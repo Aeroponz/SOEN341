@@ -1,8 +1,8 @@
 <?php 
 namespace Website;
 use SqlDb\Database;
-$root = dirname(__FILE__,3);
-require_once($root . '/src/db/DBConfig.php'); 
+$Root = dirname(__FILE__,3);
+require_once($Root . '/src/db/DBConfig.php'); 
 
 class Rating{
 	//Author: Jasen Ratnam
