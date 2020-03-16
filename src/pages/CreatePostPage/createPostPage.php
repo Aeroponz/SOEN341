@@ -12,6 +12,10 @@
 		<link rel="stylesheet" type="text/css" href="/SOEN341/src/pages/FunctionBlocks/uploadBlockCSS.css">
 		<link rel="stylesheet" href="../css/FeedStyle.css"/>
 		<link rel="stylesheet" href="createPostPageCSS.css"/>
+		<!-- remove blue link for usernames -->
+		<style>
+			a { text-decoration: none; color: #000; }
+		</style>
 	</head>
 	
 	<body>
