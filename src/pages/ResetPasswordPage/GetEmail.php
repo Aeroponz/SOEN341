@@ -1,7 +1,8 @@
 <?php
+//Author: Alya Naseer
 namespace Website;
 use SqlDb\Database;
-$root = dirname(__FILE__, 4);
+$cRoot = dirname(__FILE__, 4);
 class GetEmail
 {
     var $mEmail, $mUserId;
@@ -13,26 +14,26 @@ class GetEmail
     }
 
     //Default Constructor to be used to log in
-    function withPost()
+    function WithPost()
     {
         $this->mEmail = $_POST['email'];
 		
     }
 
     //Constructor used by TravisCI
-    function withInput($iEmail)
+    function WithInput($iEmail)
     {
         $this->mEmail = $iEmail;
     }
 	
 	//Getting email
-    function Get_email()
+    function GetEmail()
     {
         $wDbQuery = Database::safeQuery("SELECT email FROM users");
 
-        while ($row = $wDbQuery->fetch_assoc()) {    //fetches values of results and stores in array $row
-            if ($row["email"] == $this->mEmail) {
-				$this->mEmail = $row["email"];
+        while ($wRow = $wDbQuery->fetch_assoc()) {    //fetches values of results and stores in array $row
+            if ($wRow["email"] == $this->mEmail) {
+				$this->mEmail = $wRow["email"];
 				return $this->mEmail;
 			}
         }
@@ -44,12 +45,12 @@ class GetEmail
     }
 	
 	//Getting userID
-	function Get_userID($mEmail)
+	function GetUserId($mEmail)
 	{
 		$wDbQuery = Database::safeQuery("SELECT u_id, email FROM users WHERE email = '$mEmail'");
 
-        while ($row = $wDbQuery->fetch_assoc()) {    //fetches values of results and stores in array $row
-			$this->mUserId = $row["u_id"];
+        while ($wRow = $wDbQuery->fetch_assoc()) {    //fetches values of results and stores in array $row
+			$this->mUserId = $wRow["u_id"];
 			return $this->mUserId;
         }
         return -1;

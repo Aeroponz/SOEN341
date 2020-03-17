@@ -1,7 +1,8 @@
+/*Author: Alya Naseer*/
 .bg-modal {
 	width: 100%;
 	height:100%;
-	background-color: rgba(0,0,0,0.7);
+	background-color: #121212;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -12,8 +13,8 @@
 
 .modal-content {
 	width: 500px;
-	height: 300px;
-	background-color: white;
+	height: 200px;
+	background-color: #454545;
 	border-radius: 4px;
 	font-family: "Calibri";
 	padding: 30px;
@@ -26,27 +27,19 @@
 	right: 14px;
 	font-size: 42px;
 	transform: rotate(45deg);
-	color: #ccc;
+	color: #454545;
 	cursor: pointer;
 }
 
-
 h2 {
-	color: #1DA1F2;
+	color: white;
 }
 
-.button { background-color: #1DA1F2; color: white; border: none; height: 40px; width: 150px; cursor: pointer;}
-.button:hover {background-color: #36b0d9}
+.no { background-color: #000033; color: white; border: none; height: 40px; width: 150px; cursor: pointer;}
+.no:hover {background-color: #333366;}
+.yes { background-color: #800000; color: white; border: none; height: 40px; width: 150px; cursor: pointer;}
+.yes:hover {background-color: #b30000;}
 
-input {	
-	width:300px; 
-	height: 30px; 
-	padding: 5px; 
-	background-color: #F5F8FA; 
-	border-style: solid; 
-	border-width: 0.2px; 
-	border-color: #E1E8ED;
-}
 
 form {
 	display: inline-block;
@@ -54,5 +47,6 @@ form {
 
 .a, .a:hover {
 	text-decoration: none;
-	color: #ccc;
+	color: #454545;
 }
+

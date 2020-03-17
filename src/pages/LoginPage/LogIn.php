@@ -1,12 +1,11 @@
 <?php
-
-
+//Author: Alya Naseer
 namespace Website;
 
 use SqlDb\Database;
 
-$root = dirname(__FILE__, 4);
-require($root . '/src/pages/FunctionBlocks/checkUsernameAndPassword.php');
+$cRoot = dirname(__FILE__, 4);
+require($cRoot . '/src/pages/FunctionBlocks/checkUsernameAndPassword.php');
 
 class LogIn
 {
@@ -18,21 +17,21 @@ class LogIn
     }
 
     //Default Constructor to be used to log in
-    function withPost()
+    function WithPost()
     {
         $this->mUsername = $_POST['username'];
         $this->mPassword = $_POST['password'];
     }
 
     //Constructor used by TravisCI
-    function withInput($iUsername, $iPassword)
+    function WithInput($iUsername, $iPassword)
     {
         $this->mUsername = $iUsername;
         $this->mPassword = $iPassword;
     }
 
     //Initiate Login Sequence
-    function Login()
+    function LogIn()
     {
         if (!(functions\CheckFormat::checkUsername($this->mUsername) && functions\CheckFormat::checkPassword($this->mPassword))) {
             echo "<script type = \"text/JavaScript\">
@@ -43,10 +42,10 @@ class LogIn
 
         $wDbQuery = Database::safeQuery("SELECT u_id, name, pass FROM users");
 
-        while ($row = $wDbQuery->fetch_assoc()) {    //fetches values of results and stores in array $row
-            if ($row["name"] == $this->mUsername) {
-                if ($row["pass"] == $this->mPassword) {
-                    $this->mUserId = $row["u_id"];
+        while ($wRow = $wDbQuery->fetch_assoc()) {    //fetches values of results and stores in array $row
+            if ($wRow["name"] == $this->mUsername) {
+                if ($wRow["pass"] == $this->mPassword) {
+                    $this->mUserId = $wRow["u_id"];
                     return $this->mUserId;
                 } else break;
             }

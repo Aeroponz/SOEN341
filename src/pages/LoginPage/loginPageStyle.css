@@ -1,3 +1,4 @@
+/*Author: Alya Naseer*/
 .backgroundColor{
 	background-color: white;
 	width: 500px;
@@ -8,14 +9,6 @@
 	border-color: #E1E8ED;
 	
 }
-
-.logo{
-	height:60px;
-	width:110px;
-	margin-top: 30px;
-	margin-bottom: 5px;
-}
-
 
 .logoLogin{
 	height:80px;
