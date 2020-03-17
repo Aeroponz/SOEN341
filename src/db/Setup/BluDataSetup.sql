@@ -1,18 +1,18 @@
 USE bludata;
 
-INSERT INTO users (u_id, name, pass, email, rating) VALUES (NULL, 'TestUser0', 'test12345!', 'dummy@email.com', '0');
+INSERT INTO users (u_id, name, pass, email, rating) VALUES (NULL, 'TestUser0', 'test12345!', 'dummy@email.com', '0.00');
 INSERT INTO user_profile(u_id, hidden, dark, pic) VALUES (NULL, 0, 0, NULL);
 
-INSERT INTO users (u_id, name, pass, email, rating) VALUES (NULL, 'TestUser1', 'test12345!', NULL, '50');
+INSERT INTO users (u_id, name, pass, email, rating) VALUES (NULL, 'TestUser1', 'test12345!', NULL, '5.00');
 INSERT INTO user_profile(u_id, hidden, dark, pic) VALUES (NULL, 0, 1, NULL);
 
-INSERT INTO users (u_id, name, pass, email, rating) VALUES (NULL, 'TestUser2', 'test12345!', 'dummy2@email.com', '54');
+INSERT INTO users (u_id, name, pass, email, rating) VALUES (NULL, 'TestUser2', 'test12345!', 'dummy2@email.com', '5.4');
 INSERT INTO user_profile(u_id, hidden, dark, pic) VALUES (NULL, 1, 0, NULL);
 
-INSERT INTO users (u_id, name, pass, email, rating) VALUES (NULL, 'TestUser3', 'test12345!', NULL, '-65');
+INSERT INTO users (u_id, name, pass, email, rating) VALUES (NULL, 'TestUser3', 'test12345!', NULL, '-6.5');
 INSERT INTO user_profile(u_id, hidden, dark, pic) VALUES (NULL, 1, 1, NULL);
 
-INSERT INTO users (u_id, name, pass, email, rating) VALUES (NULL, 'TestUser4', 'test12345!', NULL, '100');
+INSERT INTO users (u_id, name, pass, email, rating) VALUES (NULL, 'TestUser4', 'test12345!', NULL, '10.0');
 INSERT INTO user_profile(u_id, hidden, dark, pic) VALUES (NULL, 0, 1, NULL);
 
 INSERT INTO follow_tbl (u_id, follows) VALUES (1,2);
