@@ -73,7 +73,7 @@ body{
 
 .divider
 {
-    grid-area: divider
+    grid-area: divider;
 }
 .AccountHyperlinks
 {
@@ -225,4 +225,5 @@ input[type=submit] {
     display: inline-block;
     font-size: 13px;
     border-radius: 5px; 
+    cursor:pointer;
 }

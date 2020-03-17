@@ -4,34 +4,34 @@ use SqlDb\Database;
 $root = dirname(__FILE__, 4);
 require_once($root . '/src/db/DBConfig.php'); //Must have at the top of any file that needs db connection.
 
-class view{
+class View{
 	var $mU_id, $mP_id;
 	
-	function withPost()
+	function WithPost()
     {
         $this->mU_id = $_SESSION['userID'];
 		$this->mP_id = $_REQUEST['id'];
     }
 	
-	function fetch_user() {
+	function FetchUser() {
 		
 		if (isset($this->mU_id)) {
-			$loggenOnUser = $this->mU_id;
-			//echo "Found User: ", $loggenOnUser, "<br />";
+			$oLoggenOnUser = $this->mU_id;
+			//echo "Found User: ", $oLoggenOnUser, "<br />";
 		}else {
-			 $loggenOnUser = -1;
+			 $oLoggenOnUser = -1;
 		}
-		return $loggenOnUser + 0; //ensures a numerical value is returned	
+		return $oLoggenOnUser + 0; //ensures a numerical value is returned	
 	}
 	
-	function fetch_p_id() {
-		$p_id = 0;
+	function FetchPId() {
+		$oPId = 0;
 		if(isset($this->mP_id) && $this->mP_id !== ''){
-		  $p_id = $this->mP_id;
+		  $oPId = $this->mP_id;
 		  //echo $p_id; //comment out echo when not debugging
 		} else {
-			 $p_id = -1;
+			 $oPId = -1;
 		}
-		return $p_id; //ensures a numerical value is returned	
+		return $oPId; //ensures a numerical value is returned	
 	}
 }

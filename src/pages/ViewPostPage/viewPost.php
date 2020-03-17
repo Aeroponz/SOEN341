@@ -5,31 +5,46 @@ $root = dirname(__FILE__, 4);
 require_once($root . '/src/db/DBConfig.php'); //Must have at the top of any file that needs db connection.
 require($root . '/src/db/commentToDB.php');
 require($root . '/src/db/followToDB.php');
+require($root . '/src/db/ratingToDB.php');
 require('viewPostClass.php');
 session_start();
 
 	if ($_POST) {
+		
 		if (isset($_POST['comment'])) {
-			$New = new comment();
-			$New->withPost();
-			$_SESSION['com'] = $New->add_comment_to_db();
-			$com = $_SESSION['com'];
-			echo $com;
-			if ($com != null) {
-				header('Location: '.$uri. $New->get_redirect_path($com));
+			$New = new Comment();
+			$New->WithPost();
+			$_SESSION['result'] = $New->AddCommentToDb();
+			$Result = $_SESSION['result'];
+			echo $Result;
+			if ($Result != null) {
+				header('Location: '.$uri. $New->GetRedirectPath($Result));
 			} 
-
 		}
 		
+		if (isset($_POST['UpvoteButton'])) {
+			$New = new Rating();
+			$New->WithPost();
+			$_SESSION['up'] = $New->AddLikeToDb();
+			$Up = $_SESSION['up'];
+			//echo $Up;
+		}
+		
+		if (isset($_POST['DownvoteButton'])) {
+			$New = new Rating();
+			$New->WithPost();
+			$_SESSION['down'] = $New->AddDislikeToDb();
+			$Down = $_SESSION['down'];
+			//echo $Down;
+		}
+		
+		
 		if (isset($_POST['follow_button1'])) {
-			$New2 = new follow();
-			$New2->withPost();
-			$_SESSION['follow'] = $New2->add_follow_to_db();
-			$follow = $_SESSION['follow'];
-			echo $follow;
-			if ($follow != null) {
-				header('Location: '.$uri. $New2->get_redirect_path($follow,fetch_p_id()));
-			 } 
+			$New = new Follow();
+			$New->WithPost();
+			$_SESSION['follow'] = $New->AddFollowToDb();
+			$Follow = $_SESSION['follow'];
+			//echo $Follow;
 		}
 	}
 ?>
@@ -55,74 +70,74 @@ session_start();
 	
 	<!-- get current user id & connect to DB-->
 	<?php
-	$dbconn = Database::getConnection();
-	$tab = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+	$wDbConn = Database::getConnection();
+	$cTab = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 	
-	$view = new view();
-	$view->withPost();
+	$wView = new View();
+	$wView->WithPost();
 	
-	$u_id = $view->fetch_user();
-	$p_id = $view->fetch_p_id();
+	$wU_id = $wView->FetchUser();
+	$wP_id = $wView->FetchPId();
 
-	$sql = "SELECT * FROM posts 
+	$wSql = "SELECT * FROM posts 
 			INNER JOIN users on posts.u_id = users.u_id
 			INNER JOIN user_profile on users.u_id = user_profile.u_id";
 	
-	$result = Database::query($sql, $dbconn);
+	$wResult = Database::query($wSql, $wDbConn);
 
 	//declare variables
-	$username = null;
-	$TimeofPost = null;
-	$image = null;
-	$text = null;	
-	$profile = null;
+	$wUsername = null;
+	$wTimeofPost = null;
+	$wImage = null;
+	$wText = null;	
+	$wProfile = null;
 		
 	// if post exists
-	if ($result->num_rows > 0) {
+	if ($wResult->num_rows > 0) {
 		// each row
-		while($row = $result->fetch_assoc()) {
-			if($row["p_id"]== $p_id){
-				$u_id2 = $row["u_id"];
-				$username = $row["name"];
-				$TimeofPost = $row["posted_on"];
-				$upvote = $row["upvote"];
-				$downvote = $row["downvote"];
-				$ranking = $upvote + $downvote;
+		while($wRow = $wResult->fetch_assoc()) {
+			if($wRow["p_id"]== $wP_id){
+				$wPoster = $wRow["u_id"];
+				$wUsername = $wRow["name"];
+				$wTimeofPost = $wRow["posted_on"];
+				$wUpvote = $wRow["upvote"];
+				$wDownvote = $wRow["downvote"];
+				$wRanking = $wUpvote - $wDownvote;
 				
-				if(follow::follows($u_id, $u_id2))
+				if(Follow::Follows($wU_id, $wPoster))
 				{
-					$followLabel = 'UnFollow';
+					$wFollowLabel = 'UnFollow';
 				}
 				else
 				{
-					$followLabel = 'Follow';
+					$wFollowLabel = 'Follow';
 				}
 				
-				if($row["img_path"] != null)
+				if($wRow["img_path"] != null)
 				{
-					$image = $row["img_path"];
+					$wImage = $wRow["img_path"];
 				}
 				else 
 				{ 
-					$image = null;
+					$wImage = null;
 				}	
 				
-				if($row["txt_content"] != null)
+				if($wRow["txt_content"] != null)
 				{
-					$text = $row["txt_content"];
+					$wText = $wRow["txt_content"];
 				}
 				else 
 				{ 
-					$text = "";	
+					$wText = "";	
 				}									
 				
-				if($row["pic"] != null)
+				if($wRow["pic"] != null)
 				{
-					$profile = $row["pic"];
+					$wProfile = $wRow["pic"];
 				}
 				else 
 				{ 
-					$profile = "../GenericResources/Post_Frame/Avatar%20Picture%20Circle.png";
+					$wProfile = "../GenericResources/Post_Frame/Avatar%20Picture%20Circle.png";
 				}
 			}
 		}
@@ -136,15 +151,15 @@ session_start();
                 <div class="PostContent">
                     <figure>
 					<?php 
-							if($image != null)
+							if($wImage != null)
 							{ 
 					?>
-								<img src="../../db/<?php echo $image; ?>" alt="Image Failed to load">
+								<img src="../../db/<?php echo $wImage; ?>" alt="Image Failed to load">
 				    <?php	}
-							if($text != null)
+							if($wText != null)
 							{ 
 					?>
-								<p><?php echo "$tab$text"; ?></p>
+								<p><?php echo "$cTab$wText"; ?></p>
 					<?php 	}
 					?>
 					
@@ -154,23 +169,23 @@ session_start();
             </div>
 			<div class="Comments">
                 <div class="PostInfo"><br>
-					<a href="../UserPage/UserPage.php?id=<?php echo $username; ?>" aria-label="AccountPage_AvatarPic" class="Avatar">
-						<img class="one" src= <?php echo $profile?>>
+					<a href="../UserPage/UserPage.php?id=<?php echo $wUsername; ?>" aria-label="AccountPage_AvatarPic" class="Avatar">
+						<img class="one" src= <?php echo $wProfile?>>
 					</a>
 					
-					<a href="../UserPage/UserPage.php?id=<?php echo $username; ?>" aria-label="OpUsername" class="Username">
-						<h4 class="Username"><?php echo $username?></h4>
+					<a href="../UserPage/UserPage.php?id=<?php echo $wUsername; ?>" aria-label="OpUsername" class="Username">
+						<h4 class="Username"><?php echo $wUsername?></h4>
 					</a>
 					
 					<?php
-					if($u_id !=$u_id2){?>
+					if($wU_id !=$wPoster){?>
 						
 					<a aria-label="follow_button" class="follow">
 						<div id = "follow_user">
 						   <iframe name="follow" style="display:none;"></iframe>
 							<form target= "follow" method="post" action="" enctype="multipart/form-data">
-								<input type="hidden" name="u_id2" value="<?php echo $u_id2;?>"> 
-								<input id="followbutton" onclick="return changeText('followbutton');" type="submit" name="follow_button1" value="<?php echo $followLabel;?>" /> 
+								<input type="hidden" name="u_id2" value="<?php echo $wPoster;?>"> 
+								<input id="followbutton" onclick="return changeText('followbutton');" type="submit" name="follow_button1" value="<?php echo $wFollowLabel;?>" /> 
 							</form>
 						</div>
 					</a>
@@ -178,7 +193,7 @@ session_start();
 					<?php
 						}?>
 					<a aria-label="DeltaTime" class="TimeOfPost">
-						<h6 class="TimeOfPost"><?php echo $TimeofPost; ?> </h6>
+						<h6 class="TimeOfPost"><?php echo $wTimeofPost; ?> </h6>
 					</a>
 				</div>
 				
@@ -193,67 +208,66 @@ session_start();
 					}
 				?>
 				<?php
-					$sql = "SELECT * FROM comments 
+					$wSql = "SELECT * FROM comments 
 							INNER JOIN users ON comments.u_id = users.u_id
 							INNER JOIN user_profile ON users.u_id = user_profile.u_id
-							WHERE p_id = '$p_id'
+							WHERE p_id = '$wP_id'
 							ORDER BY 
 								posted_on DESC";
-					$result = Database::query($sql, $dbconn);
+					$wResult = Database::query($wSql, $wDbConn);
 					
-					
-					if ($result->num_rows > 0) {
+					if ($wResult->num_rows > 0) {
 						// each row
-						while($row = $result->fetch_assoc()) {
-							$username = $row["name"];
-							$u_id2 = $row["u_id"];
-							$TimeofComment = $row["posted_on"];
+						while($wRow = $wResult->fetch_assoc()) {
+							$wUsername = $wRow["name"];
+							$wU_id2 = $wRow["u_id"];
+							$wTimeofComment = $wRow["posted_on"];
 							
-							$comment_id = $row['c_id'];
+							$wComment_id = $wRow['c_id'];
 							
-							if($row["txt_content"] != null)
+							if($wRow["txt_content"] != null)
 							{
-								$text = $row["txt_content"];
+								$wText = $wRow["txt_content"];
 							}
 							else 
 							{ 
-								$text = "";	
+								$wText = "";	
 							}	
 							
-							if($row["pic"] != null)
+							if($wRow["pic"] != null)
 							{
-								$profile = $row["pic"];
+								$wProfile = $wRow["pic"];
 							}
 							else 
 							{ 
-								$profile = "../GenericResources/Post_Frame/Avatar%20Picture%20Circle.png";
+								$wProfile = "../GenericResources/Post_Frame/Avatar%20Picture%20Circle.png";
 							}
 							
 							?>
 							<!-- div for displaying each comment repeated for each comment -->
-							<div class="comment" id="<?php echo $comment_id; ?>">
+							<div class="comment" id="<?php echo $wComment_id; ?>">
 							
 							   <img src="../GenericResources/Post_Frame/Comment%20Divider.png" width="300">
 							   <div class="CommentInfo"><br>
 									<a aria-label="AccountPage_AvatarPic" class="Avatar">
-										<img src= <?php echo $profile?>>
+										<img src= <?php echo $wProfile?>>
 									</a>
-									<a href="../UserPage/UserPage.php?id=<?php echo $username; ?>" aria-label="OpUsername" class="Username">
-										<h4 class="Username"><?php echo $username; ?></h4>
+									<a href="../UserPage/UserPage.php?id=<?php echo $wUsername; ?>" aria-label="OpUsername" class="Username">
+										<h4 class="Username"><?php echo $wUsername; ?></h4>
 									</a>
 									
-									<a href="../UserPage/UserPage.php?id=<?php echo $username; ?>" aria-label="OpUsername" class="Username">
-										<h4 class="Username"><?php echo $username; ?></h4>
+									<a href="../UserPage/UserPage.php?id=<?php echo $wUsername; ?>" aria-label="OpUsername" class="Username">
+										<h4 class="Username"><?php echo $wUsername; ?></h4>
 									</a>
 									
 									<a aria-label="DeltaTime" class="TimeOfPost">
-										<h6 class="TimeOfPost"><?php echo $TimeofComment; ?> </h6>
+										<h6 class="TimeOfPost"><?php echo $wTimeofComment; ?> </h6>
 									</a>
 								</div>
 						
 								<div class="comment_text" >
 									<?php 
-										echo "$tab$text"; 
+										echo "$cTab$wText"; 
 									?>
 								</div>
 								<img src="../GenericResources/Post_Frame/Comment%20Divider.png" width="300">
@@ -275,13 +289,17 @@ session_start();
 				
 				<div class="PostBottom">
                     <div class="Buttons">
-                        <button name="UpvoteButton">
-                            <img src="../GenericResources/Post_Frame/upvote.png">
-                        </button>
-                        <button style = "width: 20px;" name="DownvoteButton">
-                            <img src="../GenericResources/Post_Frame/downvote.png">
-                        </button>
-						<?php echo $ranking ?>
+						<form method="post"> 
+							<input type='hidden' name='p_id' value='<?php echo "$wP_id";?>'/> 
+							<input type="hidden" name="u_id2" value="<?php echo "$wPoster";?>"> 
+							<button name="UpvoteButton">
+								<img src="../GenericResources/Post_Frame/upvote.png" id="like">
+							</button>
+							<button style = "width: 20px;" name="DownvoteButton">
+								<img src="../GenericResources/Post_Frame/downvote.png" id="dislike">
+							</button>
+							<?php echo $wRanking ?>
+						</form>           
                     </div>
 					
                     <div class="Comment">
@@ -294,7 +312,7 @@ session_start();
                         <img src="../GenericResources/Post_Frame/Comment%20Divider.png" width="300">
                         <form id="CommentTextField" action="" method="post">
                             <input style="width: 90%; height: 28px; box-sizing: border-box; border-radius: 5px;" type="text" name="CommentText" placeholder="Share your thoughts...">
-                            <input type='hidden' name='p_id' value='<?php echo "$p_id";?>'/> 
+                            <input type='hidden' name='p_id' value='<?php echo "$wP_id";?>'/> 
 							<button style = "border-radius: 5px; height: 25px; position: relative; top: 3px;" aria-label="UploadComment" name="comment" value="commenting">
                                 <img src="../GenericResources/Post_Frame/Paper%20Airplane.png">
                             </button>

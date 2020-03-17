@@ -4,34 +4,49 @@
 	
 	$root = dirname(__FILE__, 4);
 	require($root . '/src/db/followToDB.php');
+	require($root . '/src/db/ratingToDB.php');
 	require($root . '/src/db/commentToDB.php');
 	session_start();
+
 	$value = $_SESSION["userID"];
 	$dbconn = Database::getConnection();
 	
 	
 	if ($_POST) {
+		
 		if (isset($_POST['comment'])) {
-			$New = new comment();
-			$New->withPost();
-			$_SESSION['com'] = $New->add_comment_to_db();
-			$com = $_SESSION['com'];
-			echo $com;
-			if ($com != null) {
-				header('Location: '.$uri. $New->get_redirect_path($com));
+			$New = new Comment();
+			$New->WithPost();
+			$_SESSION['result'] = $New->AddCommentToDb();
+			$Result = $_SESSION['result'];
+			echo $Result;
+			if ($Result != null) {
+				header('Location: '.$uri. $New->GetRedirectPath($Result));
 			} 
-
+		}
+		
+		if (isset($_POST['UpvoteButton'])) {
+			$New = new Rating();
+			$New->WithPost();
+			$_SESSION['up'] = $New->AddLikeToDb();
+			$Up = $_SESSION['up'];
+			//echo $Up;
+		}
+		
+		if (isset($_POST['DownvoteButton'])) {
+			$New = new Rating();
+			$New->WithPost();
+			$_SESSION['down'] = $New->AddDislikeToDb();
+			$Down = $_SESSION['down'];
+			//echo $Down;
 		}
 		
 		if (isset($_POST['follow_button1'])) {
 			$New2 = new follow();
 			$New2->withPost();
-			$_SESSION['follow'] = $New2->add_follow_to_db();
+			$_SESSION['follow'] = $New2->AddFollowToDb();
 			$follow = $_SESSION['follow'];
-			echo $follow;
-			if ($follow != null) {
-				header('Location: '.$uri. $New2->get_redirect_path($follow,fetch_p_id()));
-			 } 
+			//echo $follow;
 		}
 	}
 ?>
@@ -75,6 +90,9 @@
 						$u_id2 = $row["u_id"];
 						$username = $row["name"];
 						$TimeofPost = $row["posted_on"];
+						$upvote = $row["upvote"];
+						$downvote = $row["downvote"];
+						$ranking = $upvote - $downvote;
 						
 						if(follow::follows($value, $u_id2))
 						{
@@ -141,16 +159,18 @@
                             <p> <a href="../ViewPostPage/viewPost.php?id='.$row["p_id"].'">' .$row["txt_content"]. '</a></p>
                             <div class="PostBottom">
                                 <div class="Buttons">
-                                    <button name="UpvoteButton">
-                                        <img src="../GenericResources/Post_Frame/upvote.png">
-                                    </button>
-                                    <button style = "width: 20px;" name="DownvoteButton">
-                                        <img src="../GenericResources/Post_Frame/downvote.png">
-                                    </button>
-                                    <a aria-label="ExpendCommentsButton">
-                                        <img src="../GenericResources/Post_Frame/CommentIcon.png">
-                                    </a>
-                                </div>
+								<form method="post"> 
+									<input type="hidden" name="p_id" value="'.$row["p_id"].'"/> 
+									<input type="hidden" name="u_id2" value="'.$u_id2.'"> 
+									<button name="UpvoteButton">
+										<img src="../GenericResources/Post_Frame/upvote.png">
+									</button>
+									<button style = "width: 20px;" name="DownvoteButton">
+										<img src="../GenericResources/Post_Frame/downvote.png">
+									</button>
+									'.$ranking.'
+								</form>           
+							</div>
                                 <div class="Comment">
 									<img src="../GenericResources/Post_Frame/Comment%20Divider.png">
 									<form id="CommentTextField" action="" method="post">
@@ -166,11 +186,10 @@
                         }
                 }
                 } else {
-                    echo "0 results";
+                    echo "No posts";
                 }
                 ?>
           </div>  
-
             </div>
             <div class="Sidebar">
                 <div class="Feeds">
