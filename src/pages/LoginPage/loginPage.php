@@ -1,7 +1,8 @@
 <?php
+//Author: Alya Naseer
 namespace Website;
-$root = dirname(__FILE__, 4);
-require_once($root . '/src/db/DBConfig.php');
+$cRoot = dirname(__FILE__, 4);
+require_once($cRoot . '/src/db/DBConfig.php');
 require('LogIn.php');
 ?>
 <!DOCTYPE html>
@@ -16,7 +17,7 @@ require('LogIn.php');
     <div class="backgroundColor">
         <img src="../GenericResources/Blu.png" class="logoLogin">
 
-        <?php session_start(); ?>
+        <?php session_start();?>
         <br><br><br>
         <form action="loginPage.php" method="post">
             <input type="text" name="username" placeholder="Username" class="creds"/><br><br>
@@ -30,9 +31,9 @@ require('LogIn.php');
 
 <?php if ($_POST) {
     if (isset($_POST['submit'])) {
-        $UserLogin = new LogIn();
-        $UserLogin->withPost();
-        $_SESSION['userID'] = $UserLogin->Login();
+        $wUserLogin = new LogIn();
+        $wUserLogin->WithPost();
+        $_SESSION['userID'] = $wUserLogin->LogIn();
         if ($_SESSION['userID'] > 0) {
             header("Location: ../HomePage/HomepageBase.php");
         }

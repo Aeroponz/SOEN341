@@ -1,5 +1,8 @@
 <?php 
+	namespace Website;
+	use SqlDb\Database;
 	require_once ('../../db/UploadClass.php');
+	require("../SettingsPage/Settings.php");
 	session_start();
 ?>
 
@@ -9,13 +12,29 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width-device-width, initial-scale=1"/>
 		<title>Blu - Create a Post</title>
-		<link rel="stylesheet" type="text/css" href="/SOEN341/src/pages/FunctionBlocks/uploadBlockCSS.css">
-		<link rel="stylesheet" href="../css/FeedStyle.css"/>
-		<link rel="stylesheet" href="createPostPageCSS.css"/>
-		<!-- remove blue link for usernames -->
-		<style>
-			a { text-decoration: none; color: #000; }
-		</style>
+
+		<link id ="upload" rel="stylesheet" type="text/css" href="../FunctionBlocks/uploadBlockCSS.css"/>
+		<link id = "feed" rel="stylesheet" href="../css/FeedStyle.css"/>
+		<link id = "post" rel="stylesheet" href="createPostPageCSS.css"/>
+		<?php
+			$cUserId = $_SESSION['userID'];
+			$mMode = new Settings();
+			$mMode2 = new Settings();
+			$mMode3 = new Settings();
+			$cLightUpload = "uploadBlockCSS.css";
+			$cDarkUpload = "uploadBlockCSSDark.css";
+			$cLightFeed = "FeedStyle.css";
+			$cDarkFeed = "FeedStyleDark.css";
+			$cLightPost = "createPostPageCSS.css";
+			$cDarkPost = "createPostPageCSSDark.css";
+			$mResultUpload = $mMode->GetMode($cUserId, $cLightUpload, $cDarkUpload);
+			$mResultFeed = $mMode2->GetMode($cUserId, $cLightFeed, $cDarkFeed);
+			$mResultPost = $mMode3->GetMode($cUserId, $cLightPost, $cDarkPost);
+			echo "<script>document.getElementById('upload').setAttribute('href', '../FunctionBlocks/$mResultUpload');</script>";
+			echo "<script>document.getElementById('feed').setAttribute('href', '../css/$mResultFeed');</script>";
+			echo "<script>document.getElementById('post').setAttribute('href', '$mResultPost');</script>";
+			
+		?>
 	</head>
 	
 	<body>

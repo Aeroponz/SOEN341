@@ -1,7 +1,8 @@
 <?php 
+//Author: Alya Naseer
 namespace Website;
-$root = dirname(__FILE__, 4);
-require_once($root . '/src/db/DBConfig.php');
+$cRoot = dirname(__FILE__, 4);
+require_once($cRoot . '/src/db/DBConfig.php');
 require('GetEmail.php');
 ?>
 <!DOCTYPE html>
@@ -27,11 +28,11 @@ require('GetEmail.php');
 		
 		<?php if ($_POST) {
 			if(isset($_POST['submit'])){
-				$UserEmail = new GetEmail();
-				$UserID = new GetEmail();
-				$UserEmail->withPost();
-				$_SESSION['email'] = $UserEmail->Get_email();
-				$_SESSION['userID'] = $UserID->Get_userID($_POST['email']);
+				$wUserEmail = new GetEmail();
+				$wUserID = new GetEmail();
+				$wUserEmail->WithPost();
+				$_SESSION['email'] = $wUserEmail->GetEmail();
+				$_SESSION['userID'] = $wUserID->GetUserId($_POST['email']);
 				if($_SESSION['email'] != -1) {
 					require_once('MailTrap/PhpMailer.php');
 					echo "<script type = \"text/JavaScript\"> 

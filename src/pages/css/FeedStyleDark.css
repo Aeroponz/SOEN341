@@ -1,0 +1,220 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: content-box;
+    font-family: "Calibri";
+}
+
+body{
+
+    background-color: #121212;
+}
+
+p{
+    background-color: #454545;  
+}
+
+img{
+    border-radius: 5px; border: 0px;
+}
+
+.FeedPage
+{
+    display: grid;
+    background-color: #121212;
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 1fr 716px 1fr;
+    grid-template-areas:
+    "header header header"
+    ". main .";
+    grid-row-gap: 25px;
+}
+
+.BluHeader
+{
+    grid-area: header;
+    background-color: #000033;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+    "LeftSide Middle RightSide";
+    padding: 10px;
+}
+
+#SearchTextField{
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+}
+
+.header-LeftSide
+{
+    grid-area: LeftSide;
+}
+.header-SearchBar
+{
+    grid-area: Middle;
+}
+.header-RightSide
+{
+    grid-area: RightSide;
+    display: grid;
+    grid-template-columns: 1fr 210px;
+    grid-template-areas:
+    "divider AccountHyperlinks";
+}
+
+.Icons{
+
+}
+
+.divider
+{
+    grid-area: divider
+}
+.AccountHyperlinks
+{
+    grid-area: AccountHyperlinks;
+}
+
+.Main
+{
+    grid-area: main;
+    background-color: #121212;
+    display:grid;
+    grid-template-columns: 1fr 500px 191px 1fr;
+    grid-template-areas:
+    ". Posts Sidebar .";
+    grid-column-gap: 25px;
+}
+
+.Posts
+{
+    border-radius: 5px;
+    background-color: #454545;
+    height: 100%;
+    grid-area: Posts;
+    display: grid;
+    grid-template-rows: 45px 1fr 80px;
+    grid-template-areas:
+    "PostInfo"
+    "PostContent"
+    "PostBottom";
+}
+
+.PostInfo
+{
+    margin-top: 5px;
+    margin-left: 5px;
+    grid-area: PostInfo;
+    background-color: #454545;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 45px 1fr 350px;
+    grid-template-areas:
+    "Avatar Username follow"
+    "Avatar TimeOfPost follow";
+}
+
+.follow
+{
+    grid-area: follow;
+    line-height: 44px;
+}
+
+.Avatar{
+    grid-area: Avatar;
+    padding: 7.5px;
+}
+.Username{
+    grid-area: Username;
+    line-height: 33px;
+    height: 27px;
+}
+.TimeOfPost
+{
+    grid-area: TimeOfPost;
+    line-height: 5px;
+    height: 5px;
+}
+
+.PostContent
+{
+
+    background-color: #454545;
+}
+
+.PostBottom
+{
+    background-color: #454545;
+    padding-bottom: 10px;
+
+}
+
+button{
+    border-radius: 5px;
+    border: 0px;
+}
+
+.ButtonStyle
+{
+    border-radius: 5px;
+    border: 0px;
+}
+
+.Sidebar
+{
+    border-radius: 5px;
+    grid-area: Sidebar;
+    background-color: #454545;
+    max-height: 500px;
+
+}
+
+.IconRectify{
+    position: relative; 
+    top: -7px;
+}
+
+.SearchBar{
+    position: relative; 
+    top: 6px;
+    width: 90%; 
+    height: 25px; 
+    box-sizing: border-box; 
+    border-radius: 5px; 
+    border: 0px;
+}
+
+.SearchBarButtons{
+    position: relative; 
+    top: 10px;
+}
+
+.RightBarButtons{
+    position: relative; 
+    top: -7px;
+}
+
+
+
+#CommentText{
+    width: 90%; 
+    height: 28px; 
+    box-sizing: border-box; 
+    border-radius: 5px;
+    border: 0px;
+}
+
+input[type=submit] {
+    background:#000033; 
+    border: none;
+    color: white;
+    padding: 2px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    border-radius: 5px; 
+}
+

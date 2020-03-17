@@ -1,0 +1,115 @@
+.upload_block {
+	width: 600px;
+	
+	display: block;
+	
+	
+	
+	font: Calibri;
+	word-wrap: break-word;
+}
+
+#postgreeting{
+	display:block;
+	margin-right:auto;
+	margin-left:8%;
+	padding: 10px 25px;
+	
+	font-size: 1.25em;
+    font-weight: 600;
+}
+
+
+.upload_warning {
+	margin-left: auto;
+	margin-bottom: 5px;
+	padding: 5px 13%;
+	border: none;
+	
+	
+	font: Calibri;
+	font-weight: 550;
+	word-wrap: break-word;
+	
+	color: #FF0000;
+	background-color: #ff0000;
+}
+
+#fileinput{
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+#fileinput + label {
+	width: 50%;
+	
+    display:block;
+	margin-right:auto;
+	margin-left:12%;
+	padding: 10px 25px;
+	
+	border-radius: 20px 20px;
+	
+	cursor: pointer;
+	font-size: 1.25em;
+    font-weight: 600;
+	text-overflow: ellipsis;
+	
+    color: #ffffff;
+    background-color: #000033;
+	
+	
+}
+
+#fileinput:focus + label,
+#fileinput + label:hover {
+    background-color: #333366;
+}
+
+
+#textinput{
+	width: 72%;
+	height: 200px;
+	max-width:72%;
+	min-width:72%;
+	min-height:200px;
+	
+	display: block;
+	margin:0px auto 0px auto;
+	
+	border: 3px solid #e1e8ed;
+	border-radius: 20px 50px;
+	
+	padding: 10px 10px 20px 10px; 
+	line-height: 40px;
+	font-size: 24px;
+	word-wrap: break-word;
+}
+#textinput:focus {
+	border: 3px solid #c2e9ef;
+	border-radius: 20px 50px;
+	outline:none;
+}
+
+#submitbutton { 
+	height: 40px;
+	width: 75%;
+
+	display: block;
+	margin: 0px auto 5px auto;
+
+	border: none;
+	border-radius: 50px 50px;
+	
+	background-color: #454545; 
+	color: white; 
+	 
+	font-size: 1.25em;
+    font-weight: 600;
+}
+#submitbutton:hover {background-color: #000033}
+#submitbutton:disabled {background-color: #121212}
