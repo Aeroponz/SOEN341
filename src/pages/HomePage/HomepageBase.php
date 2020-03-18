@@ -59,7 +59,7 @@
 </head>
 <body>
     <div class="FeedPage">
-        <?php include '../Header/Header.html'; ?>
+        <?php include '../Header/Header.php'; ?>
         <div class="Main">
             <div class="Posts">
                 <div class="Contain">

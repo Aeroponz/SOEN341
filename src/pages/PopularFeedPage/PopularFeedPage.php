@@ -5,6 +5,7 @@
 	$root = dirname(__FILE__, 4);
 	require($root . '/src/db/followToDB.php');
 	require($root . '/src/db/commentToDB.php');
+	require($root . '/src/pages/FunctionBlocks/ProfileClass.php');
 	require("../SettingsPage/Settings.php");
 	session_start();
 	
@@ -60,7 +61,7 @@
 </head>
 <body>
     <div class="FeedPage">
-        <?php include '../Header/Header.html'; ?>
+        <?php include '../Header/Header.php'; ?>
         <div class="Main">
             <div class="Posts">
                 <div class = "Contain">
@@ -90,18 +91,10 @@
 					{
 						$followLabel = 'Follow';
 					}
-					if($row["pic"] != null)
-					{
-						$profile = $row["pic"];
-					}
-					else 
-					{ 
-						$profile = "../GenericResources/Post_Frame/Avatar%20Picture%20Circle.png";
-					}
 					?> 
 					<div class="PostInfo"><br>
 						<a href="../UserPage/UserPage.php?id=<?php echo $username; ?>" aria-label="AccountPage_AvatarPic" class="Avatar">
-							<img class="one" src= <?php echo $profile?>>
+							<?php Profile::DisplayUserPFP($u_id2); ?>
 						</a>
 						
 						<a href="../UserPage/UserPage.php?id=<?php echo $username?>" aria-label="OpUsername" class="Username">

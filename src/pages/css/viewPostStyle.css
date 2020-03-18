@@ -226,3 +226,9 @@ input[type=submit] {
     font-size: 13px;
     border-radius: 5px; 
 }
+
+.one {
+	border-radius: 5px;
+	height:36px;
+	width: 36px;
+}
