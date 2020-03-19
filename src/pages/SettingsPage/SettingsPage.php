@@ -32,11 +32,13 @@ session_start();
 		<a href = "../SignUpPage/ModalPopUpSettings.php"><button type = "button" name = "Email">Add or change recovery email address</button><br><br></a>
 		<form action = "SettingsPage.php" method = "post" id = "form">
 			<input type = "submit" value = "Dark mode" class= "dark" name = "dark"/>
-			<input type = "submit" value = "Light mode" class= "light" name = "light"/>
+			<input type = "submit" value = "Light mode" class= "light" name = "light"/><br><br>
+			<input type = "submit" value = "Logout" class = "button"/><br><br>
+			<input type = "submit" value = "DeleteAccount" class = "delete"/>
 			<br><br>
 		<form>
-		<button type = "submit" name = "Logout">Log out</button><br><br>
-		<button type = "submit" name = "DeleteAccount" class = "delete">Delete Account</button>
+		
+		
        
        
     </div>

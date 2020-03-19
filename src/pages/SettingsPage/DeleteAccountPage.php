@@ -13,6 +13,7 @@ session_start();
 		<link id = "style" rel = "stylesheet" type = "text/css" href = "DeleteAccountPopUp.css"/>	
 		<?php
 			$cUserId = $_SESSION['userID'];
+			echo $cUserId;
 			$mMode = new Settings();
 			$cLight = "DeleteAccountPopUp.css";
 			$cDark = "DeleteAccountPopUpDark.css";
