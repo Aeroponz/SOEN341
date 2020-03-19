@@ -1,9 +1,6 @@
 <?php
 //Author: Alya Naseer
-<<<<<<< HEAD
-=======
 //Co-Author: Pierre-Alexis Barras <Pyxsys>
->>>>>>> develop
 namespace Website;
 $cRoot = dirname(__FILE__, 4);
 require_once($cRoot . '/src/db/DBConfig.php');
@@ -30,9 +27,6 @@ session_start();
 <center>
     <div class="backgroundColor">
 		<div class = "close"><a href = "../HomePage/HomepageBase.php">+</a></div>
-     
-       
-    </div>
         <img src="../GenericResources/Blu.png" class="logoLogin"/>
         <br/><br/><br/>
 		
@@ -43,8 +37,6 @@ session_start();
 					<label for="fileinput" id="fl">Upload Profile Picture</label>
 					<input class="dark" type="submit" id="submitbutton" name="submit_image" value="Update Profile Pic" style="font-weight:bold;">
 				</form><br/>
-
-				
 			</div>
 		<!-- endof PFP -->	
 		
@@ -53,10 +45,10 @@ session_start();
 		<form action = "SettingsPage.php" method = "post" id = "form">
 			<input type = "submit" value = "Dark mode" class= "dark" name = "dark"/>
 			<input type = "submit" value = "Light mode" class= "light" name = "light"/><br><br>
-			<input type = "submit" value = "Logout" class = "button"/><br><br>
-			<input type = "submit" value = "DeleteAccount" class = "delete"/>
-			<br><br>
-		<form>
+			<input type = "submit" value = "Log Out" name = "Logout" class = "button"/><br/><br/>
+			<input type = "submit" value = "Delete Account" name = "DeleteAccount" class = "delete"/>
+			<br/><br/>
+		</form>
        
        
     </div>
