@@ -6,7 +6,7 @@ CREATE TABLE users (
 	name VARCHAR(30) NOT NULL UNIQUE,
 	pass VARCHAR(30) NOT NULL,
 	email VARCHAR(255),
-	rating INT NOT NULL DEFAULT 0,
+	rating DECIMAL(4,2) NOT NULL DEFAULT 0.00,
 	PRIMARY KEY (u_id)
 );
 CREATE TABLE user_profile (

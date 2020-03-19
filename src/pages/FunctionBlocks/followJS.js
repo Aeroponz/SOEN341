@@ -1,11 +1,11 @@
-function changeText(followId) {
-	var follow = document.getElementById(followId);
-	if(follow.value == 'Follow')
+function changeText(iFollowId) {
+	var wFollow = document.getElementById(iFollowId);
+	if(wFollow.value == 'Follow')
 	{
-		follow.value = 'UnFollow';
+		wFollow.value = 'UnFollow';
 	}
 	else{
-		follow.value = 'Follow';
+		wFollow.value = 'Follow';
 	}
 	return true;
 };

@@ -1,152 +1,181 @@
 //Author Pierre-Alexis Barras <Pyxsys>
 
 //disable submission button on initial load
-var button = document.getElementById("submitbutton");
-button.disabled = true;
+var wButton = document.getElementById("submitbutton");
+wButton.disabled = true;
 
-//If there is an active cooldwn, triggr=ered by redirect, display countdown
-var targetTime = document.getElementById("targetTime");
-if(typeof(targetTime) != 'undefined' && targetTime != null){
-	countdown(targetTime.value);
+//If there is an active cooldwn, triggr=ered by redirect, display Countdown
+var wTargetTime = document.getElementById("targetTime");
+if(typeof(wTargetTime) != 'undefined' && wTargetTime != null){
+	Countdown(wTargetTime.value);
 }
 
 // Adds an element to the document
-function addElement(parentId, elementTag, elementId, class_name, html) {
+function AddElement(iParentId, iElementTag, iElementId, iClassName, iHTML) {
 	
-    var p = document.getElementById(parentId);
-    var newElement = document.createElement(elementTag);
-    newElement.setAttribute('id', elementId);
-	newElement.setAttribute('class', class_name)
-    newElement.innerHTML = html;
-    p.appendChild(newElement);
+    var p = document.getElementById(iParentId);
+    var wElement = document.createElement(iElementTag);
+    wElement.setAttribute('id', iElementId);
+	wElement.setAttribute('class', iClassName)
+    wElement.innerHTML = iHTML;
+    p.appendChild(wElement);
 	
 	return true;
 }
 
 // Modifies an element's contents
-function modifyElement(elementId, display, html){
+function ModifyElement(iElementId, iDisplay, iHTML){
 	//check that the element exists. return false if it doesnt;
-	var element = document.getElementById(elementId);
-	if(typeof(element) != 'undefined' && element != null){
-		console.log("Modified: " + elementId + ": " + html);
-		element.innerHTML = html;
-		element.style.display = display;
+	var wElement = document.getElementById(iElementId);
+	if(typeof(wElement) != 'undefined' && wElement != null){
+		console.log("Modified: " + iElementId + ": " + iHTML);
+		wElement.innerHTML = iHTML;
+		wElement.style.display = iDisplay;
 		return true;
 	}
 	else {return false;}
 }
 
 //validates the upload
-function validateUpload(){
+function ValidateUpload(){
 	
-	var validFile = validateFile(); //returns true if file is ok or not there
-	var validText = validateText();	//returns true if there is text that doesnt start with whitespace
+	var wValidFile = ValidateFile(); //returns true if file is ok or not there
+	var wValidText = ValidateText();	//returns true if there is text that doesnt start with whitespace
 	
 	//removes empty submission error
-	var element = document.getElementById("badPostWarning");
-	if(typeof(element) != 'undefined' && element != null){
-		modifyElement("badPostWarning", "none", "no error");
+	var wElement = document.getElementById("badPostWarning");
+	if(typeof(wElement) != 'undefined' && wElement != null){
+		ModifyElement("badPostWarning", "none", "no error");
 	}
 	
 	
 	console.log("Submission Status");
-	console.log(" -file status: " + validFile);
-	console.log(" -text status: " + validText);
+	console.log(" -file status: " + wValidFile);
+	console.log(" -text status: " + wValidText);
 	
 	//enable submission if: file is good, text is good, or both are good
-	button.disabled = true; //default disabled
-	if(validFile == true && validText == "isempty"){ button.disabled = false; return true;}
-	if(validFile == "isempty" && validText){ button.disabled = false; return true;}
-	if(validFile == true && validText == true){ button.disabled = false; return true;}
+	wButton.disabled = true; //default disabled
+	if(wValidFile == true && wValidText == "isempty"){ wButton.disabled = false; return true;}
+	if(wValidFile == "isempty" && wValidText){ wButton.disabled = false; return true;}
+	if(wValidFile == true && wValidText == true){ wButton.disabled = false; return true;}
+}
+
+function ValidatePFP(){
+	var wValidFile = ValidateFile(65000); //returns true if file is ok or not there
+	
+	//removes empty submission error
+	var element = document.getElementById("badPostWarning");
+	if(typeof(element) != 'undefined' && element != null){
+		ModifyElement("badPostWarning", "none", "no error");
+	}
+	
+	
+	console.log("Submission Status");
+	console.log(" -file status: " + wValidFile);
+	
+	//enable submission if: file is good, text is good, or both are good
+	wButton.disabled = true; //default disabled
+	if(wValidFile == true){ wButton.disabled = false; return true;}
+	
 }
 
 //Validates the file and throws warnings appropriately
 //returns false on valid file or no file (don't quite understand why js does this)
-function validateFile() {
-        var imgfile = document.getElementById('fileinput').files[0];
-		if(imgfile == null){modifyElement("fl", "block", "Upload an image"); return "isempty";} //if no file -> return "isempty";
+function ValidateFile(limit) {
+        var wImgFile = document.getElementById('fileinput').files[0];
+		if(wImgFile == null){ModifyElement("fl", "block", "Upload an image"); return "isempty";} //if no file -> return "isempty";
 		
-		var regex = new RegExp("(.*?)\.(gif|jpg|jpeg|png|swf|psd|bmp|jpc|jp2|jpx|jb2|swc|iff|wbmp|xbm|ico|webp)$");
-		var passcount = 0;
+		var cRegex = new RegExp("(.*?)\.(gif|jpg|jpeg|png|swf|psd|bmp|jpc|jp2|jpx|jb2|swc|iff|wbmp|xbm|ico|webp)$");
+		var oPasscount = 0;
 		
 		//truncate filename for display
-		var name = (imgfile.name.length < 30) ? imgfile.name : imgfile.name.substring(0,20) + "..." + imgfile.name.substring(imgfile.name.lastIndexOf(".")-3,imgfile.name.length);
+		var wName = (wImgFile.name.length < 30) ? wImgFile.name : wImgFile.name.substring(0,20) + "..." + wImgFile.name.substring(wImgFile.name.lastIndexOf(".")-3,wImgFile.name.length);
 		//modify label to show the selected file
-		modifyElement("fl", "block", name);
+		ModifyElement("fl", "block", wName);
+		
+		var wSizeWarn = document.getElementById("sizeWarning");
+		var wTypeWarn = document.getElementById("typeWarning");
 		
 		//Size warning - file must be greater than 12b
-		if(imgfile.size < 12){
-			var element = document.getElementById("sizeWarning");
-			
-			if(typeof(element) != 'undefined' && element != null){
-				modifyElement("sizeWarning", "block", "* File is smaller than 12b: \[" + name + "\] is " + imgfile.size + "b in size.");
+		if(wImgFile.size < 12){
+			if(typeof(wSizeWarn) != 'undefined' && wSizeWarn != null){
+				ModifyElement("sizeWarning", "block", "* File is smaller than 12b: \[" + wName + "\] is " + wImgFile.size + "b in size.");
 			} else{
-				addElement("warnings","p","sizeWarning","upload_warning","* File is smaller than 12b: \[" + name + "\] is " + imgfile.size + "b in size.");
+				AddElement("warnings","p","sizeWarning","upload_warning","* File is smaller than 12b: \[" + wName + "\] is " + wImgFile.size + "b in size.");
 			}
 		}
 		else { 
-			modifyElement("sizeWarning", "none", "no error");
-			passcount += 1;
+			ModifyElement("sizeWarning", "none", "no error");
+			oPasscount += 1;
+		}
+		
+		//Size warning - file must be less than limit if there is one
+		if(limit!=null && wImgFile.size > limit){
+			oPasscount-=1; //prevents error overwriting
+			
+			if(typeof(wSizeWarn) != 'undefined' && wSizeWarn != null){
+				ModifyElement("sizeWarning", "block", "* File is greater than " + Math.floor(limit/1000) + "Kb: \[" + wName + "\] is " + Math.ceil(wImgFile.size/1000) + "Kb in size.");
+			} else{
+				AddElement("warnings","p","sizeWarning","upload_warning","* File is greater than " + Math.floor(limit/1000) + "Kb: \[" + wName + "\] is " +Math.ceil(wImgFile.size/1000) + "b in size.");
+			}
 		}
 		
 		//Type warning - file must be an image
-        if (!(regex.test(imgfile.name.toLowerCase()))) {
-            var element = document.getElementById("typeWarning");
-			
-			if(typeof(element) != 'undefined' && element != null){
-				modifyElement("typeWarning", "block", "* File \[" + name + "\] is not a valid image type (.jpeg, .png, .gif)");
+        if (!(cRegex.test(wImgFile.name.toLowerCase()))) {
+			if(typeof(wTypeWarn) != 'undefined' && wTypeWarn != null){
+				ModifyElement("typeWarning", "block", "* File \[" + wName + "\] is not a valid image type (.jpeg, .png, .gif)");
 			} else{
-				addElement("warnings","p","typeWarning","upload_warning","* File \[" + name + "\] is not a valid image type (.jpeg, .png, .gif)");
+				AddElement("warnings","p","typeWarning","upload_warning","* File \[" + wName + "\] is not a valid image type (.jpeg, .png, .gif)");
 			}
         }
 		else { 
-			modifyElement("typeWarning", "none", "no error");
-			passcount += 1;
+			ModifyElement("typeWarning", "none", "no error");
+			oPasscount += 1;
 		}
 
-		return (passcount == 2);
+		return (oPasscount == 2);
 }
 
 //retuns true if there is text content that doesnt start with whitespace
 //otherwise returns false or "isempty" if there is no text
-function validateText() {
-	var text = document.getElementById("textinput").value;
-	var regex = new RegExp("^\\S+");
-	if(text) {
-		return regex.test(text);
+function ValidateText() {
+	var wText = document.getElementById("textinput").value;
+	var cRegex = new RegExp("^\\S+");
+	if(wText) {
+		return cRegex.test(wText);
 	}
 	else {return "isempty"}	
 }
 
-function countdown(target) { //source:: w3schools
+function Countdown(iTarget) { //source:: w3schools
 	
 	// Update the count down every second
 	var x = setInterval(function() {
 
 		// Get today's date and time
-		var now = new Date().getTime();
+		var wNow = new Date().getTime();
     
 		// Find the distance between now and the count down date
-		var distance = target - now;
+		var wDistance = iTarget - wNow;
     
 		// Time calculations for days, hours, minutes and seconds
-		var hours = Math.floor((distance % (1000 * 3600 * 24)) / (1000 * 3600));
-		var minutes = Math.floor((distance % (1000 * 3600)) / (1000 * 60));
-		var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+		var wHours = Math.floor((wDistance % (1000 * 3600 * 24)) / (1000 * 3600));
+		var wMinutes = Math.floor((wDistance % (1000 * 3600)) / (1000 * 60));
+		var wSeconds = Math.floor((wDistance % (1000 * 60)) / 1000);
 		
 		//adjust string to be dynamic and remove unecessary information
-		var output = "";
-		if(hours > 0){output += hours + "h ";}
-		if(minutes > 0){output += minutes + "m ";}
-		if(seconds >= 0){output += seconds + "s ";}
+		var oOutput = "";
+		if(wHours > 0){oOutput += wHours + "h ";}
+		if(wMinutes > 0){oOutput += wMinutes + "m ";}
+		if(wSeconds >= 0){oOutput += wSeconds + "s ";}
     
 		// Output the result in the element
-		document.getElementById("timeout").innerHTML = output;
+		document.getElementById("timeout").innerHTML = oOutput;
     
 		// If the count down is over, write some text 
-		if (distance < 0) {
+		if (wDistance < 0) {
 			clearInterval(x);
-			modifyElement("timeoutWarning", "block", "* You are eligible to post again.")
+			ModifyElement("timeoutWarning", "block", "* You are eligible to post again.")
 		}
 		
 	}, 1000);

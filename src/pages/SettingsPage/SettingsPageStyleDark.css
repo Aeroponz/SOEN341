@@ -1,4 +1,5 @@
 /*Author: Alya Naseer*/
+/*Co-Author: Pierre-Alexis Barras <Pyxsys>*/
 .backgroundColor{
 	background-color: #454545;
 	width: 500px;
@@ -21,7 +22,10 @@
 a {
 	text-decoration: none;
 	color: #121212
+<<<<<<< HEAD
 	
+=======
+>>>>>>> develop
 }
 
 .close {
@@ -44,3 +48,30 @@ button:hover, .button:hover {background-color: #333366}
 .dark:focus, .light:focus {outline:none;}
 .delete { background-color: #800000; color: white; border: none; height: 40px; width: 312px; cursor: pointer;}
 .delete:hover {background-color: #b30000}
+
+.upload_warning { width:312px; margin-bottom: 5px; padding: 5px 13%; border: none; font-weight: 550; word-wrap: break-word; color: #FF0000; background-color: #ffcccc;}
+
+#fileinput{ width: 0.1px; height: 0.1px; opacity: 0; overflow: hidden; position: absolute; z-index: -1;}
+
+#fileinput + label { 
+	height: 20px;
+	width: 312px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	
+    display:block;
+	
+	cursor: pointer;
+	text-overflow: ellipsis;
+	
+    color: #ffffff;
+    background-color: #000033;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.19);
+	
+}
+
+#fileinput:focus + label,
+#fileinput + label:hover {background-color: #333366;}
+#submitbutton { margin-top: 10px; display: block;}
+#submitbutton:hover {background-color: #333366;}
+#submitbutton:disabled {background-color: #aaaaaa; cursor: default; display:none;}
