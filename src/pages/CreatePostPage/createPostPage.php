@@ -2,7 +2,7 @@
 	namespace Website;
 	use SqlDb\Database;
 	require_once ('../../db/UploadClass.php');
-	require("../SettingsPage/Settings.php");
+	require_once("../SettingsPage/Settings.php");
 	session_start();
 ?>
 
@@ -40,16 +40,16 @@
 	<body>
 		<!--startof main -->
 		<div class="FeedPage">
-        <?php include '../Header/Header.html'; ?>
+        <?php include '../Header/Header.php'; ?>
         <div class="main_upload">
 			
 			<!-- upload block -->
 			<div id = "submit_post" class = "upload_block, Content">
 				<p id="postgreeting">Share your images and thoughts online!</p>
-				<form method="POST" action="/SOEN341/src/db/uploadPostToDB.php" enctype="multipart/form-data">
-					<input type="file" id="fileinput" onchange="validateUpload();" name="postImage">
+				<form method="POST" action="uploadPostToDB.php" enctype="multipart/form-data">
+					<input type="file" id="fileinput" onchange="ValidateUpload();" name="postImage">
 					<label for="fileinput" id="fl">Upload an image</label>
-					<textarea type="text" id="textinput" onchange="validateUpload();" name="postText" placeholder="Your text here."></textarea>
+					<textarea type="text" id="textinput" onchange="ValidateUpload();" name="postText" placeholder="Your text here."></textarea>
 					<input type="submit" id="submitbutton" name="submit_image" value="Post" style="font-weight:bold;">
 				</form>
 
@@ -61,11 +61,11 @@
 							echo "<p class = \"upload_warning\" id=\"badPostWarning\"> * You cannot submit an empty post!</p>";
 						}
 						if($_GET["source"] == 'timeout'){
-							$u_id = Website\Upload::fetch_user();
-							$cooldown = Website\Upload::get_user_delay($u_id) - Website\Upload::get_time_since_last_post($u_id);
+							$wU_id = Upload::FetchUser();
+							$wCooldown = Upload::GetUserDelay($wU_id) - Upload::GetTimeSinceLastPost($wU_id);
 
-							$target_time = (time() + max($cooldown, 0))* 1000;	//convert from php seconds to js milliseconds
-							echo "<input id=targetTime value=\"".$target_time."\" style=\"display: none;\">"; 
+							$iTargetTime = (time() + max($wCooldown, 0))* 1000;	//convert from php seconds to js milliseconds
+							echo "<input id=targetTime value=\"".$iTargetTime."\" style=\"display: none;\">"; 
 							echo "<p class = \"upload_warning\" id=\"timeoutWarning\" value> * You need to wait another <strong id=timeout></strong>before posting again.</p>";
 						}
 					}				

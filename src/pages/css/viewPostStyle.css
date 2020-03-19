@@ -227,3 +227,9 @@ input[type=submit] {
     border-radius: 5px; 
     cursor:pointer;
 }
+
+.one {
+	border-radius: 5px;
+	height:36px;
+	width: 36px;
+}

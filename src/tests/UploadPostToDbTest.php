@@ -17,29 +17,29 @@ final class UploadPostToDbTest extends TestCase
     public function testGenerateStringIsRandom(): void
     {
         //String Is Random
-        $this->assertFalse('Boeing' == Website\Upload::generate_string('Boeing'));
+        $this->assertFalse('Boeing' == Website\Upload::GenerateString('Boeing'));
     }
 
     public function testGenerateStringDefault(): void
     {
         //Default Length
-        $this->assertTrue(strlen(Website\Upload::generate_string('Airbus')) == 16);
+        $this->assertTrue(strlen(Website\Upload::GenerateString('Airbus')) == 16);
     }
 
     public function testGenerateStringCustom(): void
     {
         //Custom Length
-        $this->assertTrue(strlen(Website\Upload::generate_string('Plane', 5)) == 5);
+        $this->assertTrue(strlen(Website\Upload::GenerateString('Plane', 5)) == 5);
     }
 
     public function testCheckForHashtagsTrue(): void
     {
-        $this->assertEquals('y', Website\Upload::check_for_hashtag('#Plop'));
+        $this->assertEquals('y', Website\Upload::CheckForHashTag('#Plop'));
     }
 
     public function testCheckForHashtagsFalse(): void
     {
-        $this->assertEquals('n', Website\Upload::check_for_hashtag('Plop'));
+        $this->assertEquals('n', Website\Upload::CheckForHashTag('Plop'));
     }
 
 //    public function testFetchUserIDLoggedIn(): void

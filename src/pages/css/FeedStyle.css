@@ -219,3 +219,8 @@ input[type=submit] {
     cursor:pointer;
 }
 
+.one {
+	border-radius: 5px;
+	height:36px;
+	width: 36px;
+}

@@ -1,5 +1,6 @@
 <?php
 //Author: Alya Naseer
+//Co-Author: Pierre-Alexis Barras <Pyxsys>
 namespace Website;
 $cRoot = dirname(__FILE__, 4);
 require_once($cRoot . '/src/db/DBConfig.php');
@@ -26,20 +27,35 @@ session_start();
 <center>
     <div class="backgroundColor">
 		<div class = "close"><a href = "../HomePage/HomepageBase.php">+</a></div>
-        <img src="../GenericResources/Blu.png" class="logoLogin">
-        <br><br><br>
-		<a href = "../ResetPasswordPage/newPasswordPageSettings.php"><button type = "button" name = "ChangePassword">Change Password</button><br><br></a>
-		<a href = "../SignUpPage/ModalPopUpSettings.php"><button type = "button" name = "Email">Add or change recovery email address</button><br><br></a>
+        <img src="../GenericResources/Blu.png" class="logoLogin"/>
+        <br/><br/><br/>
+		
+		<!-- PFP -->
+			<div id = "submit_post" class = "upload_block, Content">
+				<form method="POST" action="uploadPFP.php" enctype="multipart/form-data">
+					<input type="file" id="fileinput" onchange="ValidatePFP();" name="PFPInput">
+					<label for="fileinput" id="fl">Upload Profile Picture</label>
+					<input class="dark" type="submit" id="submitbutton" name="submit_image" value="Update Profile Pic" style="font-weight:bold;">
+				</form><br/>
+
+				
+			</div>
+		<!-- endof PFP -->	
+		
+		<a href = "../ResetPasswordPage/newPasswordPageSettings.php"><button type = "button" name = "ChangePassword">Change Password</button><br/><br/></a>
+		<a href = "../SignUpPage/ModalPopUpSettings.php"><button type = "button" name = "Email">Add or change recovery email address</button><br/><br/></a>
 		<form action = "SettingsPage.php" method = "post" id = "form">
 			<input type = "submit" value = "Dark mode" class= "dark" name = "dark"/>
 			<input type = "submit" value = "Light mode" class= "light" name = "light"/>
-			<br><br>
-		<form>
-		<button type = "submit" name = "Logout">Log out</button><br><br>
+			<br/><br/>
+		</form>
+		<button type = "submit" name = "Logout">Log out</button><br/><br/>
 		<button type = "submit" name = "DeleteAccount" class = "delete">Delete Account</button>
        
        
     </div>
+	<div id="warnings"></div>
+	<script type="text/javascript" src="/SOEN341/src/pages/FunctionBlocks/validUpload.js"></script>
 <?php
 	if (isset($_POST))
 	{
@@ -69,3 +85,5 @@ session_start();
 	}
 	?>
 </center>
+</body>
+<htmll>

@@ -5,6 +5,7 @@ $root = dirname(__FILE__, 4);
 require_once($root . '/src/db/DBConfig.php'); //Must have at the top of any file that needs db connection.
 require($root . '/src/db/commentToDB.php');
 require($root . '/src/db/followToDB.php');
+require($root . '/src/pages/FunctionBlocks/ProfileClass.php');
 require($root . '/src/db/ratingToDB.php');
 require('viewPostClass.php');
 session_start();
@@ -130,22 +131,13 @@ session_start();
 				{ 
 					$wText = "";	
 				}									
-				
-				if($wRow["pic"] != null)
-				{
-					$wProfile = $wRow["pic"];
-				}
-				else 
-				{ 
-					$wProfile = "../GenericResources/Post_Frame/Avatar%20Picture%20Circle.png";
-				}
 			}
 		}
 	}
 	?>
 	 
     <div class="FeedPage">
-        <?php include '../Header/Header.html'; ?>
+        <?php include '../Header/Header.php'; ?>
         <div class="Main">
             <div class="Posts">
                 <div class="PostContent">
@@ -169,8 +161,8 @@ session_start();
             </div>
 			<div class="Comments">
                 <div class="PostInfo"><br>
-					<a href="../UserPage/UserPage.php?id=<?php echo $wUsername; ?>" aria-label="AccountPage_AvatarPic" class="Avatar">
-						<img class="one" src= <?php echo $wProfile?>>
+					<a href="../UserPage/UserPage.php?id=<?php echo $username; ?>" aria-label="AccountPage_AvatarPic" class="Avatar">
+						<?php Profile::DisplayUserPFP($u_id2); ?>
 					</a>
 					
 					<a href="../UserPage/UserPage.php?id=<?php echo $wUsername; ?>" aria-label="OpUsername" class="Username">

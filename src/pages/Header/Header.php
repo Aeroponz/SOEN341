@@ -1,3 +1,8 @@
+<?php
+$root = dirname(__FILE__, 4);
+require_once ($root .'\\src\\db\\UploadClass.php');
+require_once ($root .'\\src\\pages\\FunctionBlocks\\ProfileClass.php');
+?>
 <html>
 <head>
 	<style>
@@ -26,7 +31,10 @@
                 <div class="AccountHyperlinks" style="width: 210px;">
                 	
                     <a aria-label="AccountPage" class="AvatarPicHeader">
-                        <img src="../GenericResources/Top_bar/Avatar%20Picture%20Box.png">
+                        <?php 
+							$wU_id = website\Upload::FetchUser();
+							website\Profile::DisplayUserPFP($wU_id);
+						?>
                     </a>
                     <a class="RightBarButtons" style="position: relative; top: -7px;" href="../HomePage/HomepageBase.php" aria-label="UserFeed" class="Icons">
                         <img  src="../GenericResources/Top_bar/home-icon.png">
