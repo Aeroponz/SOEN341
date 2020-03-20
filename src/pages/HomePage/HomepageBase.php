@@ -121,7 +121,7 @@
                         
 					<div class="PostInfo"><br>
 						<a href="../UserPage/UserPage.php?id=<?php echo $username; ?>" aria-label="AccountPage_AvatarPic" class="Avatar">
-							<img class="one" src= <?php echo $profile?>>
+							<?php Profile::DisplayUserPFP($u_id2); ?>
 						</a>
 						
 						<a href="../UserPage/UserPage.php?id=<?php echo $username?>" aria-label="OpUsername" class="Username">

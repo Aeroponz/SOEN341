@@ -2,8 +2,8 @@
 //Author: Pierre-Alexis Barras <Pyxsys>
 $root = dirname(__FILE__, 4);
 ob_start();
-require_once ($root .'src\\db\\UploadClass.php');
-require_once ($root .'src\\pages\\FunctionBlocks\\ProfileClass.php');
+require_once ($root .'\src\\db\\UploadClass.php');
+require_once ($root .'\src\\pages\\FunctionBlocks\\ProfileClass.php');
 
 
 	session_start();
