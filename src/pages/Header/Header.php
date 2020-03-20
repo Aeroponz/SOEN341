@@ -48,16 +48,17 @@ if ($wResult->num_rows > 0) {
                     <a href="../UserPage/UserPage.php?id=<?php echo $wUsername; ?>" aria-label="AccountPage" class="AvatarPicHeader">
                         <?php Profile::DisplayUserPFP($wU_id);?>
                     </a>
+					
                     <a class="RightBarButtons" style="position: relative; top: -7px;" href="../HomePage/HomepageBase.php" aria-label="UserFeed" class="Icons">
                         <img  src="../GenericResources/Top_bar/home-icon.png">
                     </a>
                     <a class="RightBarButtons" style="position: relative; top: -7px;" href="../PopularFeedPage/PopularFeedPage.php" aria-label="PopularFeed" class="Icons">
                         <img src="../GenericResources/Top_bar/top-icon%20no%20flag.png">
                     </a>
-                    <a class="IconRectify" aria-label="Notifications" class="Icons">
+                    <a class="IconRectify" href = "../HomePage/HomepageBase.php" aria-label="Notifications" class="Icons">
                         <img src="../GenericResources/Top_bar/Bell-icon.png">
-                        <img src="../GenericResources/Top_bar/Notification%20Red%20Dot.png">
-                    </a>
+                        <!--<img src="../GenericResources/Top_bar/Notification%20Red%20Dot.png">-->
+				    </a>
                     <a class="IconRectify" aria-label="AccountSettings" class="Icons" href ="../SettingsPage/SettingsPage.php">
                         <img src="../GenericResources/Top_bar/SettingsGear.png">
                     </a>
