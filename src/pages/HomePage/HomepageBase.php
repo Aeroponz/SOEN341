@@ -73,7 +73,7 @@
 </head>
 <body>
     <div class="FeedPage">
-        <?php include '../Header/Header.html'; ?>
+        <?php include '../Header/Header.php'; ?>
         <div class="Main">
             <div class="Posts">
                 <div class="Contain">
@@ -95,6 +95,7 @@
                 if ($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
 					$u_id2 = $row["u_id"];
+					$p_id2 = $row['p_id'];
 					$username = $row["name"];
 					$TimeofPost = $row["posted_on"];
 					$upvote = $row["upvote"];
@@ -160,19 +161,37 @@
                     echo '
                         <p> <a href="../ViewPostPage/viewPost.php?id='.$row["p_id"].'">' .$row["txt_content"]. '</a></p>
                         <div class="PostBottom">
-                            <div class="Buttons">
-								<form method="post"> 
+                            <div class="Buttons">';
+                           		$promote = '../GenericResources/Post_Frame/upvote.png';
+                                $demote = '../GenericResources/Post_Frame/downvote.png' ;
+                           	 	$like = $dbconn->query("
+                                        SELECT DISTINCT rating FROM likes
+                                        WHERE p_id = $p_id2 AND u_id = $value");
+                                    $rate = 'none';
+                                while($liked = $like->fetch_assoc()) {
+                                    $rate = $liked['rating'];
+                                }
+
+								if ($rate == 'y')
+								{
+									$promote = '../GenericResources/Post_Frame/upvote_selected_colour.png';
+								}
+								else if ($rate == 'n')
+								{
+									$demote = '../GenericResources/Post_Frame/downvote_selected_colour.png';
+								}
+								echo '<form method="post"> 
 									<input type="hidden" name="p_id" value="'.$row["p_id"].'"/> 
-									<input type="hidden" name="u_id2" value="'.$u_id2.'"> 
-									<button id="like" name="UpvoteButton">
-										<img src="../GenericResources/Post_Frame/upvote.png">
+									<input type="hidden" name="u_id2" value="'.$u_id2.'">
+                                    <button name="UpvoteButton">
+										<img src='.$promote.'>
 									</button>
-									<button id="dislike" style = "width: 20px;" name="DownvoteButton">
-										<img src="../GenericResources/Post_Frame/downvote.png">
-									</button>
-									'.$ranking.'
-								</form>           
-							</div>
+									<button style = "width: 20px;" name="DownvoteButton">
+										<img src='.$demote.'>
+									</button>'.$ranking.'
+								</form> 
+								<p> Rating '. $rate .'</p>          
+							</div> 
                             <div class="Comment">
                                 <img src="../GenericResources/Post_Frame/Comment%20Divider.png">
                                 <form id="CommentTextField" action="" method="post">
@@ -188,7 +207,7 @@
                         echo "</br>";                   
                     }
                 } else {
-                    echo "Your followers haven't posted anything.";
+                    echo "No posts";
                 }
                 ?> 
                 </div>
