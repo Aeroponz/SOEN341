@@ -162,7 +162,7 @@ session_start();
 			<div class="Comments">
                 <div class="PostInfo"><br>
 					<a href="../UserPage/UserPage.php?id=<?php echo $username; ?>" aria-label="AccountPage_AvatarPic" class="Avatar">
-						<?php Profile::DisplayUserPFP($u_id2); ?>
+						<?php Profile::DisplayUserPFP($wU_id); ?>
 					</a>
 					
 					<a href="../UserPage/UserPage.php?id=<?php echo $wUsername; ?>" aria-label="OpUsername" class="Username">
@@ -181,6 +181,7 @@ session_start();
 							</form>
 						</div>
 					</a>
+					
 					
 					<?php
 						}?>
@@ -242,7 +243,7 @@ session_start();
 							   <img src="../GenericResources/Post_Frame/Comment%20Divider.png" width="300">
 							   <div class="CommentInfo"><br>
 									<a aria-label="AccountPage_AvatarPic" class="Avatar">
-										<img src= <?php echo $wProfile?>>
+										<?php Profile::DisplayUserPFP($wU_id2); ?>
 									</a>
 									<a href="../UserPage/UserPage.php?id=<?php echo $wUsername; ?>" aria-label="OpUsername" class="Username">
 										<h4 class="Username"><?php echo $wUsername; ?></h4>

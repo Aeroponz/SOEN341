@@ -72,9 +72,14 @@ img{
 {
     grid-area: divider
 }
+
 .AccountHyperlinks
 {
     grid-area: AccountHyperlinks;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+    "AvatarPicHeader RightBarButtons RightBarButtons IconRectify IconRectify";
 }
 
 .Main
@@ -172,6 +177,7 @@ button{
 }
 
 .IconRectify{
+    margin-top: 40%;
     position: relative; 
     top: -7px;
 }
@@ -192,6 +198,7 @@ button{
 }
 
 .RightBarButtons{
+    margin-top: 40%;
     position: relative; 
     top: -7px;
 }

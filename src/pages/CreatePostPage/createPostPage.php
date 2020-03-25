@@ -9,6 +9,10 @@
 <!DOCTYPE HTML>
 <html lang="en">
 	<head>
+		<!-- remove blue link for usernames -->
+		<style>
+			a { text-decoration: none; color: #000; }
+		</style>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width-device-width, initial-scale=1"/>
 		<title>Blu - Create a Post</title>
