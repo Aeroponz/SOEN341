@@ -4,7 +4,7 @@
 .backgroundColor{
 	background-color: white;
 	width: 500px;
-	height: 650px;
+	height: 605px;
 	margin: 10px;
 	border: solid;
 	border-width: 0.2px;
@@ -35,10 +35,10 @@ a {
 	cursor: pointer;
 }
 
-body {margin: 0; background-color: #F5F8FA; font-family: "Calibri"}
+body {margin: 0; background-color: #F5F8FA; font-family: "Calibri"; font-size: 15px;}
 
-button { background-color: #1DA1F2; color: white; border: none; height: 40px; width: 312px; cursor: pointer;box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.19);}
-button:hover {background-color: #36b0d9}
+button, .button { background-color: #1DA1F2; color: white; border: none; height: 40px; width: 312px; cursor: pointer;box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.19);}
+button:hover, .button:hover {background-color: #36b0d9}
 .dark, .light {background-color: #1DA1F2; color: white; border: none; cursor: pointer; border-radius: 20px; padding: 10px; box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2), 0 2px 2px 0 rgba(0,0,0,0.19);}
 .dark:hover {background-color: black; color: white;}
 .light:hover {background-color:white; color:black;}

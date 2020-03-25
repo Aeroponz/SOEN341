@@ -16,7 +16,6 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width-device-width, initial-scale=1"/>
 		<title>Blu - Create a Post</title>
-
 		<link id ="upload" rel="stylesheet" type="text/css" href="../FunctionBlocks/uploadBlockCSS.css"/>
 		<link id = "feed" rel="stylesheet" href="../css/FeedStyle.css"/>
 		<link id = "post" rel="stylesheet" href="createPostPageCSS.css"/>
