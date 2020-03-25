@@ -19,26 +19,26 @@ final class LoginTest extends TestCase
 
     function testLoginWrongPass(): void
     {
-        $TestUserLogin = new Website\Login();
+        $wTestUserLogin = new Website\Login();
         //Wrong Password
-        $TestUserLogin->withInput(__TESTUSERNAME__, 'TravisCI');
-        $this->assertEquals(-1, $TestUserLogin->Login());
+        $wTestUserLogin->withInput(__TESTUSERNAME__, 'TravisCI');
+        $this->assertEquals(-1, $wTestUserLogin->Login());
     }
 
     function testLoginWrongUsername(): void
     {
-        $TestUserLogin = new Website\Login();
+        $wTestUserLogin = new Website\Login();
         //Wrong Username
-        $TestUserLogin->withInput('TestUer', __TESTPASSWORD__);
-        $this->assertEquals(-1, $TestUserLogin->Login());
+        $wTestUserLogin->withInput('TestUer', __TESTPASSWORD__);
+        $this->assertEquals(-1, $wTestUserLogin->Login());
     }
 
     function testLoginSuccess(): void
     {
-        $TestUserLogin = new Website\Login();
+        $wTestUserLogin = new Website\Login();
         //Login Success
-        $TestUserLogin->withInput(__TESTUSERNAME__, __TESTPASSWORD__);
-        $this->assertTrue($TestUserLogin->Login() > 0);
+        $wTestUserLogin->withInput(__TESTUSERNAME__, __TESTPASSWORD__);
+        $this->assertTrue($wTestUserLogin->Login() > 0);
     }
 
 //    function testLogOut(): void

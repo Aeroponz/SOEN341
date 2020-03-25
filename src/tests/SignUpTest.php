@@ -80,33 +80,33 @@ final class SignUpTest extends TestCase
     public function testSignUpPassMatch(): void
     {
         //Password & Confirm Password Mismatch
-        $TestUser = new Website\SignUp();
-        $TestUser->withInput('Aeroponz', 'Il!keplanes123', 'Ilikeplane$123');
-        $this->assertEquals(-3, $TestUser->SignUpUser());
+        $wTestUser = new Website\SignUp();
+        $wTestUser->withInput('Aeroponz', 'Il!keplanes123', 'Ilikeplane$123');
+        $this->assertEquals(-3, $wTestUser->SignUpUser());
     }
 
     public function testSignUpUsernameValid(): void
     {
-        $TestUser = new Website\SignUp();
+        $wTestUser = new Website\SignUp();
         //Password Invalid at Signup
-        $TestUser->withInput('Aeroponz', '12345', '12345');
-        $this->assertEquals(-1, $TestUser->SignUpUser());
+        $wTestUser->withInput('Aeroponz', '12345', '12345');
+        $this->assertEquals(-1, $wTestUser->SignUpUser());
     }
 
     public function testSignUpPasswordInvalid(): void
     {
-        $TestUser = new Website\SignUp();
+        $wTestUser = new Website\SignUp();
         //Password Invalid at Signup
-        $TestUser->withInput('Aeroponz', '12345', '12345');
-        $this->assertEquals(-1, $TestUser->SignUpUser());
+        $wTestUser->withInput('Aeroponz', '12345', '12345');
+        $this->assertEquals(-1, $wTestUser->SignUpUser());
     }
 
     public function testSignUpSuccess(): void
     {
         $TestUser = new Website\SignUp();
         //User Successfully Created
-        $TestUser->withInput(__TESTUSERNAME__, __TESTPASSWORD__, __TESTPASSWORD__);
-        $this->mUserID = $TestUser->SignUpUser();
+        $wTestUser->withInput(__TESTUSERNAME__, __TESTPASSWORD__, __TESTPASSWORD__);
+        $this->mUserID = $wTestUser->SignUpUser();
         $this->assertTrue( $this->mUserID> 0);
     }
 
@@ -119,8 +119,8 @@ final class SignUpTest extends TestCase
     public function testSignUpUnique(): void
     {
         //Duplicate Username
-        $TestUser = new Website\SignUp();
-        $TestUser->withInput(__TESTUSERNAME__, __TESTPASSWORD__, __TESTPASSWORD__);
+        $wTestUser = new Website\SignUp();
+        $wTestUser->withInput(__TESTUSERNAME__, __TESTPASSWORD__, __TESTPASSWORD__);
         $this->assertEquals(-2, $TestUser->SignUpUser());
     }
 }
