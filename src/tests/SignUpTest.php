@@ -103,7 +103,7 @@ final class SignUpTest extends TestCase
 
     public function testSignUpSuccess(): void
     {
-        $TestUser = new Website\SignUp();
+        $wTestUser = new Website\SignUp();
         //User Successfully Created
         $wTestUser->withInput(__TESTUSERNAME__, __TESTPASSWORD__, __TESTPASSWORD__);
         $this->mUserID = $wTestUser->SignUpUser();
@@ -121,6 +121,6 @@ final class SignUpTest extends TestCase
         //Duplicate Username
         $wTestUser = new Website\SignUp();
         $wTestUser->withInput(__TESTUSERNAME__, __TESTPASSWORD__, __TESTPASSWORD__);
-        $this->assertEquals(-2, $TestUser->SignUpUser());
+        $this->assertEquals(-2, $wTestUser->SignUpUser());
     }
 }
