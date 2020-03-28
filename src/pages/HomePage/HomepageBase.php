@@ -49,6 +49,15 @@
 			//echo $follow;
 		}
 	}
+	
+	if(isset($_REQUEST['id']))
+	{
+		$wFlag = $_REQUEST['id'];
+		if($wFlag == -1)
+		{
+			$_SESSION['flag'] = 1;	
+		}
+	}
 ?>
 
 <!DOCTYPE html>

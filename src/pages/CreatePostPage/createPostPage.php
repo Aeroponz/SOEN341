@@ -3,6 +3,7 @@
 	use SqlDb\Database;
 	require_once ('../../db/UploadClass.php');
 	require_once("../SettingsPage/Settings.php");
+	require('../../db/followToDB.php');
 	session_start();
 ?>
 
