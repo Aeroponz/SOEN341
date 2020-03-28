@@ -8,7 +8,7 @@ require_once($root . '/src/db/DBConfig.php');
 require($root . '/src/pages/SettingsPage/Logout.php');
 
 use PHPUnit\Framework\TestCase;
-use Website\Logout;
+use Website\LogIn;
 
 class LogoutTest extends TestCase
 {
@@ -16,6 +16,6 @@ class LogoutTest extends TestCase
     public function testLogOut()
     {
         $this->assertTrue($_SESSION['userID'] > 0);
-        $this->assertTrue(Logout::LogOut());
+        $this->assertTrue(LogIn::LogOut());
     }
 }

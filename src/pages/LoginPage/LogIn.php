@@ -55,4 +55,15 @@ class LogIn
 								</script>";
         return -1;
     }
+
+    static function LogOut()
+    {
+        session_start();
+        $_SESSION = array();
+        session_destroy();
+
+        if ($_SESSION['userID'] != null) return false;
+        return true;
+
+    }
 }
