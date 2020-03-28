@@ -10,9 +10,9 @@ class Logout
 	//This function changes to light
     static function LogOut()
     {
-        //session_start();
+        session_start();
 		$_SESSION = array();
-		//session_destroy();
+		session_destroy();
 
         if ($_SESSION['userID'] != null) return false;
         return true;

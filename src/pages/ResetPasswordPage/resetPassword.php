@@ -4,6 +4,7 @@ namespace Website;
 $cRoot = dirname(__FILE__, 4);
 require_once($cRoot . '/src/db/DBConfig.php');
 require('GetEmail.php');
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang = "en">
@@ -18,7 +19,6 @@ require('GetEmail.php');
 			<img src = "../GenericResources/Blu.png" class = "logoLogin">
 			<br><br><br>
 			<p>Enter below the email address associated to your account</p>
-			<?php session_start();?>
 			<form action = "resetPassword.php" method = "post">
 				<input type = "email" name = "email" placeholder = "Email Address" class = "creds"/><br><br>
 				<input type = "Submit" name = "submit" value = "Email link"  class = "button"/><br><br>
