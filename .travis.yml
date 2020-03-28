@@ -15,5 +15,3 @@ before_script:
 script:
   - phpunit $TRAVIS_BUILD_DIR/src/tests/SignUpTest.php
   - phpunit $TRAVIS_BUILD_DIR/src/tests/LoginTest.php
-  - phpunit $TRAVIS_BUILD_DIR/src/tests/UploadPostToDbTest.php
-  - phpunit $TRAVIS_BUILD_DIR/src/tests/CommentTest.php
