@@ -10,7 +10,7 @@ require($root . '/src/db/UploadClass.php');
 use Website;
 use PHPUnit\Framework\TestCase;
 
-class UploadTest extends \PHPUnit_Framework_TestCase
+final class UploadTest extends TestCase
 {
 
     public function testCheckForHashtag()
@@ -51,7 +51,20 @@ class UploadTest extends \PHPUnit_Framework_TestCase
 
     public function testGetRedirectPath()
     {
-
+        //PFP DB Error
+        $this->assertEquals($this->mComment->GetRedirectPath(-10), '/SOEN341/src/pages/PopularFeedPage/PopularFeedPage.php?source=error');
+        //User Cooldown
+        $this->assertEquals($this->mComment->GetRedirectPath(-5), '/SOEN341/src/pages/CreatePostPage/createPostPage.php?source=timeout');
+        //DB error
+        $this->assertEquals($this->mComment->GetRedirectPath(-4), '/SOEN341/src/pages/CreatePostPage/createPostPage.php?source=dberror');
+        //No User Info
+        $this->assertEquals($this->mComment->GetRedirectPath(-3), '/SOEN341/src/pages/SignUpPage/signUpPage.php?source=post');
+        //No Post Info
+        $this->assertEquals($this->mComment->GetRedirectPath(0), '/SOEN341/src/pages/CreatePostPage/createPostPage.php?source=empty');
+        //PFP Success
+        $this->assertEquals($this->mComment->GetRedirectPath(10), '/SOEN341/src/pages/PopularFeedPage/PopularFeedPage.php?source=pfpsucess');
+        //Post Success
+        $this->assertEquals($this->mComment->GetRedirectPath(1), '/SOEN341/src/pages/HomePage/HomepageBase.php');
     }
 
     public function testGetTimeSinceLastPost()
