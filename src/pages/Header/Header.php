@@ -22,6 +22,9 @@ if ($wResult->num_rows > 0) {
 	}
 }
 
+$wRefreshTime = date('Y-m-d H:i:s');
+$New->UpdateTimeStamp("2020-03-25 22:47:49"); //for testing purpose
+
 $wFlag = $New->GetFlag();
 
 ?>
