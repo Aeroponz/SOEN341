@@ -23,8 +23,9 @@ if ($wResult->num_rows > 0) {
 }
 
 $wRefreshTime = date('Y-m-d H:i:s');
-$New->UpdateTimeStamp("2020-03-25 22:47:49"); //for testing purpose
+$New->UpdateTimeStamp($wRefreshTime);//"2020-03-25 22:47:49"); //for testing purpose
 
+$wNotfication = $New->NewPosts();
 $wFlag = $New->GetFlag();
 
 ?>
@@ -68,7 +69,7 @@ $wFlag = $New->GetFlag();
 					
                     <a class="IconRectify" href = "../HomePage/HomepageBase.php?id=<?php echo $wFlag;?>" aria-label="Notifications" class="Icons">
                         <img src="../GenericResources/Top_bar/Bell-icon.png" class="notification">
-                        <?php if($New->NewPosts() and $wFlag == -1)
+                        <?php if($wNotfication and $wFlag == -1)
 						{?>
 							<img src="../GenericResources/Top_bar/Notification%20Red%20Dot.png" class="notification">
 						<?php

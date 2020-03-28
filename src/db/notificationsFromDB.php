@@ -38,7 +38,7 @@ class Notifications{
 	function UpdateTimeStamp($iRefreshTime)
 	{
 		$_SESSION['time'] = $iRefreshTime;
-		echo $iRefreshTime;
+		//echo $iRefreshTime;
 		return true;
 	}
 	
