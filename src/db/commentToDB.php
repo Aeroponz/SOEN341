@@ -66,11 +66,12 @@ class Comment{
 	//returns a server path to a page
 	function GetRedirectPath($iValue){
 
+	    $wP_id = $this->mP_id;
 		switch($iValue){
-		/*no user*/		 case(-3): return '../SignUpPage/signUP.php?source=post';
-		/*no p_id*/		 case(-4): return '../viewPostPage/viewPost.php?id= $wP_id&source=noP_id';
-		/*no comment*/   case(-1): return '../viewPostPage/viewPost.php?id= $wP_id&source=noComment';
-		/*comment success*/ default: return '../viewPostPage/viewPost.php?id= $wP_id';
+		/*no user*/		 case(-3): return "../SignUpPage/signUP.php?source=post";
+		/*no p_id*/		 case(-4): return "../viewPostPage/viewPost.php?id= $wP_id&source=noP_id";
+		/*no comment*/   case(-1): return "../viewPostPage/viewPost.php?id= $wP_id&source=noComment";
+		/*comment success*/ default: return "../viewPostPage/viewPost.php?id= $wP_id";
 		}
 	}
 }
