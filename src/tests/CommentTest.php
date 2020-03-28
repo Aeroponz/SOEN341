@@ -3,8 +3,9 @@
 namespace SqlDb;
 
 use Website\Comment;
+use PHPUnit\Framework\TestCase;
 
-class CommentTest extends \PHPUnit_Framework_TestCase
+final class CommentTest extends TestCase
 {
 
     public function testAddCommentToDb()
