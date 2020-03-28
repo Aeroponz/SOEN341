@@ -15,6 +15,7 @@ class LogoutTest extends TestCase
 
     public function testLogOut()
     {
+        $this->assertTrue($_SESSION['userID'] > 0);
         $this->assertTrue(Logout::LogOut());
     }
 }

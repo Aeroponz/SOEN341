@@ -12,7 +12,7 @@ class Logout
     {
         //session_start();
 		$_SESSION = array();
-		session_destroy();
+		//session_destroy();
 
         if ($_SESSION['userID'] != null) return false;
         return true;
