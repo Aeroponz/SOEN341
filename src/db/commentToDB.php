@@ -57,8 +57,8 @@ class Comment{
         if( isset($iText) & $iText != '' & !ctype_space($iText))
         {
             $wSql = "INSERT INTO comments (p_id, u_id, txt_content) VALUES($iP_id, $iU_id, '$iText')";
-            $oCommentType = 1;
-            Database::safeQuery($wSql);
+            $wResult = Database::safeQuery($wSql);
+            if ($wResult) $oCommentType = 1;
         }
         return $oCommentType;
     }
