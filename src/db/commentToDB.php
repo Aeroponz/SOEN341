@@ -50,9 +50,9 @@ class Comment{
         $wSql = null;
         $oCommentType = -1;
 
-        if($iU_id == -1){$oCommentType = -3;}
+        if($iU_id == -1){return $oCommentType = -3;}
 
-        if($iP_id == -1){$oCommentType = -4;}
+        if($iP_id == -1){return $oCommentType = -4;}
 
         if( isset($iText) & $iText != '' & !ctype_space($iText))
         {
@@ -65,9 +65,7 @@ class Comment{
 	
 	//returns a server path to a page
 	function GetRedirectPath($iValue){
-		
-		$wP_id = $this->FetchPId();
-		if($wP_id == -1){$iValue = -4;}
+
 		switch($iValue){
 		/*no user*/		 case(-3): return '../SignUpPage/signUP.php?source=post';
 		/*no p_id*/		 case(-4): return '../viewPostPage/viewPost.php?id= $wP_id&source=noP_id';
