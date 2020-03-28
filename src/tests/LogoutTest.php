@@ -9,6 +9,7 @@ require($root . '/src/pages/SettingsPage/Logout.php');
 
 use PHPUnit\Framework\TestCase;
 use Website\LogIn;
+use SqlDb\Database;
 
 class LogoutTest extends TestCase
 {
