@@ -36,16 +36,16 @@ class Comment{
 		}
 		return $oP_id + 0; //ensures a numerical value is returned	
 	}
-	
-	function AddCommentToDb(){
+
+	function AddComment(){
 		//Declare variables
 		$wU_id = $this->FetchUser();
 		$wText = $this->mCommentText;
 		$wP_id = $this->FetchPId();
-		return $this->AddComment($wU_id, $wText, $wP_id);
+		return $this->CommentToDb($wU_id, $wText, $wP_id);
 	}
 
-    function AddComment($iU_id, $iText, $iP_id){
+    function CommentToDb($iU_id, $iText, $iP_id){
 
         $wSql = null;
         $oCommentType = -1;

@@ -14,11 +14,6 @@ final class CommentTest extends TestCase
 {
     var $mComment;
 
-    function _construct()
-    {
-        $this->mComment = new Website\Comment();
-        $this->mComment->mCommentText = "Testing the comments!";
-    }
     public function testFetchPId()
     {
        $this->mComment = new Website\Comment();
@@ -37,24 +32,24 @@ final class CommentTest extends TestCase
         $this->assertTrue( $this->mComment->FetchUser() == 1234);;
     }
 
-    public function testAddComment()
+    public function testCommentToDb()
     {
         $this->mComment = new Website\Comment();
 
         //All Fields Missing
-        $this->assertTrue($this->mComment->AddComment(-1, "", -1) == -3);
+        $this->assertTrue($this->mComment->CommentToDb(-1, "", -1) == -3);
 
         //User not logged in
-        $this->assertTrue($this->mComment->AddComment(-1, "Test Comment", 123) == -3);
+        $this->assertTrue($this->mComment->CommentToDb(-1, "Test Comment", 123) == -3);
 
         //Failed to Fetch Post ID
-        $this->assertTrue($this->mComment->AddComment(12, "Test Comment", -1) == -4);
+        $this->assertTrue($this->mComment->CommentToDb(12, "Test Comment", -1) == -4);
 
         //Empty Comment
-        $this->assertTrue($this->mComment->AddComment(12, "", 123) == -1);
+        $this->assertTrue($this->mComment->CommentToDb(12, "", 123) == -1);
 
         //Comment added successfully
-        $this->assertTrue($this->mComment->AddComment(12, "Test Comment", 1234) == 1);
+        $this->assertTrue($this->mComment->CommentToDb(12, "Test Comment", 1234) == 1);
     }
 
     public function testGetRedirectPath()

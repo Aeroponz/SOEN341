@@ -19,7 +19,7 @@
 		if (isset($_POST['comment'])) {
 			$New = new Comment();
 			$New->WithPost();
-			$_SESSION['result'] = $New->AddCommentToDb();
+			$_SESSION['result'] = $New->AddComment();
 			$Result = $_SESSION['result'];
 			echo $Result;
 			if ($Result != null) {
