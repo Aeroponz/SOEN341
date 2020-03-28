@@ -10,7 +10,7 @@ class Logout
 	//This function changes to light
     static function LogOut()
     {
-        session_start();
+        //session_start();
 		$_SESSION = array();
 		session_destroy();
 
