@@ -20,7 +20,7 @@ class LogoutTest extends TestCase
 
     public function testLogOut()
     {
-        $TestUserLogin = new Website\Login();
+        $TestUserLogin = new LogIn();
         //Login Success
         $TestUserLogin->withInput(__TESTUSERNAME__, __TESTPASSWORD__);
         $this->assertTrue($TestUserLogin->Login() > 0);
