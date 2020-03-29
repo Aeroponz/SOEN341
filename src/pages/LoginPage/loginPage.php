@@ -34,6 +34,7 @@ require('LogIn.php');
         $wUserLogin = new LogIn();
         $wUserLogin->WithPost();
         $_SESSION['userID'] = $wUserLogin->LogIn();
+		$_SESSION['time'] = date('Y-m-d H:i:s');
         if ($_SESSION['userID'] > 0) {
             header("Location: ../HomePage/HomepageBase.php");
         }
