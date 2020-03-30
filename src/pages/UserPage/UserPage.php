@@ -88,14 +88,15 @@
                 if ($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
                     if ($row["name"] == $view)  {
-						$u_id2 = $row["u_id"];
+						$wU_id2 = $row["u_id"];
+						$wP_id2 = $row['p_id'];
 						$username = $row["name"];
-						$TimeofPost = $row["posted_on"];
-						$upvote = $row["upvote"];
-						$downvote = $row["downvote"];
-						$ranking = $upvote - $downvote;
+						$wTimeofPost = $row["posted_on"];
+						$wUpvote = $row["upvote"];
+						$wDownvote = $row["downvote"];
+						$wRanking = $wUpvote - $wDownvote;
 						
-						if(follow::follows($value, $u_id2))
+						if(follow::follows($value, $wU_id2))
 						{
 							$followLabel = 'UnFollow';
 						}
@@ -106,20 +107,20 @@
 						?>
 							<div class="PostInfo"><br>
 								<a aria-label="AccountPage_AvatarPic" class="Avatar">
-									<?php Profile::DisplayUserPFP($u_id2); ?>
+									<?php Profile::DisplayUserPFP($wU_id2); ?>
 								</a>
 								
 								<a href="../UserPage/UserPage.php?id=<?php echo $username?>" aria-label="OpUsername" class="Username">
 									<h4 class="Username"><?php echo $username?></h4>
 								</a>
 								<?php
-								if($value !=$u_id2){?>
+								if($value !=$wU_id2){?>
 								
 								<a aria-label="follow_button" class="follow">
 									<div id = "follow_user">
 									   <iframe name="follow" style="display:none;"></iframe>
 										<form target= "follow" method="post" action="" enctype="multipart/form-data">
-											<input type="hidden" name="u_id2" value="<?php echo $u_id2;?>"> 
+											<input type="hidden" name="u_id2" value="<?php echo $wU_id2;?>"> 
 											<input id="followbutton<?php echo $i;?>" onclick="return changeText('followbutton<?php echo $i;?>');" type="submit" name="follow_button1" value="<?php echo $followLabel;?>" /> 
 										</form>
 									</div>
@@ -129,7 +130,7 @@
 								}?>
 								
 								<a aria-label="DeltaTime" class="TimeOfPost">
-									<h6 class="TimeOfPost"><?php echo $TimeofPost; ?> </h6>
+									<h6 class="TimeOfPost"><?php echo $wTimeofPost; ?> </h6>
 								</a>
 							</div>
 								
@@ -148,33 +149,53 @@
                                     </figure>
                                 </div>';
                             }
+                            $cPromote = '../GenericResources/Post_Frame/upvote.png';
+		                    $cDemote = '../GenericResources/Post_Frame/downvote.png' ;
+		               	 	$wLike = $dbconn->query("
+		                            SELECT DISTINCT rating FROM likes
+		                            WHERE p_id = $wP_id2 AND u_id = $value");
+
+		                        $mRate = 'none';
+		                    while($liked = $wLike->fetch_assoc()) {
+		                        $mRate = $liked['rating'];
+		                    }
+
+							if ($mRate == 'y')
+							{
+								$cPromote = '../GenericResources/Post_Frame/upvote_selected_colour.png';
+							}
+							else if ($mRate == 'n')
+							{
+								$cDemote = '../GenericResources/Post_Frame/downvote_selected_colour.png';
+							}
                         echo '
-                            <p> <a href="../ViewPostPage/viewPost.php?id='.$row["p_id"].'">' .$row["txt_content"]. '</a></p>
-                            <div class="PostBottom">
-                                <div class="Buttons">
+                        <p> <a href="../ViewPostPage/viewPost.php?id='.$row["p_id"].'">' .$row["txt_content"]. '</a></p>
+                        <div class="PostBottom">
+                            <div class="Buttons">
 								<form method="post"> 
 									<input type="hidden" name="p_id" value="'.$row["p_id"].'"/> 
-									<input type="hidden" name="u_id2" value="'.$u_id2.'"> 
-									<button name="UpvoteButton">
-										<img src="../GenericResources/Post_Frame/upvote.png">
+									<input type="hidden" name="u_id2" value="'.$wU_id2.'"> 
+									<button id="like" name="UpvoteButton">
+										<img src="'.$cPromote.'">
 									</button>
-									<button style = "width: 20px;" name="DownvoteButton">
-										<img src="../GenericResources/Post_Frame/downvote.png">
+									<button id="dislike" style = "width: 20px;" name="DownvoteButton">
+										<img src="'.$cDemote.'">
 									</button>
-									'.$ranking.'
+									'.$wRanking.'
 								</form>           
 							</div>
-                                <div class="Comment">
-									<img src="../GenericResources/Post_Frame/Comment%20Divider.png">
-									<form id="CommentTextField" action="" method="post">
-										<input style="width: 90%; height: 28px; box-sizing: border-box; border-radius: 5px; border: 5px;" type="text" name="CommentText" placeholder="Share your thoughts...">
-										<input type="hidden" name="p_id" value="'.$row["p_id"].'"> 
-										<button style = "border-radius: 5px; height: 25px; position: relative; top: 3px;" aria-label="UploadComment" name="comment" value="commenting">
-											<img src="../GenericResources/Post_Frame/Paper%20Airplane.png">
-										</button>
-									</form>
-								</div>
-                            </div>';
+                            <div class="Comment">
+                                <img src="../GenericResources/Post_Frame/Comment%20Divider.png">
+                                <form id="CommentTextField" action="" method="post">
+                                    <input style="width: 90%; height: 28px; box-sizing: border-box; border-radius: 5px; border: 5px;" type="text" name="CommentText" placeholder="Share your thoughts...">
+                                    <input type="hidden" name="p_id" value="'.$row["p_id"].'"> 
+									<button style = "border-radius: 5px; height: 25px; position: relative; top: 3px;" aria-label="UploadComment" name="comment" value="commenting">
+                                        <img src="../GenericResources/Post_Frame/Paper%20Airplane.png">
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <img src="../GenericResources/Post_Frame/Comment%20Divider.png">';
                             echo "</br>";  
                         }
                 }
