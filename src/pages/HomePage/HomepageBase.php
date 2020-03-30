@@ -94,14 +94,15 @@
                 $i=1;
                 if ($result->num_rows > 0) {
                     while($row = $result->fetch_assoc()) {
-					$u_id2 = $row["u_id"];
+					$wU_id2 = $row["u_id"];
+					$wP_id2 = $row['p_id'];
 					$username = $row["name"];
-					$TimeofPost = $row["posted_on"];
-					$upvote = $row["upvote"];
-					$downvote = $row["downvote"];
-					$ranking = $upvote - $downvote;
+					$wTimeofPost = $row["posted_on"];
+					$wUpvote = $row["upvote"];
+					$wDownvote = $row["downvote"];
+					$wRanking = $wUpvote - $wDownvote;
 					
-					if(follow::follows($value, $u_id2))
+					if(follow::follows($value, $wU_id2))
 					{
 						$followLabel = 'UnFollow';
 					}
@@ -121,7 +122,7 @@
                         
 					<div class="PostInfo"><br>
 						<a href="../UserPage/UserPage.php?id=<?php echo $username; ?>" aria-label="AccountPage_AvatarPic" class="Avatar">
-							<?php Profile::DisplayUserPFP($u_id2); ?>
+							<?php Profile::DisplayUserPFP($wU_id2); ?>
 						</a>
 						
 						<a href="../UserPage/UserPage.php?id=<?php echo $username?>" aria-label="OpUsername" class="Username">
@@ -132,14 +133,14 @@
 							<div id = "follow_user">
 							   <iframe name="follow" style="display:none;"></iframe>
 								<form target= "follow" method="post" action="" enctype="multipart/form-data">
-									<input type="hidden" name="u_id2" value="<?php echo $u_id2;?>"> 
+									<input type="hidden" name="u_id2" value="<?php echo $wU_id2;?>"> 
 									<input id="followbutton<?php echo $i;?>" onclick="return changeText('followbutton<?php echo $i;?>');" type="submit" name="follow_button1" value="<?php echo $followLabel;?>" /> 
 								</form>
 							</div>
 						</a>
 						
 						<a aria-label="DeltaTime" class="TimeOfPost">
-							<h6 class="TimeOfPost"><?php echo $TimeofPost; ?> </h6>
+							<h6 class="TimeOfPost"><?php echo $wTimeofPost; ?> </h6>
 						</a>
 					</div>
 						
@@ -157,20 +158,38 @@
                                 </figure>
                             </div>';
                         }
+                        $cPromote = '../GenericResources/Post_Frame/upvote.png';
+	                    $wDemote = '../GenericResources/Post_Frame/downvote.png' ;
+	               	 	$like = $dbconn->query("
+	                            SELECT DISTINCT rating FROM likes
+	                            WHERE p_id = $wP_id2 AND u_id = $value");
+	                        $mRate = 'none';
+	                    while($liked = $like->fetch_assoc()) {
+	                        $mRate = $liked['rating'];
+	                    }
+
+						if ($mRate == 'y')
+						{
+							$cPromote = '../GenericResources/Post_Frame/upvote_selected_colour.png';
+						}
+						else if ($mRate == 'n')
+						{
+							$wDemote = '../GenericResources/Post_Frame/downvote_selected_colour.png';
+						}
                     echo '
                         <p> <a href="../ViewPostPage/viewPost.php?id='.$row["p_id"].'">' .$row["txt_content"]. '</a></p>
                         <div class="PostBottom">
                             <div class="Buttons">
 								<form method="post"> 
 									<input type="hidden" name="p_id" value="'.$row["p_id"].'"/> 
-									<input type="hidden" name="u_id2" value="'.$u_id2.'"> 
+									<input type="hidden" name="u_id2" value="'.$wU_id2.'"> 
 									<button id="like" name="UpvoteButton">
-										<img src="../GenericResources/Post_Frame/upvote.png">
+										<img src="'.$cPromote.'">
 									</button>
 									<button id="dislike" style = "width: 20px;" name="DownvoteButton">
-										<img src="../GenericResources/Post_Frame/downvote.png">
+										<img src="'.$wDemote.'">
 									</button>
-									'.$ranking.'
+									'.$wRanking.'
 								</form>           
 							</div>
                             <div class="Comment">
