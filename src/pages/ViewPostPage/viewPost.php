@@ -281,20 +281,40 @@ session_start();
                 </div>
 				
 				<div class="PostBottom">
+					<?php $cPromote = '../GenericResources/Post_Frame/upvote.png';
+	                    $cDemote = '../GenericResources/Post_Frame/downvote.png' ;
+	               	 	$like = $wDbConn->query("
+	                            SELECT DISTINCT rating FROM likes
+	                            WHERE p_id =$wP_id AND u_id = $wU_id");
+	                        $mRate = 'none';
+	                    while($liked = $like->fetch_assoc()) {
+	                        $mRate = $liked['rating'];
+	                    }
+						if ($mRate == 'y')
+						{
+							$cPromote = '../GenericResources/Post_Frame/upvote_selected_colour.png';
+							
+						}
+						else if ($mRate == 'n')
+						{
+							$cDemote = '../GenericResources/Post_Frame/downvote_selected_colour.png';
+							
+						}
+
+						?>
                     <div class="Buttons">
 						<form method="post"> 
 							<input type='hidden' name='p_id' value='<?php echo "$wP_id";?>'/> 
 							<input type="hidden" name="u_id2" value="<?php echo "$wPoster";?>"> 
 							<button name="UpvoteButton">
-								<img src="../GenericResources/Post_Frame/upvote.png" id="like">
+								<?php echo' <img src="' .$cPromote. '" id="like">' ?>
 							</button>
 							<button style = "width: 20px;" name="DownvoteButton">
-								<img src="../GenericResources/Post_Frame/downvote.png" id="dislike">
+								<?php echo' <img src="' .$cDemote. '" id="like">' ?>
 							</button>
 							<?php echo $wRanking ?>
 						</form>           
                     </div>
-					
                     <div class="Comment">
 						<?php
 							//Outputs a custom message depending if user was redirected to this page.
