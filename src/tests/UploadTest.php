@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 final class UploadTest extends TestCase
 {
     var $mUpload;
-    
+
     public function testCheckForHashtag()
     {
         $this->assertEquals('y', Website\Upload::CheckForHashTag('#Plop'));
@@ -38,6 +38,7 @@ final class UploadTest extends TestCase
 
         $iInput = "Valid Input Text";
         $_POST[$iInput] = "Valid Input Text";
+        $wReturn = $this->mUpload->ValidText($iInput);
         $this->assertTrue($wReturn != 'BLU::INPUT_EXCEPTION::error' && $wReturn != null);
     }
 
