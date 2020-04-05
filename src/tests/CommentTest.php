@@ -48,8 +48,6 @@ final class CommentTest extends TestCase
         //Empty Comment
         $this->assertTrue($this->mComment->CommentToDb(12, "", 123) == -1);
 
-        //Comment added successfully
-        //$this->assertTrue($this->mComment->CommentToDb(12, "Test Comment", 1234) == 1);
     }
 
     public function testGetRedirectPath()
