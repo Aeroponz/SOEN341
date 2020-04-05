@@ -16,10 +16,14 @@ final class UploadTest extends TestCase
     var $mUpload;
     var $mU_id;
 
-    public function  testFetchUser()
+    function _construct()
     {
         $wLogin = new LoginTest();
         $wLogin->testLoginSuccess();
+    }
+
+    public function  testFetchUser()
+    {
         $this->mUpload = new Website\Upload();
         $this->mU_id = $this->mUpload->FetchUser();
         $this->assertTrue($this->mU_id>0);
