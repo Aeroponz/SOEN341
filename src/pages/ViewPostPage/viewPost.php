@@ -99,7 +99,7 @@ session_start();
 		while($wRow = $wResult->fetch_assoc()) {
 			if($wRow["p_id"]== $wP_id){
 				$wPoster = $wRow["u_id"];
-				$wUsername = $wRow["name"];
+				$wUsername1 = $wRow["name"];
 				$wTimeofPost = $wRow["posted_on"];
 				$wUpvote = $wRow["upvote"];
 				$wDownvote = $wRow["downvote"];
@@ -130,14 +130,14 @@ session_start();
 				else 
 				{ 
 					$wText = "";	
-				}									
+				}	
 			}
 		}
 	}
 	?>
 	 
     <div class="FeedPage">
-        <?php include '../Header/Header.php'; ?>
+        <?php include '../Header/Header.php';?>
         <div class="Main">
             <div class="Posts">
                 <div class="PostContent">
@@ -161,12 +161,12 @@ session_start();
             </div>
 			<div class="Comments">
                 <div class="PostInfo"><br>
-					<a href="../UserPage/UserPage.php?id=<?php echo $username; ?>" aria-label="AccountPage_AvatarPic" class="Avatar">
-						<?php Profile::DisplayUserPFP($wU_id); ?>
+					<a href="../UserPage/UserPage.php?id=<?php echo $wUsername1; ?>" aria-label="AccountPage_AvatarPic" class="Avatar">
+						<?php Profile::DisplayUserPFP($wPoster); ?>
 					</a>
 					
-					<a href="../UserPage/UserPage.php?id=<?php echo $wUsername; ?>" aria-label="OpUsername" class="Username">
-						<h4 class="Username"><?php echo $wUsername?></h4>
+					<a href="../UserPage/UserPage.php?id=<?php echo $wUsername1; ?>" aria-label="OpUsername" class="Username">
+						<h4 class="Username"><?php echo $wUsername1?></h4>
 					</a>
 					
 					<?php
@@ -212,7 +212,7 @@ session_start();
 					if ($wResult->num_rows > 0) {
 						// each row
 						while($wRow = $wResult->fetch_assoc()) {
-							$wUsername = $wRow["name"];
+							$wUsername2 = $wRow["name"];
 							$wU_id2 = $wRow["u_id"];
 							$wTimeofComment = $wRow["posted_on"];
 							
@@ -245,12 +245,12 @@ session_start();
 									<a aria-label="AccountPage_AvatarPic" class="Avatar">
 										<?php Profile::DisplayUserPFP($wU_id2); ?>
 									</a>
-									<a href="../UserPage/UserPage.php?id=<?php echo $wUsername; ?>" aria-label="OpUsername" class="Username">
-										<h4 class="Username"><?php echo $wUsername; ?></h4>
+									<a href="../UserPage/UserPage.php?id=<?php echo $wUsername2; ?>" aria-label="OpUsername" class="Username">
+										<h4 class="Username"><?php echo $wUsername2; ?></h4>
 									</a>
 									
-									<a href="../UserPage/UserPage.php?id=<?php echo $wUsername; ?>" aria-label="OpUsername" class="Username">
-										<h4 class="Username"><?php echo $wUsername; ?></h4>
+									<a href="../UserPage/UserPage.php?id=<?php echo $wUsername2; ?>" aria-label="OpUsername" class="Username">
+										<h4 class="Username"><?php echo $wUsername2; ?></h4>
 									</a>
 									
 									<a aria-label="DeltaTime" class="TimeOfPost">
@@ -281,20 +281,40 @@ session_start();
                 </div>
 				
 				<div class="PostBottom">
+					<?php $cPromote = '../GenericResources/Post_Frame/upvote.png';
+	                    $cDemote = '../GenericResources/Post_Frame/downvote.png' ;
+	               	 	$like = $wDbConn->query("
+	                            SELECT DISTINCT rating FROM likes
+	                            WHERE p_id =$wP_id AND u_id = $wU_id");
+	                        $mRate = 'none';
+	                    while($liked = $like->fetch_assoc()) {
+	                        $mRate = $liked['rating'];
+	                    }
+						if ($mRate == 'y')
+						{
+							$cPromote = '../GenericResources/Post_Frame/upvote_selected_colour.png';
+							
+						}
+						else if ($mRate == 'n')
+						{
+							$cDemote = '../GenericResources/Post_Frame/downvote_selected_colour.png';
+							
+						}
+
+						?>
                     <div class="Buttons">
 						<form method="post"> 
 							<input type='hidden' name='p_id' value='<?php echo "$wP_id";?>'/> 
 							<input type="hidden" name="u_id2" value="<?php echo "$wPoster";?>"> 
 							<button name="UpvoteButton">
-								<img src="../GenericResources/Post_Frame/upvote.png" id="like">
+								<?php echo' <img src="' .$cPromote. '" id="like">' ?>
 							</button>
 							<button style = "width: 20px;" name="DownvoteButton">
-								<img src="../GenericResources/Post_Frame/downvote.png" id="dislike">
+								<?php echo' <img src="' .$cDemote. '" id="like">' ?>
 							</button>
 							<?php echo $wRanking ?>
 						</form>           
                     </div>
-					
                     <div class="Comment">
 						<?php
 							//Outputs a custom message depending if user was redirected to this page.

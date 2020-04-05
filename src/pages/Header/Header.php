@@ -4,6 +4,10 @@ use SqlDb\Database;
 $root = dirname(__FILE__, 4);
 require_once ($root .'\\src\\db\\UploadClass.php');
 require_once ($root .'\\src\\pages\\FunctionBlocks\\ProfileClass.php');
+require($root . '\\src\\db\\notificationsFromDB.php');
+
+$New = new Notifications();
+$New->WithPost();
 
 $wU_id = Upload::FetchUser();
 $wDbConn = Database::getConnection();
@@ -17,6 +21,13 @@ if ($wResult->num_rows > 0) {
 		$wUsername = $wRow["name"];
 	}
 }
+
+$wRefreshTime = date('Y-m-d H:i:s');
+$New->UpdateTimeStamp($wRefreshTime);//"2020-03-25 22:47:49"); //for testing purpose
+
+$wNotfication = $New->NewPosts();
+$wFlag = $New->GetFlag();
+
 ?>
 <html>
 <head>
@@ -55,10 +66,16 @@ if ($wResult->num_rows > 0) {
                     <a class="RightBarButtons" style="position: relative; top: -7px;" href="../PopularFeedPage/PopularFeedPage.php" aria-label="PopularFeed" class="Icons">
                         <img src="../GenericResources/Top_bar/top-icon%20no%20flag.png">
                     </a>
-                    <a class="IconRectify" href = "../HomePage/HomepageBase.php" aria-label="Notifications" class="Icons">
-                        <img src="../GenericResources/Top_bar/Bell-icon.png">
-                        <!--<img src="../GenericResources/Top_bar/Notification%20Red%20Dot.png">-->
+					
+                    <a class="IconRectify" href = "../HomePage/HomepageBase.php?id=<?php echo $wFlag;?>" aria-label="Notifications" class="Icons">
+                        <img src="../GenericResources/Top_bar/Bell-icon.png" class="notification">
+                        <?php if($wNotfication and $wFlag == -1)
+						{?>
+							<img src="../GenericResources/Top_bar/Notification%20Red%20Dot.png" class="notification">
+						<?php
+						}?>
 				    </a>
+					
                     <a class="IconRectify" aria-label="AccountSettings" class="Icons" href ="../SettingsPage/SettingsPage.php">
                         <img src="../GenericResources/Top_bar/SettingsGear.png">
                     </a>
