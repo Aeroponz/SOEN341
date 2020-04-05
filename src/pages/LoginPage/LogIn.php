@@ -46,7 +46,6 @@ class LogIn
             if ($wRow["name"] == $this->mUsername) {
                 if ($wRow["pass"] == $this->mPassword) {
                     $this->mUserId = $wRow["u_id"];
-                    $_SESSION["userID"] = $this->mUserId;
                     return $this->mUserId;
                 } else break;
             }

@@ -14,21 +14,7 @@ use PHPUnit\Framework\TestCase;
 final class UploadTest extends TestCase
 {
     var $mUpload;
-    var $mU_id;
-
-    function _construct()
-    {
-        $wLogin = new LoginTest();
-        $wLogin->testLoginSuccess();
-    }
-
-    public function  testFetchUser()
-    {
-        $this->mUpload = new Website\Upload();
-        $this->mU_id = $this->mUpload->FetchUser();
-        $this->assertTrue($this->mU_id>0);
-    }
-
+    
     public function testCheckForHashtag()
     {
         $this->assertEquals('y', Website\Upload::CheckForHashTag('#Plop'));
