@@ -35,8 +35,8 @@ final class UploadTest extends TestCase
         $wReturn = $this->mUpload->ValidText(null);
         $this->assertEquals($wReturn, null);
 
-        $wReturn = $this->mUpload->ValidText("Valid Input");
-        $this->assertFalse($wReturn != 'BLU::INPUT_EXCEPTION::error');
+        $wReturn = $this->mUpload->ValidText("$");
+        $this->assertEquals($wReturn,'BLU::INPUT_EXCEPTION::error');
     }
 
     public function testGenerateString()
