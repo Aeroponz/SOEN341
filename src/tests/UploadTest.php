@@ -22,9 +22,10 @@ final class UploadTest extends TestCase
 
     public function testGetUserDelay()
     {
+        //New User delay is 600
         $this->mUpload = new Website\Upload();
         $wUserDelay = Website\Upload::GetUserDelay($this->mUpload->FetchUser());
-        $this->assertEquals($wUserDelay, 0);
+        $this->assertEquals($wUserDelay, 600);
     }
 
     public function testValidText()
@@ -34,18 +35,11 @@ final class UploadTest extends TestCase
         $wReturn = $this->mUpload->ValidText(null);
         $this->assertEquals($wReturn, null);
 
-        $wReturn = $this->mUpload->ValidText("");
+        $wReturn = $this->mUpload->ValidText(" ");
         $this->assertEquals($wReturn, 'BLU::INPUT_EXCEPTION::error');
 
         $wReturn = $this->mUpload->ValidText("Valid Input");
         $this->assertFalse($wReturn == 'BLU::INPUT_EXCEPTION::error' || $wReturn == null);
-    }
-
-    public function testFetchUser()
-    {
-        //user is logged in therefore Fetch User shall be > 0
-        $this->mUpload = new Website\Upload();
-        $this->assertTrue($this->mUpload->FetchUser() > 0);
     }
 
     public function testGenerateString()
@@ -61,19 +55,19 @@ final class UploadTest extends TestCase
     public function testGetRedirectPath()
     {
         //PFP DB Error
-        $this->assertEquals($this->mComment->GetRedirectPath(-10), '/SOEN341/src/pages/PopularFeedPage/PopularFeedPage.php?source=error');
+        $this->assertEquals(Website\Upload::GetRedirectPath(-10), '/SOEN341/src/pages/PopularFeedPage/PopularFeedPage.php?source=error');
         //User Cooldown
-        $this->assertEquals($this->mComment->GetRedirectPath(-5), '/SOEN341/src/pages/CreatePostPage/createPostPage.php?source=timeout');
+        $this->assertEquals(Website\Upload::GetRedirectPath(-5), '/SOEN341/src/pages/CreatePostPage/createPostPage.php?source=timeout');
         //DB error
-        $this->assertEquals($this->mComment->GetRedirectPath(-4), '/SOEN341/src/pages/CreatePostPage/createPostPage.php?source=dberror');
+        $this->assertEquals(Website\Upload::GetRedirectPath(-4), '/SOEN341/src/pages/CreatePostPage/createPostPage.php?source=dberror');
         //No User Info
-        $this->assertEquals($this->mComment->GetRedirectPath(-3), '/SOEN341/src/pages/SignUpPage/signUpPage.php?source=post');
+        $this->assertEquals(Website\Upload::GetRedirectPath(-3), '/SOEN341/src/pages/SignUpPage/signUpPage.php?source=post');
         //No Post Info
-        $this->assertEquals($this->mComment->GetRedirectPath(0), '/SOEN341/src/pages/CreatePostPage/createPostPage.php?source=empty');
+        $this->assertEquals(Website\Upload::GetRedirectPath(0), '/SOEN341/src/pages/CreatePostPage/createPostPage.php?source=empty');
         //PFP Success
-        $this->assertEquals($this->mComment->GetRedirectPath(10), '/SOEN341/src/pages/PopularFeedPage/PopularFeedPage.php?source=pfpsucess');
+        $this->assertEquals(Website\Upload::GetRedirectPath(10), '/SOEN341/src/pages/PopularFeedPage/PopularFeedPage.php?source=pfpsucess');
         //Post Success
-        $this->assertEquals($this->mComment->GetRedirectPath(1), '/SOEN341/src/pages/HomePage/HomepageBase.php');
+        $this->assertEquals(Website\Upload::GetRedirectPath(1), '/SOEN341/src/pages/HomePage/HomepageBase.php');
     }
 
     public function testGetTimeSinceLastPost()
@@ -82,8 +76,9 @@ final class UploadTest extends TestCase
         //Since user has never posted, time return should be Jan 1 2020
         $wLastPostTime = Website\Upload::GetTimeSinceLastPost($this->mUpload->FetchUser());
         $wPrevtime = mktime(12, 00, 00, 01, 01, 2020);
-        $this->assertEquals($wLastPostTime, $wPrevtime);
-
+        $wDateLast = date("Y-m-d\TH:i:s\Z", $wLastPostTime);
+        $wDatePrev = date("Y-m-d\TH:i:s\Z", $wPrevtime);
+        $this->assertEquals($wDateLast, $wDatePrev);
     }
 
     public function testAddPostToDB()
@@ -95,7 +90,7 @@ final class UploadTest extends TestCase
         $this->assertEquals(Website\Upload::AddPostToDB(15, null, 'BLU::INPUT_EXCEPTION::error', null), -1);
 
         //Error occurred when uploading file
-        $this->assertEquals(Website\Upload::AddPostToDB(15, 'BLU::INPUT_EXCEPTION::error', null, null), -1);
+        $this->assertEquals(Website\Upload::AddPostToDB(15, 'BLU::INPUT_EXCEPTION::error', null, null), -2);
 
         //Upload Valid Text Post
         $this->mUpload = new Website\Upload();
@@ -109,7 +104,9 @@ final class UploadTest extends TestCase
         //Since user has never posted, time return should be Jan 1 2020
         $wLastPostTime = Website\Upload::GetTimeSinceLastPost($this->mUpload->FetchUser());
         $wPrevtime = mktime(12, 00, 00, 01, 01, 2020);
-        $this->assertTrue($wLastPostTime > $wPrevtime);
+        $wDateLast = date("Y-m-d\TH:i:s\Z", $wLastPostTime);
+        $wDatePrev = date("Y-m-d\TH:i:s\Z", $wPrevtime);
+        $this->assertEquals($wDateLast, $wDatePrev);
 
     }
 }
