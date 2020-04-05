@@ -25,15 +25,7 @@ final class FollowTest extends TestCase
 
         $wFollow->mU_id =15;
         $wFollow->mU_id2 =16;
-        $this->assertEquals(1, $wFollow->AddFollowToDb()); //Followed
-
-        $wFollow->mU_id =15;
-        $wFollow->mU_id2 =14;
-        $this->assertEquals(1, $wFollow->AddFollowToDb()); //Followed
-
-        $wFollow->mU_id =15;
-        $wFollow->mU_id2 =16;
-        $this->assertEquals(2, $wFollow->AddFollowToDb()); //unfollowed
+        $this->assertEquals(1, $wFollow->AddFollowToDb());
 
     }
 }
