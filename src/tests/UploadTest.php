@@ -36,7 +36,7 @@ final class UploadTest extends TestCase
         $this->assertEquals($wReturn, null);
 
         $wReturn = $this->mUpload->ValidText("Valid Input");
-        $this->assertFalse($wReturn == 'BLU::INPUT_EXCEPTION::error' || $wReturn == null);
+        $this->assertFalse($wReturn != 'BLU::INPUT_EXCEPTION::error');
     }
 
     public function testGenerateString()
@@ -74,7 +74,7 @@ final class UploadTest extends TestCase
         //Since user has never posted, time return should be Jan 1 2020
         $wLastPostTime = Website\Upload::GetTimeSinceLastPost(15);
         $wPrevtime = mktime(12, 00, 00, 01, 01, 2020);
-        $wDeltaPrev = floor(($wCurrtime-$wPrevtime)-18000);;
+        $wDeltaPrev = floor(($wCurrtime-$wPrevtime)-18000);
         $this->assertEquals($wLastPostTime, $wDeltaPrev);
     }
 
