@@ -37,7 +37,7 @@ final class UploadTest extends TestCase
 
         //iInput doesnt match $_POST
         $iInput = "Valid Input Text";
-        $_POST[$iInput] = "Valid Text";
+        $_POST[$iInput] = "#";
         $wReturn = $this->mUpload->ValidText("Valid Input Text");
         $this->assertEquals($wReturn,'BLU::INPUT_EXCEPTION::error');
 
