@@ -1,6 +1,10 @@
 <?php
 
-namespace SqlDb;
+namespace UnitTesting\FollowToDb;
+
+$root = dirname(__FILE__, 3);
+require_once($root . '/src/db/DBConfig.php');
+require($root . '/src/db/followToDB.php');
 
 use Website;
 use PHPUnit\Framework\TestCase;
