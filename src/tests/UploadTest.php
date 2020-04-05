@@ -14,11 +14,6 @@ final class UploadTest extends TestCase
 {
     var $mUpload;
 
-    function _construct()
-    {
-        $mUpload = new Website\Upload();
-    }
-
     public function testCheckForHashtag()
     {
         $this->assertEquals('y', Website\Upload::CheckForHashTag('#Plop'));
@@ -28,17 +23,29 @@ final class UploadTest extends TestCase
     public function testGetUserDelay()
     {
         $this->mUpload = new Website\Upload();
-        Website\Upload::GetUserDelay($this->mUpload->FetchUser());
+        $wUserDelay = Website\Upload::GetUserDelay($this->mUpload->FetchUser());
+        $this->assertEquals($wUserDelay, 0);
     }
 
     public function testValidText()
     {
+        $this->mUpload = new Website\Upload();
 
+        $wReturn = $this->mUpload->ValidText(null);
+        $this->assertEquals($wReturn, null);
+
+        $wReturn = $this->mUpload->ValidText("");
+        $this->assertEquals($wReturn, 'BLU::INPUT_EXCEPTION::error');
+
+        $wReturn = $this->mUpload->ValidText("Valid Input");
+        $this->assertFalse($wReturn == 'BLU::INPUT_EXCEPTION::error' || $wReturn == null);
     }
 
     public function testFetchUser()
     {
-
+        //user is logged in therefore Fetch User shall be > 0
+        $this->mUpload = new Website\Upload();
+        $this->assertTrue($this->mUpload->FetchUser() > 0);
     }
 
     public function testGenerateString()
@@ -49,11 +56,6 @@ final class UploadTest extends TestCase
         $this->assertTrue(strlen(Website\Upload::GenerateString('Airbus')) == 16);
         //Custom Length
         $this->assertTrue(strlen(Website\Upload::GenerateString('Plane', 5)) == 5);
-    }
-
-    public function testValidFile()
-    {
-
     }
 
     public function testGetRedirectPath()
@@ -78,11 +80,36 @@ final class UploadTest extends TestCase
     {
         $this->mUpload = new Website\Upload();
         //Since user has never posted, time return should be Jan 1 2020
-        Website\Upload::GetTimeSinceLastPost($this->mUpload->FetchUser());
+        $wLastPostTime = Website\Upload::GetTimeSinceLastPost($this->mUpload->FetchUser());
+        $wPrevtime = mktime(12, 00, 00, 01, 01, 2020);
+        $this->assertEquals($wLastPostTime, $wPrevtime);
+
     }
 
     public function testAddPostToDB()
     {
+        //Failed to get user ID
+        $this->assertEquals(Website\Upload::AddPostToDB(-1, null, "TEST INPUT", null), -3);
+
+        //Error occurred when uploading text
+        $this->assertEquals(Website\Upload::AddPostToDB(15, null, 'BLU::INPUT_EXCEPTION::error', null), -1);
+
+        //Error occurred when uploading file
+        $this->assertEquals(Website\Upload::AddPostToDB(15, 'BLU::INPUT_EXCEPTION::error', null, null), -1);
+
+        //Upload Valid Text Post
+        $this->mUpload = new Website\Upload();
+        $wUserID = $this->mUpload->FetchUser();
+        $this->assertEquals(Website\Upload::AddPostToDB($wUserID, null, 'Very interesting text post!', null), 1);
+    }
+
+    public function testGetTimeSinceNewPost()
+    {
+        $this->mUpload = new Website\Upload();
+        //Since user has never posted, time return should be Jan 1 2020
+        $wLastPostTime = Website\Upload::GetTimeSinceLastPost($this->mUpload->FetchUser());
+        $wPrevtime = mktime(12, 00, 00, 01, 01, 2020);
+        $this->assertTrue($wLastPostTime > $wPrevtime);
 
     }
 }
