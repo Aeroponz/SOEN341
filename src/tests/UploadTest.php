@@ -7,7 +7,6 @@ $root = dirname(__FILE__, 3);
 require_once($root . '/src/db/DBConfig.php');
 require($root . '/src/db/UploadClass.php');
 
-use UnitTesting\Login\LoginTest;
 use Website;
 use PHPUnit\Framework\TestCase;
 
