@@ -7,12 +7,27 @@ $root = dirname(__FILE__, 3);
 require_once($root . '/src/db/DBConfig.php');
 require($root . '/src/db/UploadClass.php');
 
+use UnitTesting\Login\LoginTest;
 use Website;
 use PHPUnit\Framework\TestCase;
 
 final class UploadTest extends TestCase
 {
     var $mUpload;
+    var $mU_id;
+
+    function _construct()
+    {
+        $wLogin = new LoginTest();
+        $wLogin->testLoginSuccess();
+    }
+
+    public function  testFetchUser()
+    {
+        $this->mUpload = new Website\Upload();
+        $this->mU_id = $this->mUpload->FetchUser();
+        $this->assertTrue($this->mU_id>0);
+    }
 
     public function testCheckForHashtag()
     {
@@ -34,12 +49,6 @@ final class UploadTest extends TestCase
 
         $wReturn = $this->mUpload->ValidText(null);
         $this->assertEquals($wReturn, null);
-
-        //iInput doesnt match $_POST
-        $iInput = "Valid Input Text";
-        $_POST[$iInput] = "#";
-        $wReturn = $this->mUpload->ValidText("Valid Input Text");
-        $this->assertEquals($wReturn,'BLU::INPUT_EXCEPTION::error');
 
         $iInput = "Valid Input Text";
         $_POST[$iInput] = "Valid Input Text";
