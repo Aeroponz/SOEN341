@@ -12,6 +12,12 @@ use PHPUnit\Framework\TestCase;
 
 final class UploadTest extends TestCase
 {
+    var $mUpload;
+
+    function _construct()
+    {
+        $mUpload = new Website\Upload();
+    }
 
     public function testCheckForHashtag()
     {
@@ -21,7 +27,8 @@ final class UploadTest extends TestCase
 
     public function testGetUserDelay()
     {
-
+        $this->mUpload = new Website\Upload();
+        Website\Upload::GetUserDelay($this->mUpload->FetchUser());
     }
 
     public function testValidText()
@@ -69,7 +76,9 @@ final class UploadTest extends TestCase
 
     public function testGetTimeSinceLastPost()
     {
-
+        $this->mUpload = new Website\Upload();
+        //Since user has never posted, time return should be Jan 1 2020
+        Website\Upload::GetTimeSinceLastPost($this->mUpload->FetchUser());
     }
 
     public function testAddPostToDB()
