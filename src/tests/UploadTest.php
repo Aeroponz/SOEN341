@@ -35,7 +35,7 @@ final class UploadTest extends TestCase
         $wReturn = $this->mUpload->ValidText(null);
         $this->assertEquals($wReturn, null);
 
-        $wReturn = $this->mUpload->ValidText(" ");
+        $wReturn = $this->mUpload->ValidText("*");
         $this->assertEquals($wReturn, 'BLU::INPUT_EXCEPTION::error');
 
         $wReturn = $this->mUpload->ValidText("Valid Input");
@@ -74,9 +74,9 @@ final class UploadTest extends TestCase
     {
         $this->mUpload = new Website\Upload();
         //Since user has never posted, time return should be Jan 1 2020
-        $wLastPostTime = Website\Upload::GetTimeSinceLastPost($this->mUpload->FetchUser());
+        $wLastPostTime = Website\Upload::GetTimeSinceLastPost(15);
         $wPrevtime = mktime(12, 00, 00, 01, 01, 2020);
-        $wDateLast = date("Y-m-d\TH:i:s\Z", $wLastPostTime);
+        $wDateLast = date("Y-m-d\TH:i:s\Z", (int)$wLastPostTime);
         $wDatePrev = date("Y-m-d\TH:i:s\Z", $wPrevtime);
         $this->assertEquals($wDateLast, $wDatePrev);
     }
@@ -93,18 +93,16 @@ final class UploadTest extends TestCase
         $this->assertEquals(Website\Upload::AddPostToDB(15, 'BLU::INPUT_EXCEPTION::error', null, null), -2);
 
         //Upload Valid Text Post
-        $this->mUpload = new Website\Upload();
-        $wUserID = $this->mUpload->FetchUser();
-        $this->assertEquals(Website\Upload::AddPostToDB($wUserID, null, 'Very interesting text post!', null), 1);
+        $this->assertEquals(Website\Upload::AddPostToDB(15, null, 'Very interesting text post!', null), 1);
     }
 
     public function testGetTimeSinceNewPost()
     {
         $this->mUpload = new Website\Upload();
         //Since user has never posted, time return should be Jan 1 2020
-        $wLastPostTime = Website\Upload::GetTimeSinceLastPost($this->mUpload->FetchUser());
+        $wLastPostTime = Website\Upload::GetTimeSinceLastPost(15);
         $wPrevtime = mktime(12, 00, 00, 01, 01, 2020);
-        $wDateLast = date("Y-m-d\TH:i:s\Z", $wLastPostTime);
+        $wDateLast = date("Y-m-d\TH:i:s\Z", (int)$wLastPostTime);
         $wDatePrev = date("Y-m-d\TH:i:s\Z", $wPrevtime);
         $this->assertEquals($wDateLast, $wDatePrev);
 
