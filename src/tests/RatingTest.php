@@ -32,19 +32,7 @@ final class RatingTest extends TestCase
         $wRating->mP_id =12345;
 
         //Success
-        $this->assertEquals(0, $wRating->AddLikeToDb());
-    }
-
-    public function testLiked()
-    {
-        $wRating = new Website\Rating();
-        $wRating->mU_id =15;
-        $wRating->mU_id2 =16;
-        $wRating->mP_id =12345;
-
-        $wRating->AddLikeToDb();
-        $this->assertEquals(1, $wRating->Liked(15,12345));
-
+        $this->assertEquals(-1, $wRating->AddLikeToDb());
     }
 
     public function testFetchUser()
@@ -83,7 +71,7 @@ final class RatingTest extends TestCase
         $wRating->mP_id =12345;
 
         //Success
-        $this->assertEquals(0, $wRating->AddDislikeToDb());
+        $this->assertEquals(-1, $wRating->AddDislikeToDb());
     }
 
     public function testFetchPId()
