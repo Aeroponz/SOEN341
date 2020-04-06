@@ -22,6 +22,6 @@ final class RatingTest extends TestCase
 
     public function testChangeToDark()
     {
-        $this->assertEquals('dark', Website\Settings::ChangeToLight(15));
+        $this->assertEquals('dark', Website\Settings::ChangeToDark(15));
     }
 }
