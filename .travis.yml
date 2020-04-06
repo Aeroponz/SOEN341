@@ -13,6 +13,7 @@ before_script:
   - mysql -u root bludata < $TRAVIS_BUILD_DIR/src/db/Setup/BluDataSetup.sql
   
   - wget -c https://phpmd.org/static/latest/phpmd.phar
+  - php composer.phar install
 
 script:
 
