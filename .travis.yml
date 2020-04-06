@@ -19,3 +19,4 @@ script:
   - phpunit $TRAVIS_BUILD_DIR/src/tests/CommentTest.php
   - phpunit $TRAVIS_BUILD_DIR/src/tests/FollowTest.php
   - phpunit $TRAVIS_BUILD_DIR/src/tests/RatingTest.php
+  - phpunit $TRAVIS_BUILD_DIR/src/tests/SettingsTest.php
