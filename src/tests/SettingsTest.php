@@ -24,9 +24,4 @@ final class RatingTest extends TestCase
     {
         $this->assertEquals('dark', Website\Settings::ChangeToDark(15));
     }
-
-    public function testGetMode2()
-    {
-        $this->assertEquals(2, Website\Settings::GetMode(15,1 ,2));
-    }
 }
