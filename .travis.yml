@@ -12,9 +12,9 @@ before_script:
   - mysql -u root bludata < $TRAVIS_BUILD_DIR/src/db/Setup/BluTableSetup.sql
   - mysql -u root bludata < $TRAVIS_BUILD_DIR/src/db/Setup/BluDataSetup.sql
   
-  ~ $ curl -s http://getcomposer.org/installer | php
+  - curl -s http://getcomposer.org/installer | php
   
-  ~ $ php composer.phar install
+  - php composer.phar install
 
 script:
   - phpunit $TRAVIS_BUILD_DIR/src/tests/SignUpTest.php
