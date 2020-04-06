@@ -16,15 +16,18 @@ final class FollowTest extends TestCase
     {
         $wFollow = new Website\Follow();
 
-        $wFollow->mU_id =-1;
+        //Missing User ID
         $this->assertEquals(-3, $wFollow->AddFollowToDb());
 
         $wFollow->mU_id =15;
-        $wFollow->mU_id2 =-1;
+
+        //Missing Follower ID
         $this->assertEquals(-4, $wFollow->AddFollowToDb());
 
         $wFollow->mU_id =15;
         $wFollow->mU_id2 =16;
+
+        //SUCCESS
         $this->assertEquals(1, $wFollow->AddFollowToDb());
 
     }
