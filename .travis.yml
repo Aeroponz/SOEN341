@@ -15,6 +15,9 @@ before_script:
   - wget -c https://phpmd.org/static/latest/phpmd.phar
 
 script:
+
+  - phpmd $TRAVIS_BUILD_DIR xml rulesets/codesize.xml
+  
   - phpunit $TRAVIS_BUILD_DIR/src/tests/SignUpTest.php
   - phpunit $TRAVIS_BUILD_DIR/src/tests/LoginTest.php
   - phpunit $TRAVIS_BUILD_DIR/src/tests/UploadPostToDbTest.php
