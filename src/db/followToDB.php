@@ -35,7 +35,7 @@ class Follow{
 		else{
 			return false;
 		}
-		$wDbConn = null;
+		return false;
 	}
 	
 	//get u_id from session.
@@ -66,13 +66,13 @@ class Follow{
 		$wSql = null;
 		$wU_id =null;
 		$wU_id2 =null;
-		
+
 		$wU_id = $this->FetchUser();
 		if($wU_id == -1){return -3;} //no user
-		
+
 		$wU_id2 = $this->FetchFollowUser();
 		if($wU_id2 == -1){return -4;} //no user to follow
-		
+
 		$oFollowRes = 0;
 		if(!$this->Follows($wU_id, $wU_id2)){
 			$oFollowRes  = 1; //followd

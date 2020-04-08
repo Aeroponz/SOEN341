@@ -8,7 +8,7 @@ class Upload{
 	
 	//returns the posted file if it is set and valid.
 	//returns 'null' on no file, and "error" on errors.
-	function ValidFile($iInput) {
+	public function ValidFile($iInput) {
 		if(is_uploaded_file($_FILES[$iInput]['tmp_name'])){ 
 			if($_FILES[$iInput]['error'] == 0){ //file uploaded succesfully	
 				//check if file 12 bytes or larger and an image?
@@ -23,7 +23,7 @@ class Upload{
 	
 	//return the posted text if it is set and valid
 	//returns 'null' on no text, and "error" on empty text.
-	function ValidText($iInput) {
+	public function ValidText($iInput) {
 		//text is set
 		if(isset($_POST[$iInput])){
 			if(!preg_match("/^\s+$/", $_POST[$iInput])){return $_POST[$iInput];}
@@ -33,7 +33,7 @@ class Upload{
 	}
 	
 	//get u_id from session.
-	function FetchUser() {
+	public function FetchUser() {
 		
 		if (isset($_SESSION["userID"])) {
 			$oUser = $_SESSION["userID"];

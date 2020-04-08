@@ -90,7 +90,7 @@ class Rating{
 		if($wU_id2 == -1){return -4;} //no poster
 		
 		$wP_id = $this->FetchPId();
-		if($wP_id == -1){return -4;} 
+		if($wP_id == -1){return -5;}
 		
 		$oRatingRes = 0;
 		if($this->Liked($wU_id, $wP_id)==1){ //already liked
@@ -156,7 +156,7 @@ class Rating{
 		if($wU_id2 == -1){return -4;} //no poster
 		
 		$wP_id = $this->FetchPId();
-		if($wP_id == -1){$value = -4;} 
+		if($wP_id == -1){return -5;}
 		
 		$oRatingRes = 0;
 		if($this->Liked($wU_id, $wP_id)==2){ //already disliked
