@@ -1,0 +1,22 @@
+
+language: php
+
+php:
+  - 7.2
+
+services:
+  - mysql
+
+before_script:
+  - mysql -u root -e 'CREATE DATABASE bludata;'
+  - mysql -u root bludata < $TRAVIS_BUILD_DIR/src/db/Setup/BluTableSetup.sql
+  - mysql -u root bludata < $TRAVIS_BUILD_DIR/src/db/Setup/BluDataSetup.sql
+
+script:
+  - phpunit $TRAVIS_BUILD_DIR/src/tests/SignUpTest.php
+  - phpunit $TRAVIS_BUILD_DIR/src/tests/LoginTest.php
+  - phpunit $TRAVIS_BUILD_DIR/src/tests/UploadTest.php
+  - phpunit $TRAVIS_BUILD_DIR/src/tests/CommentTest.php
+  - phpunit $TRAVIS_BUILD_DIR/src/tests/FollowTest.php
+  - phpunit $TRAVIS_BUILD_DIR/src/tests/RatingTest.php
+  - phpunit $TRAVIS_BUILD_DIR/src/tests/SettingsTest.php
